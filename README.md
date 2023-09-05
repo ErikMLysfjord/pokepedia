@@ -7,3 +7,6 @@
 
 ## Linting
 We use eslint to lint our code. To run the linter, run `npm run lint` in the root folder.
+
+## TIL Utviklere
+### App.tsx inneholder krav vi trenger av useState, storage og fetching
