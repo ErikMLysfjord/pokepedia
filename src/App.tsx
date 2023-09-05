@@ -1,11 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-  
+  // Use state
+  const [count, setCount] = useState(0);
+
+
+  // Use fetch
+  fetch("https://pokeapi.co/api/v2/pokemon/1")
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+
+  // Use local storage
+  localStorage.setItem("key", "value");
+  const value = localStorage.getItem('key')
+  console.log(value)
+
   return (
     <>
       <div>
@@ -25,11 +38,16 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
+      <div className="card">
+        <button >
+          Klikk på meg
+        </button>
+      </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
