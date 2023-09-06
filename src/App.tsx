@@ -17,7 +17,7 @@ function Card() {
 
 function App() {
   // Use state
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   // Use fetch
   fetch("https://pokeapi.co/api/v2/pokemon/1")
