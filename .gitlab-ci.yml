@@ -17,7 +17,7 @@ deploy:
   image: node:19
   script:
     - echo "Deploying to Vercel"
-    - npx vercel --token $VERCEL_TOKEN --confirm=n --prod
+    - npx vercel --token $VERCEL_TOKEN --yes=n --prod
   environment:
     name: prod
   only:
