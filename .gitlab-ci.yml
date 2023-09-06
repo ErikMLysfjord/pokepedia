@@ -18,6 +18,8 @@ deploy:
   script:
     - echo "Deploying to Vercel"
     - npx vercel --token $VERCEL_TOKEN --confirm=n --prod
+  environment:
+    name: prod
   only:
     - master
   variables:
