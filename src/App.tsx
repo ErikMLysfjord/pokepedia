@@ -1,12 +1,23 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+
+function Card() {
+  return (
+    <div
+      style={{
+        backgroundColor: "lightgrey",
+        height: "300px",
+        width: "200px",
+        borderRadius: "10px",
+        margin: "10px",
+      }}
+    />
+  );
+}
 
 function App() {
   // Use state
   const [count, setCount] = useState(0);
-
 
   // Use fetch
   fetch("https://pokeapi.co/api/v2/pokemon/1")
@@ -16,36 +27,84 @@ function App() {
 
   // Use local storage
   localStorage.setItem("key", "value");
-  const value = localStorage.getItem('key')
-  console.log(value)
+  const value = localStorage.getItem("key");
+  console.log(value);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {/* pokeball theme */}
+      <div
+        style={{
+          backgroundColor: "red",
+          height: "150px",
+        }}
+      />
+      {/* black line */}
+      <div
+        style={{
+          backgroundColor: "black",
+          height: "8px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {/* Circle in the middle */}
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "50%",
+            height: "50px",
+            width: "50px",
+            border: "4px solid black",
+          }}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+
+      {/* navbar */}
+      <div
+        style={{
+          margin: "50px auto",
+          height: "50px",
+          width: "85%",
+        }}
+      >
+        {/* Button that says favorites */}
+        <button
+          style={{
+            backgroundColor: "lightgrey",
+            height: "30px",
+            width: "100px",
+            borderRadius: "10px",
+            border: "none",
+            margin: "10px",
+            color: "black",
+            cursor: "pointer",
+          }}
+        >
+          Favorites
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <div className="card">
-        <button >
-          Klikk på meg
-        </button>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "1rem",
+          margin: "auto",
+          width: "85%",
+        }}
+      >
+        {/* Card */}
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
