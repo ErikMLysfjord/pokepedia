@@ -1,7 +1,8 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
-function Card() {
+// props, id: number
+function Card(props: { id: number }) {
   return (
     <div
       style={{
@@ -11,7 +12,9 @@ function Card() {
         borderRadius: "10px",
         margin: "10px",
       }}
-    />
+    >
+      {props.id}
+    </div>
   );
 }
 
@@ -29,6 +32,30 @@ function App() {
   localStorage.setItem("key", "value");
   const value = localStorage.getItem("key");
   console.log(value);
+
+  // Acual code
+  const itemsPerPage = 4;
+
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(localStorage.getItem("currentPage") ?? "1")
+  );
+  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", currentPage.toString());
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentList = list.slice(startIndex, endIndex);
 
   return (
     <>
@@ -97,14 +124,37 @@ function App() {
         }}
       >
         {/* Card */}
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {currentList.map((id) => (
+          <Card key={id} id={id} />
+        ))}
+      </div>
+
+      {/* Page system */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
+        <button
+          style={{ marginRight: "10px" }}
+          disabled={currentPage === 1}
+          onClick={handlePrevPage}
+        >
+          Prev
+        </button>
+        <div style={{ margin: "0 10px", color: "black" }}>
+          Page {currentPage}
+        </div>
+        <button
+          style={{ marginLeft: "10px" }}
+          disabled={endIndex >= list.length}
+          onClick={handleNextPage}
+        >
+          Next
+        </button>
       </div>
     </>
   );
