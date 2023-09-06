@@ -86,6 +86,7 @@ function App() {
         </button>
       </div>
 
+      {/* Main body */}
       <div
         style={{
           display: "grid",
