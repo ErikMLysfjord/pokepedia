@@ -3,6 +3,18 @@ import "./App.css";
 
 // props, id: number
 function Card(props: { id: number }) {
+
+  const [data, setData]: any = useState(null);
+
+  fetch(`https://pokeapi.co/api/v2/pokemon/${props.id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setData(data);
+    })
+    .catch((error) => console.error(error));
+
+  
+
   return (
     <div
       style={{
@@ -13,7 +25,29 @@ function Card(props: { id: number }) {
         margin: "10px",
       }}
     >
-      {props.id}
+
+      <div
+        style={{
+          width: "fit-content",
+          margin: "auto",
+          paddingTop: "5%",
+          color: "black",
+          fontSize: "2em",
+          fontFamily: "monospace",
+        }}
+      >
+        {data? data.name.toUpperCase() : ""}
+      </div> 
+    
+      <div 
+        style={{
+          width: "fit-content",
+          margin: "auto",
+          marginTop: "25%",
+        }}>
+        {data? <img src={data.sprites.front_default} alt=""/> : "Loading..."}
+      </div>
+
     </div>
   );
 }
