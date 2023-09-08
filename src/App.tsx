@@ -1,56 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-
-// props, id: number
-function Card(props: { id: number }) {
-
-  const [data, setData]: any = useState(null);
-
-  fetch(`https://pokeapi.co/api/v2/pokemon/${props.id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setData(data);
-    })
-    .catch((error) => console.error(error));
-
-  
-
-  return (
-    <div
-      style={{
-        backgroundColor: "lightgrey",
-        height: "300px",
-        width: "200px",
-        borderRadius: "10px",
-        margin: "10px",
-      }}
-    >
-
-      <div
-        style={{
-          width: "fit-content",
-          margin: "auto",
-          paddingTop: "5%",
-          color: "black",
-          fontSize: "2em",
-          fontFamily: "monospace",
-        }}
-      >
-        {data? data.name.toUpperCase() : ""}
-      </div> 
-    
-      <div 
-        style={{
-          width: "fit-content",
-          margin: "auto",
-          marginTop: "25%",
-        }}>
-        {data? <img src={data.sprites.front_default} alt=""/> : "Loading..."}
-      </div>
-
-    </div>
-  );
-}
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Card from "./Card";
 
 function App() {
   // Use state
@@ -66,6 +17,8 @@ function App() {
   localStorage.setItem("key", "value");
   const value = localStorage.getItem("key");
   console.log(value);
+
+  const queryClient = new QueryClient();
 
   // Acual code
   const itemsPerPage = 4;
@@ -92,7 +45,7 @@ function App() {
   const currentList = list.slice(startIndex, endIndex);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {/* pokeball theme */}
       <div
         style={{
@@ -190,7 +143,7 @@ function App() {
           Next
         </button>
       </div>
-    </>
+    </QueryClientProvider>
   );
 }
 
