@@ -61,8 +61,7 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}
-      >
+        }}>
         {/* Circle in the middle */}
         <div
           style={{
@@ -81,8 +80,7 @@ function App() {
           margin: "50px auto",
           height: "50px",
           width: "85%",
-        }}
-      >
+        }}>
         {/* Button that says favorites */}
         <button
           style={{
@@ -94,8 +92,7 @@ function App() {
             margin: "10px",
             color: "black",
             cursor: "pointer",
-          }}
-        >
+          }}>
           Favorites
         </button>
       </div>
@@ -108,8 +105,7 @@ function App() {
           gap: "1rem",
           margin: "auto",
           width: "85%",
-        }}
-      >
+        }}>
         {/* Card */}
         {currentList.map((id) => (
           <Card key={id} id={id} />
@@ -123,13 +119,11 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           margin: "20px",
-        }}
-      >
+        }}>
         <button
           style={{ marginRight: "10px" }}
           disabled={currentPage === 1}
-          onClick={handlePrevPage}
-        >
+          onClick={handlePrevPage}>
           Prev
         </button>
         <div style={{ margin: "0 10px", color: "black" }}>
@@ -138,8 +132,7 @@ function App() {
         <button
           style={{ marginLeft: "10px" }}
           disabled={endIndex >= list.length}
-          onClick={handleNextPage}
-        >
+          onClick={handleNextPage}>
           Next
         </button>
       </div>
