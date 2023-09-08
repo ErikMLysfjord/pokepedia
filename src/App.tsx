@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Card from "./Card";
+import Card from "./components/card/Card";
 
 function App() {
   // Use state
