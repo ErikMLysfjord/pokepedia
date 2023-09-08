@@ -1,6 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import "./Card.css";
 
+interface pokemonData {
+    id: number;
+    name: string;
+    base_experience: number;
+    height: number;
+    is_default: boolean;
+    order: number;
+    weight: number;
+    abilities: [];
+    forms: [];
+    game_indices: [];
+    held_items: [];
+    location_area_encounters: string;
+    moves: [];
+    species: {
+        name: string;
+        url: string;
+    };
+    sprites: {
+        back_default: string;
+        back_female: string;
+        back_shiny: string;
+        back_shiny_female: string;
+        front_default: string;
+        front_female: string;
+        front_shiny: string;
+        front_shiny_female: string;
+    };
+    stats: [];
+    types: [];
+    past_types: [];
+}
 
 // props, id: number
 function Card(props: { id: number }) {
@@ -10,7 +42,7 @@ function Card(props: { id: number }) {
 		return res.json();
 	};
 
-  const { isLoading, isError, data } = useQuery({
+  const { isLoading, isError, data } = useQuery<pokemonData>({
     queryKey: [`pokemon+${props.id}`],
     queryFn: getPokemon,
   })
@@ -20,7 +52,7 @@ function Card(props: { id: number }) {
     <div id="cardContainer">
 
       <div id="nameContainer">
-        {isError? "error" : (isLoading? "Loading..." : (data? data.name.toUpperCase() : "Something went wrong"))}
+        {isError? "error" : (isLoading? "Loading..." : data.name.toUpperCase())}
       </div> 
     
       <div id="imageContainer">
