@@ -54,7 +54,10 @@ const Card = ({ id }: { id: number }) => {
   });
 
   return (
-    <div className={"card__Container card__type-" + data?.types[0].type.name}>
+    <a
+      className={"card__Container card__type-" + data?.types[0].type.name}
+      href={`/pokemon/${data?.id}`}
+    >
       <div className="card__nameContainer">
         {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
       </div>
@@ -70,7 +73,7 @@ const Card = ({ id }: { id: number }) => {
           "Someting went wrong"
         )}
       </div>
-    </div>
+    </a>
   );
 };
 
