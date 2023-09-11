@@ -1,22 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/App.css";
-
-// props, id: number
-function Card(props: { id: number }) {
-  return (
-    <div
-      style={{
-        backgroundColor: "lightgrey",
-        height: "300px",
-        width: "200px",
-        borderRadius: "10px",
-        margin: "10px",
-      }}
-    >
-      {props.id}
-    </div>
-  );
-}
+import Card from "../components/card/Card";
 
 function App() {
   // Use state
@@ -32,8 +16,6 @@ function App() {
   localStorage.setItem("key", "value");
   const value = localStorage.getItem("key");
   console.log(value);
-
-  const queryClient = new QueryClient();
 
   // Acual code
   const itemsPerPage = 4;
@@ -60,7 +42,7 @@ function App() {
   const currentList = list.slice(startIndex, endIndex);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       {/* pokeball theme */}
       <div
         style={{
@@ -158,7 +140,7 @@ function App() {
           Next
         </button>
       </div>
-    </QueryClientProvider>
+    </>
   );
 }
 

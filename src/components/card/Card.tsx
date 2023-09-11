@@ -54,7 +54,7 @@ const Card = ({ id }: { id: number }) => {
   });
 
   return (
-    <div className={"card__Container card__type-"+data?.types[0].type.name}>
+    <div className={"card__Container card__type-" + data?.types[0].type.name}>
       <div className="card__nameContainer">
         {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
       </div>
