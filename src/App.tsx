@@ -1,22 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-
-// props, id: number
-function Card(props: { id: number }) {
-  return (
-    <div
-      style={{
-        backgroundColor: "lightgrey",
-        height: "300px",
-        width: "200px",
-        borderRadius: "10px",
-        margin: "10px",
-      }}
-    >
-      {props.id}
-    </div>
-  );
-}
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Card from "./components/card/Card";
 
 function App() {
   // Use state
@@ -32,6 +17,8 @@ function App() {
   localStorage.setItem("key", "value");
   const value = localStorage.getItem("key");
   console.log(value);
+
+  const queryClient = new QueryClient();
 
   // Acual code
   const itemsPerPage = 4;
@@ -58,7 +45,7 @@ function App() {
   const currentList = list.slice(startIndex, endIndex);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {/* pokeball theme */}
       <div
         style={{
@@ -74,8 +61,7 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}
-      >
+        }}>
         {/* Circle in the middle */}
         <div
           style={{
@@ -94,8 +80,7 @@ function App() {
           margin: "50px auto",
           height: "50px",
           width: "85%",
-        }}
-      >
+        }}>
         {/* Button that says favorites */}
         <button
           style={{
@@ -107,8 +92,7 @@ function App() {
             margin: "10px",
             color: "black",
             cursor: "pointer",
-          }}
-        >
+          }}>
           Favorites
         </button>
       </div>
@@ -121,8 +105,7 @@ function App() {
           gap: "1rem",
           margin: "auto",
           width: "85%",
-        }}
-      >
+        }}>
         {/* Card */}
         {currentList.map((id) => (
           <Card key={id} id={id} />
@@ -136,13 +119,11 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           margin: "20px",
-        }}
-      >
+        }}>
         <button
           style={{ marginRight: "10px" }}
           disabled={currentPage === 1}
-          onClick={handlePrevPage}
-        >
+          onClick={handlePrevPage}>
           Prev
         </button>
         <div style={{ margin: "0 10px", color: "black" }}>
@@ -151,12 +132,11 @@ function App() {
         <button
           style={{ marginLeft: "10px" }}
           disabled={endIndex >= list.length}
-          onClick={handleNextPage}
-        >
+          onClick={handleNextPage}>
           Next
         </button>
       </div>
-    </>
+    </QueryClientProvider>
   );
 }
 
