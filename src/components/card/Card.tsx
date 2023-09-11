@@ -35,24 +35,24 @@ interface pokemonData {
 }
 
 // props, id: number
-function Card(props: { id: number }) {
+const Card = ({ id }: { id: number }) => {
   const getPokemon = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${props.id}`);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     return res.json();
   };
 
   const { isLoading, isError, data } = useQuery<pokemonData>({
-    queryKey: [`pokemon+${props.id}`],
+    queryKey: [`pokemon+${id}`],
     queryFn: getPokemon,
   });
 
   return (
-    <div id="cardContainer">
-      <div id="nameContainer">
+    <div className="cardContainer">
+      <div className="nameContainer">
         {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
       </div>
 
-      <div id="imageContainer">
+      <div className="imageContainer">
         {isError ? (
           "error"
         ) : isLoading ? (
@@ -65,6 +65,6 @@ function Card(props: { id: number }) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

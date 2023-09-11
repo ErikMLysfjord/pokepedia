@@ -1,10 +1,10 @@
-#imageContainer {
+.imageContainer {
   width: fit-content;
   margin: auto;
   margin-top: 25%;
 }
 
-#nameContainer {
+.nameContainer {
   width: fit-content;
   margin: auto;
   padding-top: 5%;
@@ -13,8 +13,8 @@
   font-family: "monospace";
 }
 
-#cardContainer {
-  background-color: lightgrey;
+.cardContainer {
+  background-color: #d9d9d9;
   height: 300px;
   width: 200px;
   border-radius: 10px;
