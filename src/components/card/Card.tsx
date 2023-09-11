@@ -30,7 +30,14 @@ interface pokemonData {
     front_shiny_female: string;
   };
   stats: [];
-  types: [];
+  types: [
+    {
+      type: {
+        name: string;
+        url: string;
+      };
+    }
+  ];
   past_types: [];
 }
 
@@ -47,12 +54,12 @@ const Card = ({ id }: { id: number }) => {
   });
 
   return (
-    <div className="cardContainer">
-      <div className="nameContainer">
+    <div className={"card__Container card__type-"+data?.types[0].type.name}>
+      <div className="card__nameContainer">
         {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
       </div>
 
-      <div className="imageContainer">
+      <div className="card__imageContainer">
         {isError ? (
           "error"
         ) : isLoading ? (
