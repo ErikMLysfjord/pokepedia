@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import PokemonType from "./types/PokemonType";
 import "./pokemon-page.css";
 import "./App.css";
+import { useParams } from "react-router-dom";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -9,8 +10,12 @@ const useFetchPokemonQuery = (id: string) => {
   );
 };
 
-const PokemonPage = ({ id }: { id: string }) => {
-  const { data, isLoading, isError } = useFetchPokemonQuery(id);
+const PokemonPage = () => {
+  const searchParams = useParams();
+  console.log("params ", searchParams.id);
+  const { data, isLoading, isError } = useFetchPokemonQuery(
+    searchParams.id?.toString() ?? "1"
+  );
 
   if (isLoading) {
     return <h1 className="loading">Loading...</h1>;
@@ -55,7 +60,7 @@ const PokemonPage = ({ id }: { id: string }) => {
           alt="Image of pokémon"
         />
         <div className="pokemon-page__intro">
-          <h1 style={{ textTransform: "capitalize" }}>{data.name}</h1>
+          <h1 className="pokemon-page__intro-header">{data.name}</h1>
           {data.is_default ? (
             <h2>This is a default pokémon</h2>
           ) : (
@@ -69,7 +74,7 @@ const PokemonPage = ({ id }: { id: string }) => {
           <p>Height: {data.height / 10} meters</p>
           <p>Weight: {data.weight / 10} kg</p>
           <div>
-            Types:{" "}
+            Type(s):{" "}
             {data.types.map((typeObject, index) => {
               return (
                 <div
@@ -85,7 +90,7 @@ const PokemonPage = ({ id }: { id: string }) => {
           <ol>
             {data.abilities.map((ability, index) => {
               return (
-                <div key={index}>
+                <div key={`${index}-${ability.ability.name}`}>
                   <li className="pokemon-page__abilities">
                     {ability.ability.name}{" "}
                     {ability.is_hidden && <span>(hidden ability)</span>}

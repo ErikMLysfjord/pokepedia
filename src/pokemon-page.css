@@ -7,10 +7,8 @@
 }
 
 .pokemon-page__image {
-  /* display: none; */
   height: 500px;
   width: 500px;
-  /* grid-column: 1/-1; */
   margin: 0 auto;
 }
 
@@ -19,6 +17,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.pokemon-page__intro-header {
+  text-transform: capitalize;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .pokemon-page__info-left {
