@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       {/* <App /> */}
-      <Pokemon id="1" />
+      <Pokemon id="701" />
     </React.StrictMode>
   </QueryClientProvider>
 );

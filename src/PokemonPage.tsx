@@ -18,7 +18,6 @@ const PokemonPage = ({ id }: { id: string }) => {
   if (isError) {
     return <h1 className="loading">Error fetching...</h1>;
   }
-  console.log(data.height);
 
   return (
     <>
@@ -49,28 +48,73 @@ const PokemonPage = ({ id }: { id: string }) => {
           }}
         />
       </div>
-
-      {/* navbar */}
-      {/* <div
-        style={{
-          margin: "50px auto",
-          height: "50px",
-          width: "85%",
-        }}
-      /> */}
       <div className="pokemon-page__container">
-        <img className="pokemon-page__image" src={data.sprites.front_default} />
-        <div className="pokemon-page__info">
-          <h1>{data.name}</h1>
-          <h2>Height: {data.height}</h2>
-          <h2>Weight: {data.weight}</h2>
-          {data.abilities.map((ability, index) => {
-            return (
-              <div key={index}>
-                <p>{ability.ability.name}</p>
-              </div>
-            );
-          })}
+        <img
+          className="pokemon-page__image"
+          src={data.sprites.front_default}
+          alt="Image of pokémon"
+        />
+        <div className="pokemon-page__intro">
+          <h1 style={{ textTransform: "capitalize" }}>{data.name}</h1>
+          {data.is_default ? (
+            <h2>This is a default pokémon</h2>
+          ) : (
+            <h2>This is not a default pokémon</h2>
+          )}
+        </div>
+
+        <div className="pokemon-page__info-left">
+          <h3>General info:</h3>
+          <hr />
+          <p>Height: {data.height / 10} meters</p>
+          <p>Weight: {data.weight / 10} kg</p>
+          <div>
+            Types:{" "}
+            {data.types.map((typeObject, index) => {
+              return (
+                <div
+                  key={`${index}-${typeObject.type.name}`}
+                  className={`pokemon-page__type pokemon-page__type-${typeObject.type.name}`}
+                >
+                  {typeObject.type.name}
+                </div>
+              );
+            })}
+          </div>
+          <p>Abilities: </p>
+          <ol>
+            {data.abilities.map((ability, index) => {
+              return (
+                <div key={index}>
+                  <li className="pokemon-page__abilities">
+                    {ability.ability.name}{" "}
+                    {ability.is_hidden && <span>(hidden ability)</span>}
+                  </li>
+                </div>
+              );
+            })}
+          </ol>
+        </div>
+        <div className="pokemon-page__info-right">
+          <h3>Base stats:</h3>
+          <hr />
+          <table className="pokemon-page__stats-table">
+            <tbody>
+              {data.stats.map((stat, index) => {
+                return (
+                  <tr
+                    className="pokemon-page__stats-row"
+                    key={`${index}-${stat.stat.name}`}
+                  >
+                    <th className="pokemon-page__stats-header">
+                      {stat.stat.name}
+                    </th>
+                    <td>{stat.base_stat}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

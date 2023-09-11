@@ -8,7 +8,7 @@ export default interface PokemonType {
   weight: number;
   abilities: {
     ability: { name: string; url: string };
-    isHidden: boolean;
+    is_hidden: boolean;
     slot: number;
   }[];
   forms: [];
@@ -30,7 +30,11 @@ export default interface PokemonType {
     front_shiny: string;
     front_shiny_female: string;
   };
-  stats: [];
-  types: [];
+  stats: {
+    base_stat: number;
+    effort: number;
+    stat: { name: string; url: string };
+  }[];
+  types: { slot: number; type: { name: string; url: string } }[];
   past_types: [];
 }
