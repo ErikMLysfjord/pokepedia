@@ -1,0 +1,27 @@
+.pokemon-page__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.pokemon-page__image {
+  /* display: none; */
+  height: 500px;
+  width: 500px;
+  /* grid-column: 1/-1; */
+  margin: 0 auto;
+}
+
+.pokemon-page__info {
+  color: black;
+  text-transform: capitalize;
+  /* grid-column: 1/-1; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: -5rem; */
+}
