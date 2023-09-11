@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import PokemonType from "./types/PokemonType";
-import "./pokemon-page.css";
-import "./App.css";
+import PokemonType from "../types/PokemonType";
+import "../styles/pokemon-page.css";
+import "../styles/App.css";
 import { useParams } from "react-router-dom";
 
 const useFetchPokemonQuery = (id: string) => {

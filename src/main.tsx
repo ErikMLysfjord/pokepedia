@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App.tsx";
-import Pokemon from "./PokemonPage.tsx";
-import "./index.css";
+import App from "./pages/App.tsx";
+import Pokemon from "./pages/PokemonPage.tsx";
+import "./styles/index.css";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
