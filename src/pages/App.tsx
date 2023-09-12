@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import "../styles/App.css";
 import Card from "../components/card/Card";
 import Navbar from "../components/card/navbar/Navbar";
+import { useQuery } from "@tanstack/react-query";
+import PokemonColors from "../types/PokemonColors";
+import PokemonSpecies from "../types/PokemonSpecies";
 
 const App = () => {
   // Acual code
@@ -9,14 +12,17 @@ const App = () => {
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(localStorage.getItem("itemsPerPage") ?? "4")
   );
-  //const itemsPerPage = 4;
 
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
-  //const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  const [currentFilter, setCurrentFilter] = useState(
+    localStorage.getItem("currentFilter") ?? "none"
+  );
+
   const list = [];
+
   for (let index = 1; index <= 35; index++) {
     list.push(index);
   }
@@ -50,6 +56,7 @@ const App = () => {
         {/* Button that says favorites */}
         <button className="favorite-button">Favorites</button>
 
+<<<<<<< HEAD
         <p
           style={{
             display: "inline-block",
@@ -71,6 +78,65 @@ const App = () => {
           <option value="10">10</option>
           <option value="20">20</option>
         </select>
+=======
+        {/* Option for selecting views per page */}
+        <div
+          style={{
+            display: "inline-block",
+          }}
+        >
+          <p
+            style={{
+              display: "inline-block",
+              color: "black",
+              marginRight: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Results per page:
+          </p>
+
+          <select
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+          >
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+
+        {/* Option for filtering by color */}
+        <div
+          style={{
+            display: "inline-block",
+          }}
+        >
+          <p
+            style={{
+              display: "inline-block",
+              color: "black",
+              marginRight: "10px",
+              marginLeft: "20px",
+            }}
+          >
+            Filter by color:
+          </p>
+
+          <select
+            value={currentFilter}
+            onChange={(e) => setCurrentFilter(e.target.value)}
+          >
+            <option value="none">none</option>
+            <option value="green">green</option>
+            <option value="red">red</option>
+            <option value="blue">blue</option>
+            <option value="black">black</option>
+            <option value="purple">purple</option>
+          </select>
+        </div>
+>>>>>>> a9780c0 (WIP filtering)
       </div>
 
       {/* Main body */}
