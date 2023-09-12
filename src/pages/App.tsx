@@ -5,16 +5,29 @@ import Navbar from "../components/card/navbar/Navbar";
 
 const App = () => {
   // Acual code
-  const itemsPerPage = 4;
+
+  const [itemsPerPage, setItemsPerPage] = useState(
+    parseInt(localStorage.getItem("itemsPerPage") ?? "4")
+  );
+  //const itemsPerPage = 4;
 
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
+  //const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  const list = [];
+  for (let index = 1; index <= 35; index++) {
+    list.push(index);
+  }
 
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
+
+  useEffect(() => {
+    localStorage.setItem("itemsPerPage", itemsPerPage.toString());
+  }, [itemsPerPage]);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -36,6 +49,28 @@ const App = () => {
       <div className="filtering-gap">
         {/* Button that says favorites */}
         <button className="favorite-button">Favorites</button>
+
+        <p
+          style={{
+            display: "inline-block",
+            color: "black",
+            marginRight: "10px",
+            marginLeft: "20px",
+          }}
+        >
+          Results per page:
+        </p>
+
+        {/* Option for selecting views per page */}
+        <select
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+        >
+          <option value="1">1</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
       </div>
 
       {/* Main body */}
