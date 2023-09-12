@@ -12,7 +12,6 @@ const useFetchPokemonQuery = (id: string) => {
 
 const PokemonPage = () => {
   const searchParams = useParams();
-  console.log("params ", searchParams.id);
   const { data, isLoading, isError } = useFetchPokemonQuery(
     searchParams.id?.toString() ?? "1"
   );
