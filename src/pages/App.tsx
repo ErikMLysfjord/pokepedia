@@ -4,7 +4,6 @@ import Card from "../components/card/Card";
 import Navbar from "../components/card/navbar/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import PokemonColors from "../types/PokemonColors";
-import PokemonSpecies from "../types/PokemonSpecies";
 
 const App = () => {
   // Acual code
@@ -17,12 +16,13 @@ const App = () => {
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
-  const [currentFilter, setCurrentFilter] = useState(
-    localStorage.getItem("currentFilter") ?? "none"
+  const [currentFilter, setCurrentFilter] = useState("none");
+
+  const [currentList, setCurrentList] = useState<number[]>(
+    localStorage.getItem("currentList")?.split(",").map(Number) ?? []
   );
 
-  const list = [];
-
+  const list: number[] = [];
   for (let index = 1; index <= 35; index++) {
     list.push(index);
   }
@@ -35,6 +35,102 @@ const App = () => {
     localStorage.setItem("itemsPerPage", itemsPerPage.toString());
   }, [itemsPerPage]);
 
+  const getGreenSpecies = async () => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/green`);
+    return res.json();
+  };
+
+  const getRedSpecies = async () => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/red`);
+    return res.json();
+  };
+
+  const getBlueSpecies = async () => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/blue`);
+    return res.json();
+  };
+
+  const getPurpleSpecies = async () => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/purple`);
+    return res.json();
+  };
+
+  const getBlackSpecies = async () => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/black`);
+    return res.json();
+  };
+
+  const greenSpecies = useQuery<PokemonColors>({
+    queryKey: ["greenSpecies"],
+    queryFn: getGreenSpecies,
+  }).data?.pokemon_species;
+
+  const redSpecies = useQuery<PokemonColors>({
+    queryKey: ["redSpecies"],
+    queryFn: getRedSpecies,
+  }).data?.pokemon_species;
+
+  const blueSpecies = useQuery<PokemonColors>({
+    queryKey: ["blueSpecies"],
+    queryFn: getBlueSpecies,
+  }).data?.pokemon_species;
+
+  const purpleSpecies = useQuery<PokemonColors>({
+    queryKey: ["purpleSpecies"],
+    queryFn: getPurpleSpecies,
+  }).data?.pokemon_species;
+
+  const blackSpecies = useQuery<PokemonColors>({
+    queryKey: ["blackSpecies"],
+    queryFn: getBlackSpecies,
+  }).data?.pokemon_species;
+
+  //create list of pokemonIDs based on color
+  const greenList = greenSpecies?.map((species) => {
+    const id = species.url.split("/")[6];
+    return parseInt(id);
+  });
+
+  const redList = redSpecies?.map((species) => {
+    const id = species.url.split("/")[6];
+    return parseInt(id);
+  });
+
+  const blueList = blueSpecies?.map((species) => {
+    const id = species.url.split("/")[6];
+    return parseInt(id);
+  });
+
+  const purpleList = purpleSpecies?.map((species) => {
+    const id = species.url.split("/")[6];
+    return parseInt(id);
+  });
+
+  const blackList = blackSpecies?.map((species) => {
+    const id = species.url.split("/")[6];
+    return parseInt(id);
+  });
+
+  //create list of pokemonIDs based on color
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  useEffect(() => {
+    if (currentFilter === "green") {
+      setCurrentList((greenList ?? []).slice(startIndex, endIndex));
+    } else if (currentFilter === "red") {
+      setCurrentList((redList ?? []).slice(startIndex, endIndex));
+    } else if (currentFilter === "blue") {
+      setCurrentList((blueList ?? []).slice(startIndex, endIndex));
+    } else if (currentFilter === "purple") {
+      setCurrentList((purpleList ?? []).slice(startIndex, endIndex));
+    } else if (currentFilter === "black") {
+      setCurrentList((blackList ?? []).slice(startIndex, endIndex));
+    } else {
+      setCurrentList(list.slice(startIndex, endIndex));
+    }
+  }, [currentFilter, startIndex, endIndex]);
+
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -42,10 +138,6 @@ const App = () => {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentList = list.slice(startIndex, endIndex);
 
   return (
     <>
@@ -56,29 +148,6 @@ const App = () => {
         {/* Button that says favorites */}
         <button className="favorite-button">Favorites</button>
 
-<<<<<<< HEAD
-        <p
-          style={{
-            display: "inline-block",
-            color: "black",
-            marginRight: "10px",
-            marginLeft: "20px",
-          }}
-        >
-          Results per page:
-        </p>
-
-        {/* Option for selecting views per page */}
-        <select
-          value={itemsPerPage}
-          onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-        >
-          <option value="1">1</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-=======
         {/* Option for selecting views per page */}
         <div
           style={{
@@ -136,7 +205,6 @@ const App = () => {
             <option value="purple">purple</option>
           </select>
         </div>
->>>>>>> a9780c0 (WIP filtering)
       </div>
 
       {/* Main body */}
