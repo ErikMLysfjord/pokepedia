@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import "../../styles/Card.css";
+import "./Card.css";
 import "../../styles/App.css";
 import PokemonType from "../../types/PokemonType";
 
@@ -14,13 +14,14 @@ const Card = ({ id }: { id: string }) => {
 
   return (
     <a
-      className={"card__Container card__type-" + data?.types[0].type.name}
-      href={`/pokemon/${data?.id}`}>
-      <div className="card__nameContainer">
+      className={"card__container card__type-" + data?.types[0].type.name}
+      href={`/pokemon/${data?.id}`}
+    >
+      <div className="card__name-container">
         {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
       </div>
 
-      <div className="card__imageContainer">
+      <div className="card__image-container">
         {isError ? (
           "error"
         ) : isLoading ? (
@@ -28,7 +29,7 @@ const Card = ({ id }: { id: string }) => {
         ) : data ? (
           <img src={data.sprites.front_default} alt="" />
         ) : (
-          "Someting went wrong"
+          "Something went wrong"
         )}
       </div>
     </a>

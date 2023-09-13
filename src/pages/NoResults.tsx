@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/App.css";
 
+/* Page to tell user that there are no results */
 const NoResults = () => {
   const navigate = useNavigate();
 

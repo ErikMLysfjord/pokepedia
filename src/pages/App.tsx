@@ -13,9 +13,12 @@ const useFetchPokemonQuery = (
 ) => {
   return useQuery(["pokemon", resultsPerPage, pageNumber, filter], async () => {
     if (filter !== "none") {
+      /* Get data of all pokemon species */
       return (await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`))
         .json()
         .then(async (data: PokemonColors) => {
+          /* Get URL of all pokémon-species of the specified color */
+          /* Sliced based on how many results per page and current page number */
           const speciesUrl = data.pokemon_species
             .map((species) => {
               return species.url;
@@ -24,18 +27,22 @@ const useFetchPokemonQuery = (
               (pageNumber - 1) * resultsPerPage,
               pageNumber * resultsPerPage
             );
+          /* Get data of all the species with the relevant color */
           const speciesData: PokemonSpecies[] = await Promise.all(
             speciesUrl.map(async (url) => {
               const res = await fetch(url);
               return res.json() as unknown as PokemonSpecies;
             })
           );
+
+          /* Get name and URL of the default pokémon in every species */
           const pokemonData = speciesData.map((pokemon) => {
             return pokemon.varieties[0].pokemon;
           });
 
           /* If we ever want to include non-default pokémons as well, then this code allows it */
           /* However, then we run into a bug where each page will display more results than we want */
+
           /* const pokemonData: { name: string; url: string }[] = [];
           speciesData.forEach((pokemon) => {
             pokemon.varieties.forEach((element) => {
@@ -46,6 +53,9 @@ const useFetchPokemonQuery = (
           return pokemonData;
         });
     }
+    /* Get data of pokémons. Limit decides the amount of pokémons we get */
+    /* Offset decides from which pokémon we want. If we have 2 results per page and we are on page 2,
+    then we want pokémon 21-40, so offset = 20. */
     return (
       await fetch(
         `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
@@ -61,6 +71,7 @@ const useFetchPokemonQuery = (
 };
 
 const App = () => {
+  /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(sessionStorage.getItem("itemsPerPage") ?? "5")
   );
@@ -83,6 +94,7 @@ const App = () => {
     isError,
   } = useFetchPokemonQuery(itemsPerPage, currentPage, currentFilter);
 
+  /* Setting filtering values in session storage */
   useEffect(() => {
     sessionStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
@@ -91,12 +103,20 @@ const App = () => {
     sessionStorage.setItem("itemsPerPage", itemsPerPage.toString());
   }, [itemsPerPage]);
 
+  useEffect(() => {
+    sessionStorage.setItem("currentFilter", currentFilter);
+  }, [currentFilter]);
+
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleResetPage = () => {
+    setCurrentPage(1);
   };
 
   if (isError) {
@@ -123,7 +143,10 @@ const App = () => {
           <select
             className="app__rpp-select"
             value={itemsPerPage}
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+            onChange={(e) => {
+              handleResetPage();
+              setItemsPerPage(parseInt(e.target.value));
+            }}
           >
             <option value="1">1</option>
             <option value="5" defaultChecked>
@@ -141,27 +164,33 @@ const App = () => {
           <select
             className="app__fbc-select"
             value={currentFilter}
-            onChange={(e) => handleChangeFilter(e.target.value)}
+            onChange={(e) => {
+              handleResetPage();
+              handleChangeFilter(e.target.value);
+            }}
           >
-            <option value="none">none</option>
-            <option value="green">green</option>
-            <option value="red">red</option>
-            <option value="blue">blue</option>
-            <option value="black">black</option>
-            <option value="purple">purple</option>
+            <option value="none">None</option>
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="black">Black</option>
+            <option value="purple">Purple</option>
+            <option value="yellow">Yellow</option>
+            <option value="brown">Brown</option>
+            <option value="gray">Gray</option>
+            <option value="pink">Pink</option>
+            <option value="white">White</option>
           </select>
         </div>
       </div>
 
-      {/* Main body */}
       <div className="app__main-body">
-        {/* Card */}
-        {pokemonList?.map((temp, index) => {
-          return <Card key={`${temp.name}-${index}`} id={temp.url} />;
+        {/* Mapping over all pokémons, and rendering a Card for each one */}
+        {pokemonList?.map((pokemon, index) => {
+          return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
         })}
       </div>
 
-      {/* Page system */}
       <div className="app__page-system">
         <button
           className="app__prev-page-button"

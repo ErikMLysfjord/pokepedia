@@ -1,10 +1,10 @@
-.card__imageContainer {
+.card__image-container {
   width: fit-content;
   margin: auto;
   margin-top: 25%;
 }
 
-.card__nameContainer {
+.card__name-container {
   width: fit-content;
   margin: auto;
   padding-top: 5%;
@@ -14,13 +14,14 @@
   font-family: "monospace";
 }
 
-.card__Container {
+.card__container {
   background-color: #d9d9d9;
   height: 300px;
   width: 200px;
   border-radius: 10px;
   margin: auto;
   text-decoration: none;
+  color: black;
 }
 
 .card__type-poison {
