@@ -10,3 +10,38 @@
   justify-content: center;
   align-items: center;
 }
+
+.no-results {
+  color: black;
+  font-size: 30px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.no-results__button {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  background-color: #d2d2d2;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.no-results__button:hover {
+  background-color: #bfbfbf;
+  cursor: pointer;
+}

@@ -2,21 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/App.css";
 import Card from "../components/card/Card";
 
-function App() {
-  // Use state
-  // const [count, setCount] = useState(0);
-
-  // Use fetch
-  fetch("https://pokeapi.co/api/v2/pokemon/1")
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error(error));
-
-  // Use local storage
-  localStorage.setItem("key", "value");
-  const value = localStorage.getItem("key");
-  console.log(value);
-
+const App = () => {
   // Acual code
   const itemsPerPage = 4;
 
@@ -142,6 +128,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;
