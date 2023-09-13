@@ -62,19 +62,19 @@ const useFetchPokemonQuery = (
 
 const App = () => {
   const [itemsPerPage, setItemsPerPage] = useState(
-    parseInt(localStorage.getItem("itemsPerPage") ?? "4")
+    parseInt(sessionStorage.getItem("itemsPerPage") ?? "5")
   );
   const [currentFilter, setCurrentFilter] = useState(
-    localStorage.getItem("currentFilter") ?? "none"
+    sessionStorage.getItem("currentFilter") ?? "none"
   );
 
   const [currentPage, setCurrentPage] = useState(
-    parseInt(localStorage.getItem("currentPage") ?? "1")
+    parseInt(sessionStorage.getItem("currentPage") ?? "1")
   );
 
   const handleChangeFilter = (filter: string) => {
     setCurrentFilter(filter);
-    localStorage.setItem("currentFilter", filter);
+    sessionStorage.setItem("currentFilter", filter);
   };
 
   const {
@@ -84,11 +84,11 @@ const App = () => {
   } = useFetchPokemonQuery(itemsPerPage, currentPage, currentFilter);
 
   useEffect(() => {
-    localStorage.setItem("currentPage", currentPage.toString());
+    sessionStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
 
   useEffect(() => {
-    localStorage.setItem("itemsPerPage", itemsPerPage.toString());
+    sessionStorage.setItem("itemsPerPage", itemsPerPage.toString());
   }, [itemsPerPage]);
 
   const handleNextPage = () => {
@@ -116,52 +116,30 @@ const App = () => {
         {/* Button that says favorites */}
         <button className="favorite-button">Favorites</button>
 
-        {/* Option for selecting views per page */}
-        <div
-          style={{
-            display: "inline-block",
-          }}
-        >
-          <p
-            style={{
-              display: "inline-block",
-              color: "black",
-              marginRight: "10px",
-              marginLeft: "20px",
-            }}
-          >
-            Results per page:
-          </p>
+        {/* Option for selecting results per page */}
+        <div className="app__rpp-container">
+          <p className="app__rpp-text">Results per page:</p>
 
           <select
+            className="app__rpp-select"
             value={itemsPerPage}
             onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
           >
             <option value="1">1</option>
-            <option value="5">5</option>
+            <option value="5" defaultChecked>
+              5
+            </option>
             <option value="10">10</option>
             <option value="20">20</option>
           </select>
         </div>
 
         {/* Option for filtering by color */}
-        <div
-          style={{
-            display: "inline-block",
-          }}
-        >
-          <p
-            style={{
-              display: "inline-block",
-              color: "black",
-              marginRight: "10px",
-              marginLeft: "20px",
-            }}
-          >
-            Filter by color:
-          </p>
+        <div className="app__fbc-container">
+          <p className="app__fbc-text">Filter by color:</p>
 
           <select
+            className="app__fbc-select"
             value={currentFilter}
             onChange={(e) => handleChangeFilter(e.target.value)}
           >
@@ -178,7 +156,6 @@ const App = () => {
       {/* Main body */}
       <div className="app__main-body">
         {/* Card */}
-
         {pokemonList?.map((temp, index) => {
           return <Card key={`${temp.name}-${index}`} id={temp.url} />;
         })}
@@ -195,7 +172,7 @@ const App = () => {
         </button>
         <div className="app__current-page">Page {currentPage}</div>
         <button
-          style={{ marginLeft: "10px" }}
+          className="app__next-page-button"
           /* disabled={endIndex >= list.length} */
           onClick={handleNextPage}
         >
