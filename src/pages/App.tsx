@@ -30,12 +30,19 @@ const useFetchPokemonQuery = (
               return res.json() as unknown as PokemonSpecies;
             })
           );
-          const pokemonData: { name: string; url: string }[] = [];
+          const pokemonData = speciesData.map((pokemon) => {
+            return pokemon.varieties[0].pokemon;
+          });
+
+          /* If we ever want to include non-default pokémons as well, then this code allows it */
+          /* However, then we run into a bug where each page will display more results than we want */
+          /* const pokemonData: { name: string; url: string }[] = [];
           speciesData.forEach((pokemon) => {
             pokemon.varieties.forEach((element) => {
               pokemonData.push(element.pokemon);
             });
-          });
+          }); */
+
           return pokemonData;
         });
     }
