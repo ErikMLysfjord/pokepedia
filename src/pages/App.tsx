@@ -1,31 +1,97 @@
 import { useState, useEffect } from "react";
-import "../styles/App.css";
 import Card from "../components/card/Card";
 import Navbar from "../components/card/navbar/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import PokemonColors from "../types/PokemonColors";
+import { Pokemons } from "../types/Pokemons";
+import PokemonSpecies from "../types/PokemonSpecies";
+
+const useFetchPokemonQuery = (
+  resultsPerPage: number,
+  pageNumber: number,
+  filter: string
+) => {
+  return useQuery(
+    ["pokemon", resultsPerPage, pageNumber],
+    async () => {
+      if (filter !== "none") {
+        return (
+          await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`)
+        )
+          .json()
+          .then(async (data: PokemonColors) => {
+            const speciesUrl = data.pokemon_species
+              .map((species) => {
+                return species.url;
+              })
+              .slice(
+                (pageNumber - 1) * resultsPerPage,
+                pageNumber * resultsPerPage
+              );
+
+            const speciesData = await Promise.all(
+              speciesUrl
+                .map(async (url) => {
+                  return await fetch(url).then((res: PokemonSpecies) =>
+                    res.json()
+                  );
+                })
+                .slice(
+                  (pageNumber - 1) * resultsPerPage,
+                  pageNumber * resultsPerPage
+                )
+            );
+            const pokemonData = [];
+            speciesData.forEach((pokemon) => {
+              pokemon.varieties.forEach((element) => {
+                pokemonData.push(element.pokemon);
+              });
+            });
+            return pokemonData;
+          });
+      }
+      return (
+        await fetch(
+          `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
+            (pageNumber - 1) * resultsPerPage
+          }`
+        )
+      )
+        .json()
+        .then((data: Pokemons) => {
+          return data.results;
+        });
+    }
+    /* {
+      onSuccess: (data) => {
+        console.log(data.results);
+      },
+    } */
+  );
+};
 
 const App = () => {
-  // Acual code
-
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(localStorage.getItem("itemsPerPage") ?? "4")
+  );
+  const [currentFilter, setCurrentFilter] = useState(
+    localStorage.getItem("currentFilter") ?? "none"
   );
 
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
-  const [currentFilter, setCurrentFilter] = useState("none");
+  const handleChangeFilter = (filter: string) => {
+    setCurrentFilter(filter);
+    localStorage.setItem("currentFilter", filter);
+  };
 
-  const [currentList, setCurrentList] = useState<number[]>(
-    localStorage.getItem("currentList")?.split(",").map(Number) ?? []
-  );
-
-  const list: number[] = [];
-  for (let index = 1; index <= 35; index++) {
-    list.push(index);
-  }
+  const {
+    data: pokemonList,
+    isLoading,
+    isError,
+  } = useFetchPokemonQuery(itemsPerPage, currentPage, currentFilter);
 
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
@@ -35,7 +101,12 @@ const App = () => {
     localStorage.setItem("itemsPerPage", itemsPerPage.toString());
   }, [itemsPerPage]);
 
-  const getGreenSpecies = async () => {
+  /* const list: number[] = [];
+  for (let index = 1; index <= 35; index++) {
+    list.push(index);
+  } */
+
+  /* const getGreenSpecies = async () => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/green`);
     return res.json();
   };
@@ -83,10 +154,10 @@ const App = () => {
   const blackSpecies = useQuery<PokemonColors>({
     queryKey: ["blackSpecies"],
     queryFn: getBlackSpecies,
-  }).data?.pokemon_species;
+  }).data?.pokemon_species; */
 
   //create list of pokemonIDs based on color
-  const greenList = greenSpecies?.map((species) => {
+  /* const greenList = greenSpecies?.map((species) => {
     const id = species.url.split("/")[6];
     return parseInt(id);
   });
@@ -109,11 +180,11 @@ const App = () => {
   const blackList = blackSpecies?.map((species) => {
     const id = species.url.split("/")[6];
     return parseInt(id);
-  });
+  }); */
 
   //create list of pokemonIDs based on color
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  /* const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   useEffect(() => {
     if (currentFilter === "green") {
@@ -129,7 +200,7 @@ const App = () => {
     } else {
       setCurrentList(list.slice(startIndex, endIndex));
     }
-  }, [currentFilter, startIndex, endIndex]);
+  }, [currentFilter, startIndex, endIndex]); */
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -138,6 +209,14 @@ const App = () => {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
+
+  if (isError) {
+    return <h1 className="loading">Error fetching...</h1>;
+  }
+
+  if (isLoading) {
+    return <h1 className="loading">Loading...</h1>;
+  }
 
   return (
     <>
@@ -195,7 +274,7 @@ const App = () => {
 
           <select
             value={currentFilter}
-            onChange={(e) => setCurrentFilter(e.target.value)}
+            onChange={(e) => handleChangeFilter(e.target.value)}
           >
             <option value="none">none</option>
             <option value="green">green</option>
@@ -210,9 +289,10 @@ const App = () => {
       {/* Main body */}
       <div className="app__main-body">
         {/* Card */}
-        {currentList.map((id) => (
-          <Card key={id} id={id} />
-        ))}
+
+        {pokemonList?.map((temp, index) => {
+          return <Card key={`${temp.name}-${index}`} id={temp.url} />;
+        })}
       </div>
 
       {/* Page system */}
@@ -226,8 +306,8 @@ const App = () => {
         </button>
         <div className="app__current-page">Page {currentPage}</div>
         <button
-          className="app__next-page-button"
-          disabled={endIndex >= list.length}
+          style={{ marginLeft: "10px" }}
+          /* disabled={endIndex >= list.length} */
           onClick={handleNextPage}
         >
           Next

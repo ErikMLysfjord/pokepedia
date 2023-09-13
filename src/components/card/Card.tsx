@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import "./Card.css";
+import "../../styles/App.css";
 
 interface pokemonData {
   id: number;
@@ -42,16 +43,38 @@ interface pokemonData {
 }
 
 // props, id: number
-const Card = ({ id }: { id: number }) => {
+const Card = ({ id }: { id: string }) => {
   const getPokemon = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    return res.json();
+    /* Sjekker hva jeg henter og returnerer kun pokemonene */
+    /* if (id.includes("pokemon-species")) {
+      const res = await fetch(`${id}`);
+      return res.json().then((data: PokemonSpecies) => {
+        return {
+          pokemons: data.varieties.map((variety) => {
+            return variety.pokemon;
+          }),
+        };
+      });
+    } */
+    const res = await fetch(`${id}`);
+    return res.json(); /* .then((data: pokemonData) => {
+      return {
+        pokemons: data.name,
+      };
+    }); */
   };
 
   const { isLoading, isError, data } = useQuery<pokemonData>({
-    queryKey: [`pokemon+${id}`],
+    queryKey: ["pokemon", id],
     queryFn: getPokemon,
+    /* Jeg må finne en måte at den henter enten pokemon species eller pokemon */
   });
+
+  /* return (<>
+    {data?.pokemons.map((pokemon) => {
+      return (<div></div>)
+    })}</>
+  ) */
 
   return (
     <a

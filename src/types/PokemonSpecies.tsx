@@ -7,13 +7,11 @@ export default interface PokemonSpecies {
     url: string;
   };
 
-  varieties: [
-    {
-      is_default: true;
-      pokemon: {
-        name: string;
-        url: string;
-      };
-    }
-  ];
+  varieties: {
+    is_default: true;
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
 }
