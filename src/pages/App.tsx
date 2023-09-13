@@ -11,63 +11,46 @@ const useFetchPokemonQuery = (
   pageNumber: number,
   filter: string
 ) => {
-  return useQuery(
-    ["pokemon", resultsPerPage, pageNumber],
-    async () => {
-      if (filter !== "none") {
-        return (
-          await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`)
-        )
-          .json()
-          .then(async (data: PokemonColors) => {
-            const speciesUrl = data.pokemon_species
-              .map((species) => {
-                return species.url;
-              })
-              .slice(
-                (pageNumber - 1) * resultsPerPage,
-                pageNumber * resultsPerPage
-              );
-
-            const speciesData = await Promise.all(
-              speciesUrl
-                .map(async (url) => {
-                  return await fetch(url).then((res: PokemonSpecies) =>
-                    res.json()
-                  );
-                })
-                .slice(
-                  (pageNumber - 1) * resultsPerPage,
-                  pageNumber * resultsPerPage
-                )
-            );
-            const pokemonData = [];
-            speciesData.forEach((pokemon) => {
-              pokemon.varieties.forEach((element) => {
-                pokemonData.push(element.pokemon);
-              });
-            });
-            return pokemonData;
-          });
-      }
-      return (
-        await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
-            (pageNumber - 1) * resultsPerPage
-          }`
-        )
-      )
+  return useQuery(["pokemon", resultsPerPage, pageNumber, filter], async () => {
+    if (filter !== "none") {
+      return (await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`))
         .json()
-        .then((data: Pokemons) => {
-          return data.results;
+        .then(async (data: PokemonColors) => {
+          const speciesUrl = data.pokemon_species
+            .map((species) => {
+              return species.url;
+            })
+            .slice(
+              (pageNumber - 1) * resultsPerPage,
+              pageNumber * resultsPerPage
+            );
+          const speciesData: PokemonSpecies[] = await Promise.all(
+            speciesUrl.map(async (url) => {
+              const res = await fetch(url);
+              return res.json() as unknown as PokemonSpecies;
+            })
+          );
+          const pokemonData: { name: string; url: string }[] = [];
+          speciesData.forEach((pokemon) => {
+            pokemon.varieties.forEach((element) => {
+              pokemonData.push(element.pokemon);
+            });
+          });
+          return pokemonData;
         });
     }
-    /* {
-      onSuccess: (data) => {
-        console.log(data.results);
-      },
-    } */
-  );
+    return (
+      await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
+          (pageNumber - 1) * resultsPerPage
+        }`
+      )
+    )
+      .json()
+      .then((data: Pokemons) => {
+        return data.results;
+      });
+  });
 };
 
 const App = () => {
@@ -100,107 +83,6 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("itemsPerPage", itemsPerPage.toString());
   }, [itemsPerPage]);
-
-  /* const list: number[] = [];
-  for (let index = 1; index <= 35; index++) {
-    list.push(index);
-  } */
-
-  /* const getGreenSpecies = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/green`);
-    return res.json();
-  };
-
-  const getRedSpecies = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/red`);
-    return res.json();
-  };
-
-  const getBlueSpecies = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/blue`);
-    return res.json();
-  };
-
-  const getPurpleSpecies = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/purple`);
-    return res.json();
-  };
-
-  const getBlackSpecies = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-color/black`);
-    return res.json();
-  };
-
-  const greenSpecies = useQuery<PokemonColors>({
-    queryKey: ["greenSpecies"],
-    queryFn: getGreenSpecies,
-  }).data?.pokemon_species;
-
-  const redSpecies = useQuery<PokemonColors>({
-    queryKey: ["redSpecies"],
-    queryFn: getRedSpecies,
-  }).data?.pokemon_species;
-
-  const blueSpecies = useQuery<PokemonColors>({
-    queryKey: ["blueSpecies"],
-    queryFn: getBlueSpecies,
-  }).data?.pokemon_species;
-
-  const purpleSpecies = useQuery<PokemonColors>({
-    queryKey: ["purpleSpecies"],
-    queryFn: getPurpleSpecies,
-  }).data?.pokemon_species;
-
-  const blackSpecies = useQuery<PokemonColors>({
-    queryKey: ["blackSpecies"],
-    queryFn: getBlackSpecies,
-  }).data?.pokemon_species; */
-
-  //create list of pokemonIDs based on color
-  /* const greenList = greenSpecies?.map((species) => {
-    const id = species.url.split("/")[6];
-    return parseInt(id);
-  });
-
-  const redList = redSpecies?.map((species) => {
-    const id = species.url.split("/")[6];
-    return parseInt(id);
-  });
-
-  const blueList = blueSpecies?.map((species) => {
-    const id = species.url.split("/")[6];
-    return parseInt(id);
-  });
-
-  const purpleList = purpleSpecies?.map((species) => {
-    const id = species.url.split("/")[6];
-    return parseInt(id);
-  });
-
-  const blackList = blackSpecies?.map((species) => {
-    const id = species.url.split("/")[6];
-    return parseInt(id);
-  }); */
-
-  //create list of pokemonIDs based on color
-
-  /* const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  useEffect(() => {
-    if (currentFilter === "green") {
-      setCurrentList((greenList ?? []).slice(startIndex, endIndex));
-    } else if (currentFilter === "red") {
-      setCurrentList((redList ?? []).slice(startIndex, endIndex));
-    } else if (currentFilter === "blue") {
-      setCurrentList((blueList ?? []).slice(startIndex, endIndex));
-    } else if (currentFilter === "purple") {
-      setCurrentList((purpleList ?? []).slice(startIndex, endIndex));
-    } else if (currentFilter === "black") {
-      setCurrentList((blackList ?? []).slice(startIndex, endIndex));
-    } else {
-      setCurrentList(list.slice(startIndex, endIndex));
-    }
-  }, [currentFilter, startIndex, endIndex]); */
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
