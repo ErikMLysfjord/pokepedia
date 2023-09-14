@@ -2,28 +2,17 @@ import { useState, useEffect } from "react";
 import "../styles/App.css";
 import Card from "../components/card/Card";
 import Navbar from "../components/card/navbar/Navbar";
-import { useQuery } from "@tanstack/react-query";
 
-const App = () => {
-  const allPokemons = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/`);
-    return res.json();
-  };
-
-  const { isLoading, isError, data } = useQuery<{ count: number }>({
-    queryKey: [`all-pokemons`],
-    queryFn: allPokemons,
-  });
-
+const PokemonFav = () => {
   const itemsPerPage = 4;
 
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
-  const list = Array.from(
-    { length: data?.count ?? 0 },
-    (_, index) => index + 1
-  );
+
+  const list = JSON.parse(
+    localStorage.getItem("favorites") ?? "[]"
+  ) as number[];
 
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
@@ -41,11 +30,6 @@ const App = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentList = list.slice(startIndex, endIndex);
 
-  // WHile favorite function is not implemented
-  if (localStorage.getItem("favorites") === null) {
-    localStorage.setItem("favorites", JSON.stringify([1, 20, 3, 4, 5]));
-  }
-
   return (
     <>
       <Navbar />
@@ -53,26 +37,17 @@ const App = () => {
       {/* navbar */}
       <div className="filtering-gap">
         {/* Button that says favorites */}
-        <a
-          href="/favorites"
-          onClick={() => localStorage.setItem("currentPage", "1")}
-        >
-          <button className="favorite-button">Favorites</button>
+        <a href="/" onClick={() => localStorage.setItem("currentPage", "1")}>
+          <button className="favorite-button">Home</button>
         </a>
       </div>
 
       {/* Main body */}
       <div className="app__main-body">
         {/* Card */}
-        {isError ? (
-          <h1>Could not get all pokemons</h1>
-        ) : isLoading ? (
-          <h1>Loading</h1>
-        ) : data ? (
-          currentList.map((id) => <Card key={id} id={id} />)
-        ) : (
-          <h1>Something went wrong</h1>
-        )}
+        {currentList.map((id) => (
+          <Card key={id} id={id} />
+        ))}
       </div>
 
       {/* Page system */}
@@ -97,4 +72,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default PokemonFav;

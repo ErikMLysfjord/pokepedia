@@ -43,7 +43,7 @@ interface pokemonData {
 
 // props, id: number
 const Card = ({ id }: { id: number }) => {
-  const getPokemon = async () => {
+  const getPokemon = async () => {    
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     return res.json();
   };
