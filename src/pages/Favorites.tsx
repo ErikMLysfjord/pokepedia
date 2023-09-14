@@ -10,6 +10,10 @@ const PokemonFav = () => {
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
+  );
+
   const list = JSON.parse(
     localStorage.getItem("favorites") ?? "[]"
   ) as number[];
@@ -46,7 +50,12 @@ const PokemonFav = () => {
       <div className="app__main-body">
         {/* Card */}
         {currentList.map((id) => (
-          <Card key={id} id={id} />
+          <Card
+            key={id}
+            id={id}
+            favorites={favorites}
+            setFavorites={setFavorites}
+          />
         ))}
       </div>
 

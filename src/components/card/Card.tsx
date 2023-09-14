@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import "./Card.css";
+import React from "react";
 
 interface pokemonData {
   id: number;
@@ -42,8 +43,16 @@ interface pokemonData {
 }
 
 // props, id: number
-const Card = ({ id }: { id: number }) => {
-  const getPokemon = async () => {    
+const Card = ({
+  id,
+  favorites,
+  setFavorites,
+}: {
+  id: number;
+  favorites: number[];
+  setFavorites: React.Dispatch<React.SetStateAction<number[]>>;
+}) => {
+  const getPokemon = async () => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     return res.json();
   };
@@ -53,27 +62,54 @@ const Card = ({ id }: { id: number }) => {
     queryFn: getPokemon,
   });
 
-  return (
-    <a
-      className={"card__Container card__type-" + data?.types[0].type.name}
-      href={`/pokemon/${data?.id}`}
-    >
-      <div className="card__nameContainer">
-        {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
-      </div>
+  console.log(favorites);
 
-      <div className="card__imageContainer">
-        {isError ? (
-          "error"
-        ) : isLoading ? (
-          "Loading..."
-        ) : data ? (
-          <img src={data.sprites.front_default} alt="" />
-        ) : (
-          "Someting went wrong"
-        )}
-      </div>
-    </a>
+  return (
+    <div className={"card__Container card__type-" + data?.types[0].type.name}>
+      <a
+        className={"card__Container card__type-" + data?.types[0].type.name}
+        href={`/pokemon/${data?.id}`}
+      >
+        <div className="card__nameContainer">
+          {isError
+            ? "error"
+            : isLoading
+            ? "Loading..."
+            : data.name.toUpperCase()}
+        </div>
+
+        <div className="card__imageContainer">
+          {isError ? (
+            "error"
+          ) : isLoading ? (
+            "Loading..."
+          ) : data ? (
+            <img src={data.sprites.front_default} alt="" />
+          ) : (
+            "Someting went wrong"
+          )}
+        </div>
+      </a>
+      <button
+        onClick={() => {
+          if (favorites.includes(data?.id ?? -1)) {
+            setFavorites(favorites.filter((id) => id != data?.id));
+            localStorage.setItem(
+              "favorites",
+              JSON.stringify(favorites.filter((id) => id != data?.id))
+            );
+          } else {
+            setFavorites(favorites.concat([data?.id ?? -1]));
+            localStorage.setItem(
+              "favorites",
+              JSON.stringify(favorites.concat([data?.id ?? -1]))
+            );
+          }
+        }}
+      >
+        {favorites.includes(data?.id ?? -1) ? "Unfavorite" : "Favorite"}
+      </button>
+    </div>
   );
 };
 

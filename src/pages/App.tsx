@@ -10,6 +10,10 @@ const App = () => {
     return res.json();
   };
 
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
+  );
+
   const { isLoading, isError, data } = useQuery<{ count: number }>({
     queryKey: [`all-pokemons`],
     queryFn: allPokemons,
@@ -69,7 +73,14 @@ const App = () => {
         ) : isLoading ? (
           <h1>Loading</h1>
         ) : data ? (
-          currentList.map((id) => <Card key={id} id={id} />)
+          currentList.map((id) => (
+            <Card
+              key={id}
+              id={id}
+              favorites={favorites}
+              setFavorites={setFavorites}
+            />
+          ))
         ) : (
           <h1>Something went wrong</h1>
         )}
