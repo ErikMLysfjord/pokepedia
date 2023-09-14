@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/App.css";
 import Card from "../components/card/Card";
+import Navbar from "../components/card/navbar/Navbar";
 
 const App = () => {
   // Acual code
@@ -29,70 +30,16 @@ const App = () => {
 
   return (
     <>
-      {/* pokeball theme */}
-      <div
-        style={{
-          backgroundColor: "red",
-          height: "150px",
-        }}
-      />
-      {/* black line */}
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "8px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {/* Circle in the middle */}
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "50%",
-            height: "50px",
-            width: "50px",
-            border: "4px solid black",
-          }}
-        />
-      </div>
+      <Navbar />
 
       {/* navbar */}
-      <div
-        style={{
-          margin: "50px auto",
-          height: "50px",
-          width: "85%",
-        }}
-      >
+      <div className="filtering-gap">
         {/* Button that says favorites */}
-        <button
-          style={{
-            backgroundColor: "lightgrey",
-            height: "30px",
-            width: "100px",
-            borderRadius: "10px",
-            border: "none",
-            margin: "10px",
-            color: "black",
-            cursor: "pointer",
-          }}
-        >
-          Favorites
-        </button>
+        <button className="favorite-button">Favorites</button>
       </div>
 
       {/* Main body */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "1rem",
-          margin: "auto",
-          width: "85%",
-        }}
-      >
+      <div className="app__main-body">
         {/* Card */}
         {currentList.map((id) => (
           <Card key={id} id={id} />
@@ -100,26 +47,17 @@ const App = () => {
       </div>
 
       {/* Page system */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "20px",
-        }}
-      >
+      <div className="app__page-system">
         <button
-          style={{ marginRight: "10px" }}
+          className="app__prev-page-button"
           disabled={currentPage === 1}
           onClick={handlePrevPage}
         >
           Prev
         </button>
-        <div style={{ margin: "0 10px", color: "black" }}>
-          Page {currentPage}
-        </div>
+        <div className="app__current-page">Page {currentPage}</div>
         <button
-          style={{ marginLeft: "10px" }}
+          className="app__next-page-button"
           disabled={endIndex >= list.length}
           onClick={handleNextPage}
         >

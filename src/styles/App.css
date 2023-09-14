@@ -45,3 +45,48 @@
   background-color: #bfbfbf;
   cursor: pointer;
 }
+
+.filtering-gap {
+  margin: 50px auto;
+  height: 50px;
+  width: 85%;
+}
+
+.favorite-button {
+  background-color: lightgrey;
+  height: 30px;
+  width: 100px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+  color: black;
+  cursor: pointer;
+}
+
+.app__main-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: auto;
+  width: 85%;
+}
+
+.app__page-system {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.app__prev-page-button {
+  margin-right: 10px;
+}
+
+.app__current-page {
+  margin: 0 10px;
+  color: black;
+}
+
+.app__next-page-button {
+  margin-left: 10px;
+}
