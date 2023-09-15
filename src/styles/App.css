@@ -161,3 +161,10 @@
 .app__next-page-button {
   margin-left: 10px;
 }
+
+.app__pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px;
+}
