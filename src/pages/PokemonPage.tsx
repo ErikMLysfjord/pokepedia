@@ -73,7 +73,7 @@ const PokemonPage = () => {
           <p>Height: {data.height / 10} meters</p>
           <p>Weight: {data.weight / 10} kg</p>
           <div>
-            Type(s):{" "}
+            Type(s): {/* Mapping over type(s) and displays it */}
             {data.types.map((typeObject, index) => {
               return (
                 <div
@@ -87,6 +87,7 @@ const PokemonPage = () => {
           </div>
           <p>Abilities: </p>
           <ol>
+            {/* Mapping over a pokémons abilities and displays it in a table */}
             {data.abilities.map((ability, index) => {
               return (
                 <div key={`${index}-${ability.ability.name}`}>
@@ -104,6 +105,7 @@ const PokemonPage = () => {
           <hr />
           <table className="pokemon-page__stats-table">
             <tbody>
+              {/* Mapping over a pokémons stats and displays it in a table */}
               {data.stats.map((stat, index) => {
                 return (
                   <tr
