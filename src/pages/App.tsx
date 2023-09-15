@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import PokemonColors from "../types/PokemonColors";
 import { Pokemons } from "../types/Pokemons";
 import PokemonSpecies from "../types/PokemonSpecies";
+import Pagination from "../components/pagination/Pagination";
 
 const useFetchPokemonQuery = (
   resultsPerPage: number,
@@ -107,14 +108,6 @@ const App = () => {
     sessionStorage.setItem("currentFilter", currentFilter);
   }, [currentFilter]);
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
   const handleResetPage = () => {
     setCurrentPage(1);
   };
@@ -190,23 +183,14 @@ const App = () => {
           return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
         })}
       </div>
-
-      <div className="app__page-system">
-        <button
-          className="app__prev-page-button"
-          disabled={currentPage === 1}
-          onClick={handlePrevPage}
-        >
-          Prev
-        </button>
-        <div className="app__current-page">Page {currentPage}</div>
-        <button
-          className="app__next-page-button"
-          /* disabled={endIndex >= list.length} */
-          onClick={handleNextPage}
-        >
-          Next
-        </button>
+      <div className="app__pagination-container">
+        <Pagination
+          count={100}
+          currentIndex={0}
+          onChange={function (index: number): void {
+            console.log(index);
+          }}
+        />
       </div>
     </>
   );
