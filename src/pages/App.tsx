@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "../components/card/Card";
-import Navbar from "../components/card/navbar/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import PokemonColors from "../types/PokemonColors";
 import { Pokemons } from "../types/Pokemons";

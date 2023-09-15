@@ -3,6 +3,7 @@ import PokemonType from "../types/PokemonType";
 import "../styles/pokemon-page.css";
 import "../styles/App.css";
 import { useParams } from "react-router-dom";
+import Navbar from "../components/navbar/Navbar";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -25,33 +26,7 @@ const PokemonPage = () => {
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: "red",
-          height: "150px",
-        }}
-      />
-      {/* black line */}
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "8px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {/* Circle in the middle */}
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "50%",
-            height: "50px",
-            width: "50px",
-            border: "4px solid black",
-          }}
-        />
-      </div>
+      <Navbar />
       <div className="pokemon-page__container">
         <img
           className="pokemon-page__image"
