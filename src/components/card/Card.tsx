@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import "./Card.css";
 import "../../styles/App.css";
 import PokemonType from "../../types/PokemonType";
+import TypeCircle from "../typecircle/TypeCircle";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -14,13 +15,19 @@ const Card = ({ id }: { id: string }) => {
 
   return (
     <a
-      className={"card__container card__type-" + data?.types[0].type.name}
+      className={"card__container"}
       href={`/pokemon/${data?.id}`}
-    >
-      <div className="card__name-container">
-        {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
+    > 
+      <div className="card__header">
+        <p>{"#" + data?.id}</p>
+        <p className="card__header-name">
+          {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
+        </p>
+        <TypeCircle types={data?.types}/>
       </div>
 
+      <div className="card__header-separator-line"></div>
+      
       <div className="card__image-container">
         {isError ? (
           "error"
@@ -35,5 +42,6 @@ const Card = ({ id }: { id: string }) => {
     </a>
   );
 };
+
 
 export default Card;
