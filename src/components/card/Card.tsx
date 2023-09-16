@@ -24,7 +24,11 @@ const Card = ({ id }: { id: string }) => {
         <p className="card__header-name">
           {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
         </p>
-        <TypeCircle types={data?.types}/>
+        { data?.types.length == 2 ? 
+          <TypeCircle primaryType={data?.types[0].type.name} secondaryType={data?.types[1].type.name}/>
+          :
+          <TypeCircle primaryType={data?.types[0].type.name}/>
+        }
       </div>
 
       <div className="card__header-separator-line"></div>
