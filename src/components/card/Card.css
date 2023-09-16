@@ -11,87 +11,26 @@
   color: black;
   font-size: 1.5em;
   text-align: center;
-  font-family: "monospace";
 }
 
 .card__container {
-  background-color: #d9d9d9;
+  background-color: #fff;
   height: 300px;
   width: 200px;
   border-radius: 10px;
   margin: auto;
   text-decoration: none;
   color: black;
+  transition: 200ms;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
 }
 
-.card__type-poison {
-  background-color: rgba(170, 85, 153, 0.5);
+.card__container:hover{
+  transform: scale(1.05);
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.25);
 }
 
-.card__type-grass {
-  background-color: rgba(119, 204, 85, 0.5);
-}
-
-.card__type-fire {
-  background-color: rgba(255, 67, 34, 0.5);
-}
-
-.card__type-flying {
-  background-color: rgba(136, 154, 255, 0.5);
-}
-
-.card__type-bug {
-  background-color: rgba(169, 187, 34, 0.5);
-}
-
-.card__type-dragon {
-  background-color: rgba(120, 102, 238, 0.5);
-}
-
-.card__type-steel {
-  background-color: rgba(170, 170, 187, 0.5);
-}
-
-.card__type-ice {
-  background-color: rgba(102, 204, 255, 0.5);
-}
-
-.card__type-electric {
-  background-color: rgba(255, 204, 51, 0.5);
-}
-
-.card__type-fighting {
-  background-color: rgba(187, 86, 68, 0.5);
-}
-
-.card__type-ground {
-  background-color: rgba(221, 187, 85, 0.5);
-}
-
-.card__type-rock {
-  background-color: rgba(187, 170, 102, 0.5);
-}
-
-.card__type-psychic {
-  background-color: rgba(255, 85, 153, 0.5);
-}
-
-.card__type-ghost {
-  background-color: rgba(102, 102, 187, 0.5);
-}
-
-.card__type-dark {
-  background-color: rgba(119, 85, 68, 0.5);
-}
-
-.card__type-fairy {
-  background-color: rgba(238, 153, 238, 0.5);
-}
-
-.card__type-normal {
-  background-color: rgba(170, 170, 153, 0.5);
-}
-
-.card__type-water {
-  background-color: rgba(51, 153, 255, 0.5);
+.card__container:active{
+  transform: scale(1.025);
+  box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.25);
 }
