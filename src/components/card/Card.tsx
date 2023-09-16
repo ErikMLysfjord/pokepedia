@@ -3,6 +3,7 @@ import "./Card.css";
 import "../../styles/App.css";
 import PokemonType from "../../types/PokemonType";
 import TypeCircle from "../typecircle/TypeCircle";
+import FavouriteButton from "../favouriteButton/FavouriteButton";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -39,6 +40,8 @@ const Card = ({ id }: { id: string }) => {
           "Something went wrong"
         )}
       </div>
+
+      <FavouriteButton/>
     </a>
   );
 };

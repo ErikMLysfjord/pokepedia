@@ -1,0 +1,23 @@
+.FavouriteButton__container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.FavouriteButton__starpath{
+    fill: #BFBFBF;
+    transition: 100ms;
+}
+
+.FavouriteButton__starpath:hover{
+    fill: hsl(5, 70%, 70%);
+}
+
+.FavouriteButton__starpath:active{
+    fill: #DB4032;
+}
+
+.FavouriteButton__starpath-isActive{
+    fill: #DB4032;
+}
