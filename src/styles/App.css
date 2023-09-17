@@ -168,3 +168,15 @@
   align-items: center;
   margin: 24px;
 }
+
+.filtering-container {
+  display: inline-flex;
+  flex-direction: column;
+  color: black;
+}
+
+.filtering-text {
+  font-size: 11px;
+  color: #6c6c6c;
+  margin-left: 10px;
+}
