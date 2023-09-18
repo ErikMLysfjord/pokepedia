@@ -3,16 +3,17 @@ import './FavouriteButton.css'
 const FavouriteButton = () => {
     return (
         <div 
-            onClick={(event) => {
-                event.stopPropagation()
-                console.log("favouriteBtn clicked");
-            }}
-            className='FavouriteButton__container'>
+            className='FavouriteButton__container'
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg" 
                 width="25" 
                 height="25" 
                 viewBox="0 0 22 23" 
+                onClick={(e) => {
+                    console.log("favouriteBtn clicked");
+                    e.stopPropagation()
+                }}
             >
                 <path
                     className="FavouriteButton__starpath"
