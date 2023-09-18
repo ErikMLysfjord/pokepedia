@@ -7,6 +7,7 @@ import PokemonFav from "./pages/Favorites.tsx";
 import "./styles/index.css";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import NoResults from "./pages/NoResults.tsx";
+import Navbar from "./components/navbar/Navbar.tsx";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/pokemon/:id" element={<Pokemon />} />

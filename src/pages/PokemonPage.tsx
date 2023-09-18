@@ -25,33 +25,6 @@ const PokemonPage = () => {
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: "red",
-          height: "150px",
-        }}
-      />
-      {/* black line */}
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "8px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {/* Circle in the middle */}
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "50%",
-            height: "50px",
-            width: "50px",
-            border: "4px solid black",
-          }}
-        />
-      </div>
       <div className="pokemon-page__container">
         <img
           className="pokemon-page__image"
@@ -73,7 +46,7 @@ const PokemonPage = () => {
           <p>Height: {data.height / 10} meters</p>
           <p>Weight: {data.weight / 10} kg</p>
           <div>
-            Type(s):{" "}
+            Type(s): {/* Mapping over type(s) and displays it */}
             {data.types.map((typeObject, index) => {
               return (
                 <div
@@ -87,6 +60,7 @@ const PokemonPage = () => {
           </div>
           <p>Abilities: </p>
           <ol>
+            {/* Mapping over a pokémons abilities and displays it in a table */}
             {data.abilities.map((ability, index) => {
               return (
                 <div key={`${index}-${ability.ability.name}`}>
@@ -104,6 +78,7 @@ const PokemonPage = () => {
           <hr />
           <table className="pokemon-page__stats-table">
             <tbody>
+              {/* Mapping over a pokémons stats and displays it in a table */}
               {data.stats.map((stat, index) => {
                 return (
                   <tr

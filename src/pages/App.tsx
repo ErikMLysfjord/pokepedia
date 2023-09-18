@@ -1,92 +1,181 @@
 import { useState, useEffect } from "react";
-import "../styles/App.css";
 import Card from "../components/card/Card";
-import Navbar from "../components/card/navbar/Navbar";
 import { useQuery } from "@tanstack/react-query";
+import PokemonColors from "../types/PokemonColors";
+import { Pokemons } from "../types/Pokemons";
+import PokemonSpecies from "../types/PokemonSpecies";
+import Pagination from "../components/pagination/Pagination";
+import FilterSelect from "../components/filter-select/FilterSelect";
+
+const useFetchPokemonQuery = (
+  resultsPerPage: number,
+  pageNumber: number,
+  filter: string
+) => {
+  return useQuery(["pokemon", resultsPerPage, pageNumber, filter], async () => {
+    if (filter !== "none") {
+      /* Get data of all pokemon species */
+      return (await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`))
+        .json()
+        .then(async (data: PokemonColors) => {
+          /* Get URL of all pokémon-species of the specified color */
+          /* Sliced based on how many results per page and current page number */
+          const speciesUrl = data.pokemon_species
+            .map((species) => {
+              return species.url;
+            })
+            .slice(
+              (pageNumber - 1) * resultsPerPage,
+              pageNumber * resultsPerPage
+            );
+          /* Get data of all the species with the relevant color */
+          const speciesData: PokemonSpecies[] = await Promise.all(
+            speciesUrl.map(async (url) => {
+              const res = await fetch(url);
+              return res.json() as unknown as PokemonSpecies;
+            })
+          );
+
+          /* Get name and URL of the default pokémon in every species */
+          const pokemonData = speciesData.map((pokemon) => {
+            return pokemon.varieties[0].pokemon;
+          });
+
+          /* If we ever want to include non-default pokémons as well, then this code allows it */
+          /* However, then we run into a bug where each page will display more results than we want */
+
+          /* const pokemonData: { name: string; url: string }[] = [];
+          speciesData.forEach((pokemon) => {
+            pokemon.varieties.forEach((element) => {
+              pokemonData.push(element.pokemon);
+            });
+          }); */
+
+          return pokemonData;
+        });
+    }
+    /* Get data of pokémons. Limit decides the amount of pokémons we get */
+    /* Offset decides from which pokémon we want. If we have 2 results per page and we are on page 2,
+    then we want pokémon 21-40, so offset = 20. */
+    return (
+      await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
+          (pageNumber - 1) * resultsPerPage
+        }`
+      )
+    )
+      .json()
+      .then((data: Pokemons) => {
+        return data.results;
+      });
+  });
+};
+
+const colorFilters = [
+  "none",
+  "green",
+  "red",
+  "blue",
+  "black",
+  "purple",
+  "yellow",
+  "brown",
+  "gray",
+  "pink",
+  "white",
+];
 
 const App = () => {
-  const allPokemons = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/`);
-    return res.json();
-  };
-
-  const { isLoading, isError, data } = useQuery<{ count: number }>({
-    queryKey: [`all-pokemons`],
-    queryFn: allPokemons,
-  });
-
-  const itemsPerPage = 4;
+  /* States based on filters that are set in session storage */
+  const [itemsPerPage, setItemsPerPage] = useState(
+    parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
+  );
+  const [currentFilter, setCurrentFilter] = useState(
+    sessionStorage.getItem("currentFilter") ?? "none"
+  );
 
   const [currentPage, setCurrentPage] = useState(
-    parseInt(localStorage.getItem("currentPage") ?? "1")
-  );
-  const list = Array.from(
-    { length: data?.count ?? 0 },
-    (_, index) => index + 1
+    parseInt(sessionStorage.getItem("currentPage") ?? "1")
   );
 
+  const handleChangeFilter = (filter: string) => {
+    setCurrentFilter(filter);
+    sessionStorage.setItem("currentFilter", filter);
+  };
+
+  const {
+    data: pokemonList,
+    isLoading,
+    isError,
+  } = useFetchPokemonQuery(itemsPerPage, currentPage, currentFilter);
+
+  /* Setting filtering values in session storage */
   useEffect(() => {
-    localStorage.setItem("currentPage", currentPage.toString());
+    sessionStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  useEffect(() => {
+    sessionStorage.setItem("itemsPerPage", itemsPerPage.toString());
+  }, [itemsPerPage]);
+
+  useEffect(() => {
+    sessionStorage.setItem("currentFilter", currentFilter);
+  }, [currentFilter]);
+
+  const handleResetPage = () => {
+    setCurrentPage(1);
   };
 
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
+  if (isError) {
+    return <h1 className="loading">Error fetching...</h1>;
+  }
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentList = list.slice(startIndex, endIndex);
+  if (isLoading) {
+    return <h1 className="loading">Loading...</h1>;
+  }
 
   return (
     <>
-      <Navbar />
-
-      {/* navbar */}
-      <div className="filtering-gap">
-        {/* Button that says favorites */}
-        <a
-          href="/favorites"
-          onClick={() => localStorage.setItem("currentPage", "1")}
-        >
-          <button className="favorite-button">Favorites</button>
-        </a>
+      <div className="app__filtering-gap">
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Filter by color</span>
+          <FilterSelect
+            options={colorFilters}
+            selected={currentFilter}
+            handleChange={(e) => {
+              handleResetPage();
+              handleChangeFilter(e.target.value);
+            }}
+          />
+        </div>
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Results per page</span>
+          <FilterSelect
+            options={["1", "5", "10", "20"]}
+            selected={itemsPerPage.toString()}
+            handleChange={(e) => {
+              handleResetPage();
+              setItemsPerPage(parseInt(e.target.value));
+            }}
+          />
+        </div>
       </div>
 
-      {/* Main body */}
       <div className="app__main-body">
-        {/* Card */}
-        {isError ? (
-          <h1>Could not get all pokemons</h1>
-        ) : isLoading ? (
-          <h1>Loading</h1>
-        ) : data ? (
-          currentList.map((id) => <Card key={id} id={id} />)
-        ) : (
-          <h1>Something went wrong</h1>
-        )}
+        {/* Mapping over all pokémons, and rendering a Card for each one */}
+        {pokemonList?.map((pokemon, index) => {
+          return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
+        })}
       </div>
-
-      {/* Page system */}
-      <div className="app__page-system">
-        <button
-          className="app__prev-page-button"
-          disabled={currentPage === 1}
-          onClick={handlePrevPage}
-        >
-          Prev
-        </button>
-        <div className="app__current-page">Page {currentPage}</div>
-        <button
-          className="app__next-page-button"
-          disabled={endIndex >= list.length}
-          onClick={handleNextPage}
-        >
-          Next
-        </button>
+      <div className="app__pagination-container">
+        <Pagination
+          /* The count is not actually 100. This will be fixed in Sondres MR */
+          count={100}
+          currentIndex={currentPage - 1}
+          onChange={(index) => {
+            setCurrentPage(index + 1);
+          }}
+        />
       </div>
     </>
   );

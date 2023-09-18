@@ -1,84 +1,49 @@
 import { useQuery } from "@tanstack/react-query";
 import "./Card.css";
-import { useState, useEffect } from "react";
+import "../../styles/App.css";
+import PokemonType from "../../types/PokemonType";
+import TypeCircle from "../typecircle/TypeCircle";
+import FavouriteButton from "../favouriteButton/FavouriteButton";
+import { useNavigate } from "react-router-dom";
 
-interface pokemonData {
-  id: number;
-  name: string;
-  base_experience: number;
-  height: number;
-  is_default: boolean;
-  order: number;
-  weight: number;
-  abilities: [];
-  forms: [];
-  game_indices: [];
-  held_items: [];
-  location_area_encounters: string;
-  moves: [];
-  species: {
-    name: string;
-    url: string;
-  };
-  sprites: {
-    back_default: string;
-    back_female: string;
-    back_shiny: string;
-    back_shiny_female: string;
-    front_default: string;
-    front_female: string;
-    front_shiny: string;
-    front_shiny_female: string;
-  };
-  stats: [];
-  types: [
-    {
-      type: {
-        name: string;
-        url: string;
-      };
-    }
-  ];
-  past_types: [];
-}
+const useFetchPokemonQuery = (id: string) => {
+  return useQuery<PokemonType>(["pokemon", id], async () =>
+    (await fetch(id)).json()
+  );
+};
 
-// props, id: number
-const Card = ({ id }: { id: number }) => {
-  const getPokemon = async () => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    return res.json();
-  };
-
-  const { isLoading, isError, data } = useQuery<pokemonData>({
-    queryKey: [`pokemon+${id}`],
-    queryFn: getPokemon,
-  });
-
-  const fav = (
-    JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-  ).includes(data?.id ?? -1);
-
-  const [favorites, setFavorites] = useState(fav);
-
-  useEffect(() => {
-    setFavorites(fav);
-  }, [fav]);
+const Card = ({ id }: { id: string }) => {
+  const { data, isError, isLoading } = useFetchPokemonQuery(id);
+  const navigate = useNavigate();
 
   return (
-    <div className={"card__Container card__type-" + data?.types[0].type.name}>
-      <a
-        className={"card__Container card__type-" + data?.types[0].type.name}
-        href={`/pokemon/${data?.id}`}
+    <>
+      <div
+        className={"card__container"}
+        onClick={() => navigate(`/pokemon/${data?.id}`)}
       >
-        ¨
-        <div className="card__nameContainer">
-          {isError
-            ? "error"
-            : isLoading
-            ? "Loading..."
-            : data.name.toUpperCase()}
+        <div className="card__header">
+          <p>{"#" + data?.id}</p>
+          <p className="card__header-name">
+            {isError
+              ? "error"
+              : isLoading
+              ? "Loading..."
+              : data.name.toUpperCase()}
+          </p>
+          {data?.types.length == 2 ? (
+            <TypeCircle
+              primaryType={data?.types[0].type.name}
+              secondaryType={data?.types[1].type.name}
+            />
+          ) : (
+            <TypeCircle primaryType={data?.types[0].type.name} />
+          )}
         </div>
-        <div className="card__imageContainer">
+
+        <div className="card__header-separator-line"></div>
+
+        <div className="card__image-container">
           {isError ? (
             "error"
           ) : isLoading ? (
@@ -86,46 +51,12 @@ const Card = ({ id }: { id: number }) => {
           ) : data ? (
             <img src={data.sprites.front_default} alt="" />
           ) : (
-            "Someting went wrong"
+            "Something went wrong"
           )}
         </div>
-      </a>
-      <button
-        onClick={() => {
-          if (
-            (
-              JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-            ).includes(data?.id ?? -1)
-          ) {
-            localStorage.setItem(
-              "favorites",
-              JSON.stringify(
-                (
-                  JSON.parse(
-                    localStorage.getItem("favorites") ?? "[]"
-                  ) as number[]
-                ).filter((id) => id != data?.id)
-              )
-            );
-            setFavorites(false);
-          } else {
-            localStorage.setItem(
-              "favorites",
-              JSON.stringify(
-                (
-                  JSON.parse(
-                    localStorage.getItem("favorites") ?? "[]"
-                  ) as number[]
-                ).concat([data?.id ?? -1])
-              )
-            );
-            setFavorites(true);
-          }
-        }}
-      >
-        {favorites ? "Unfavorite" : "Favorite"}
-      </button>
-    </div>
+        <FavouriteButton id={data?.id ?? -1} />
+      </div>
+    </>
   );
 };
 

@@ -1,75 +1,78 @@
 import { useState, useEffect } from "react";
-import "../styles/App.css";
 import Card from "../components/card/Card";
-import Navbar from "../components/card/navbar/Navbar";
+import Pagination from "../components/pagination/Pagination";
+import FilterSelect from "../components/filter-select/FilterSelect";
 
-const PokemonFav = () => {
-  const itemsPerPage = 4;
-
+const App = () => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
-  const list = (
+  const pokemonList = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
   ).sort();
 
+  /* States based on filters that are set in session storage */
+  const [itemsPerPage, setItemsPerPage] = useState(
+    parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
+  );
+
+  /* Setting filtering values in session storage */
   useEffect(() => {
-    localStorage.setItem("currentPage", currentPage.toString());
+    sessionStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
+  useEffect(() => {
+    sessionStorage.setItem("itemsPerPage", itemsPerPage.toString());
+  }, [itemsPerPage]);
 
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+  const handleResetPage = () => {
+    setCurrentPage(1);
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentList = list.slice(startIndex, endIndex);
 
   return (
     <>
-      <Navbar />
-
-      {/* navbar */}
-      <div className="filtering-gap">
-        {/* Button that says favorites */}
-        <a href="/" onClick={() => localStorage.setItem("currentPage", "1")}>
-          <button className="favorite-button">Home</button>
-        </a>
+      <div className="app__filtering-gap">
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Results per page</span>
+          <FilterSelect
+            options={["1", "5", "10", "20"]}
+            selected={itemsPerPage.toString()}
+            handleChange={(e) => {
+              handleResetPage();
+              setItemsPerPage(parseInt(e.target.value));
+            }}
+          />
+        </div>
       </div>
 
-      {/* Main body */}
       <div className="app__main-body">
-        {/* Card */}
-        {currentList.map((id) => (
-          <Card key={id} id={id} />
-        ))}
-      </div>
+        {/* Mapping over all pokémons, and rendering a Card for each one */}
+        {pokemonList
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+          .map((id, index) => {
+            console.log("test");
 
-      {/* Page system */}
-      <div className="app__page-system">
-        <button
-          className="app__prev-page-button"
-          disabled={currentPage === 1}
-          onClick={handlePrevPage}
-        >
-          Prev
-        </button>
-        <div className="app__current-page">Page {currentPage}</div>
-        <button
-          className="app__next-page-button"
-          disabled={endIndex >= list.length}
-          onClick={handleNextPage}
-        >
-          Next
-        </button>
+            return (
+              <Card
+                key={`${id}-${index}`}
+                id={"https://pokeapi.co/api/v2/pokemon/" + id.toString()}
+              />
+            );
+          })}
+      </div>
+      <div className="app__pagination-container">
+        <Pagination
+          /* The count is not actually 100. This will be fixed in Sondres MR */
+          count={Math.ceil(pokemonList.length / itemsPerPage)}
+          currentIndex={currentPage - 1}
+          onChange={(index) => {
+            setCurrentPage(index + 1);
+          }}
+        />
       </div>
     </>
   );
 };
 
-export default PokemonFav;
+export default App;
