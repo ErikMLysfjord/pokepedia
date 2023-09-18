@@ -50,7 +50,7 @@ const Card = ({ id }: { id: string }) => {
           ) : isLoading ? (
             "Loading..."
           ) : data ? (
-            <img src={data.sprites.front_default} alt="" />
+            <img src={data.sprites.front_default} alt="pokemonSprite" />
           ) : (
             "Something went wrong"
           )}
