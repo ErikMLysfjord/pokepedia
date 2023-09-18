@@ -1,64 +1,62 @@
-.TypeCircle__container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
+.TypeCircle__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
 }
 
 /*Brukte fargene herfra https://www.epidemicjohto.com/t882-type-colors-hex-colors*/
-.TypeCircle__typeColor-fire{
-    fill: #EE8130;
+.TypeCircle__typeColor-fire {
+  fill: #ee8130;
 }
-.TypeCircle__typeColor-water{
-    fill: #6390F0;
+.TypeCircle__typeColor-water {
+  fill: #6390f0;
 }
-.TypeCircle__typeColor-grass{
-    fill: #7AC74C;
+.TypeCircle__typeColor-grass {
+  fill: #7ac74c;
 }
-.TypeCircle__typeColor-ice{
-    fill: #96D9D6;
+.TypeCircle__typeColor-ice {
+  fill: #96d9d6;
 }
-.TypeCircle__typeColor-poison{
-    fill: #A33EA1;
+.TypeCircle__typeColor-poison {
+  fill: #a33ea1;
 }
-.TypeCircle__typeColor-electric{
-    fill: #F7D02C
+.TypeCircle__typeColor-electric {
+  fill: #f7d02c;
 }
-.TypeCircle__typeColor-ground{
-    fill: #E2BF65;
+.TypeCircle__typeColor-ground {
+  fill: #e2bf65;
 }
-.TypeCircle__typeColor-fighting{
-    fill: #C22E28;
+.TypeCircle__typeColor-fighting {
+  fill: #c22e28;
 }
-.TypeCircle__typeColor-psychic{
-    fill: #F95587
+.TypeCircle__typeColor-psychic {
+  fill: #f95587;
 }
-.TypeCircle__typeColor-flying{
-    fill: #A98FF3;
+.TypeCircle__typeColor-flying {
+  fill: #a98ff3;
 }
-.TypeCircle__typeColor-bug{
-    fill: #A6B91A;
+.TypeCircle__typeColor-bug {
+  fill: #a6b91a;
 }
-.TypeCircle__typeColor-rock{
-    fill: #B6A136;
+.TypeCircle__typeColor-rock {
+  fill: #b6a136;
 }
-.TypeCircle__typeColor-ghost{
-    fill: #735797
+.TypeCircle__typeColor-ghost {
+  fill: #735797;
 }
-.TypeCircle__typeColor-dragon{
-    fill: #6F35FC;
+.TypeCircle__typeColor-dragon {
+  fill: #6f35fc;
 }
-.TypeCircle__typeColor-dark{
-    fill: #705746;
+.TypeCircle__typeColor-dark {
+  fill: #705746;
 }
-.TypeCircle__typeColor-steel{
-    fill: #B7B7CE;
+.TypeCircle__typeColor-steel {
+  fill: #b7b7ce;
 }
-.TypeCircle__typeColor-fairy{
-    fill: #D685AD;
+.TypeCircle__typeColor-fairy {
+  fill: #d685ad;
 }
-.TypeCircle__typeColor-normal{
-    fill: #A8A77A;
+.TypeCircle__typeColor-normal {
+  fill: #a8a77a;
 }
-
-

@@ -26,28 +26,28 @@
   cursor: pointer;
 }
 
-.card__container:hover{
+.card__container:hover {
   transform: scale(1.05);
   box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.25);
 }
 
-.card__container:active{
+.card__container:active {
   transform: scale(1.025);
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.25);
 }
 
-.card__header{
+.card__header {
   display: flex;
   justify-content: space-evenly;
   gap: 1em;
   width: 100%;
 }
 
-.card__header-name{
+.card__header-name {
   font-weight: 500;
 }
 
-.card__header-separator-line{
+.card__header-separator-line {
   height: 1px;
-  background-color: #D2D2D2;
+  background-color: #d2d2d2;
 }

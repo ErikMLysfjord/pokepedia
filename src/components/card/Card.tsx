@@ -14,8 +14,7 @@ const useFetchPokemonQuery = (id: string) => {
 
 const Card = ({ id }: { id: string }) => {
   const { data, isError, isLoading } = useFetchPokemonQuery(id);
-  const navigate = useNavigate() 
-
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,21 +22,28 @@ const Card = ({ id }: { id: string }) => {
         className={"card__container"}
         onClick={() => navigate(`/pokemon/${data?.id}`)}
         // href={`/pokemon/${data?.id}`}
-      > 
+      >
         <div className="card__header">
           <p>{"#" + data?.id}</p>
           <p className="card__header-name">
-            {isError ? "error" : isLoading ? "Loading..." : data.name.toUpperCase()}
+            {isError
+              ? "error"
+              : isLoading
+              ? "Loading..."
+              : data.name.toUpperCase()}
           </p>
-          { data?.types.length == 2 ? 
-            <TypeCircle primaryType={data?.types[0].type.name} secondaryType={data?.types[1].type.name}/>
-            :
-            <TypeCircle primaryType={data?.types[0].type.name}/>
-          }
+          {data?.types.length == 2 ? (
+            <TypeCircle
+              primaryType={data?.types[0].type.name}
+              secondaryType={data?.types[1].type.name}
+            />
+          ) : (
+            <TypeCircle primaryType={data?.types[0].type.name} />
+          )}
         </div>
 
         <div className="card__header-separator-line"></div>
-        
+
         <div className="card__image-container">
           {isError ? (
             "error"
@@ -49,12 +55,10 @@ const Card = ({ id }: { id: string }) => {
             "Something went wrong"
           )}
         </div>
-      <FavouriteButton/>
-
+        <FavouriteButton />
       </div>
     </>
   );
 };
-
 
 export default Card;
