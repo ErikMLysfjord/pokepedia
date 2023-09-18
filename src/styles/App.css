@@ -62,23 +62,24 @@
 }
 
 .app__filtering-container {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   color: black;
 }
 
-.app__filtering-gap {
+.app__filtering-text {
+  font-size: 16px;
+  color: #6c6c6c;
+}
+
+.app__searchbar-filter-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  width: 85%;
   margin: 50px auto;
   min-height: 50px;
-  width: 85%;
-
   @media (max-width: 768px) {
     margin-bottom: 20px;
   }
-}
-
-.app__filtering-text {
-  font-size: 11px;
-  color: #6c6c6c;
-  margin-left: 10px;
 }
