@@ -51,7 +51,7 @@ const useFetchPokemonQuery = (
             });
           }); */
 
-          return pokemonData;
+          return { pokemonData, listLength: data.pokemon_species.length };
         });
     }
     /* Get data of pokémons. Limit decides the amount of pokémons we get */
@@ -66,7 +66,7 @@ const useFetchPokemonQuery = (
     )
       .json()
       .then((data: Pokemons) => {
-        return data.results;
+        return { pokemonData: data.results, listLength: data.count };
       });
   });
 };
@@ -163,14 +163,14 @@ const App = () => {
 
       <div className="app__main-body">
         {/* Mapping over all pokémons, and rendering a Card for each one */}
-        {pokemonList?.map((pokemon, index) => {
+        {pokemonList.pokemonData?.map((pokemon, index) => {
           return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
         })}
       </div>
       <div className="app__pagination-container">
         <Pagination
           /* The count is not actually 100. This will be fixed in Sondres MR */
-          count={100}
+          count={Math.ceil(pokemonList.listLength / itemsPerPage)}
           currentIndex={currentPage - 1}
           onChange={(index) => {
             setCurrentPage(index + 1);
