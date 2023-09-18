@@ -10,10 +10,6 @@ const App = () => {
     return res.json();
   };
 
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-  );
-
   const { isLoading, isError, data } = useQuery<{ count: number }>({
     queryKey: [`all-pokemons`],
     queryFn: allPokemons,
@@ -45,11 +41,6 @@ const App = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentList = list.slice(startIndex, endIndex);
 
-  // WHile favorite function is not implemented
-  if (localStorage.getItem("favorites") === null) {
-    localStorage.setItem("favorites", JSON.stringify([1, 20, 3, 4, 5]));
-  }
-
   return (
     <>
       <Navbar />
@@ -73,14 +64,7 @@ const App = () => {
         ) : isLoading ? (
           <h1>Loading</h1>
         ) : data ? (
-          currentList.map((id) => (
-            <Card
-              key={id}
-              id={id}
-              favorites={favorites}
-              setFavorites={setFavorites}
-            />
-          ))
+          currentList.map((id) => <Card key={id} id={id} />)
         ) : (
           <h1>Something went wrong</h1>
         )}
