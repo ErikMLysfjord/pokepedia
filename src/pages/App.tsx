@@ -71,10 +71,24 @@ const useFetchPokemonQuery = (
   });
 };
 
+const colorFilters = [
+  "none",
+  "green",
+  "red",
+  "blue",
+  "black",
+  "purple",
+  "yellow",
+  "brown",
+  "gray",
+  "pink",
+  "white",
+];
+
 const App = () => {
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
-    parseInt(sessionStorage.getItem("itemsPerPage") ?? "5")
+    parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
   );
   const [currentFilter, setCurrentFilter] = useState(
     sessionStorage.getItem("currentFilter") ?? "none"
@@ -122,23 +136,11 @@ const App = () => {
 
   return (
     <>
-      <div className="filtering-gap">
-        <div className="filtering-container">
-          <span className="filtering-text">Filter by color</span>
+      <div className="app__filtering-gap">
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Filter by color</span>
           <FilterSelect
-            options={[
-              "none",
-              "green",
-              "red",
-              "blue",
-              "black",
-              "purple",
-              "yellow",
-              "brown",
-              "gray",
-              "pink",
-              "white",
-            ]}
+            options={colorFilters}
             selected={currentFilter}
             handleChange={(e) => {
               handleResetPage();
@@ -146,8 +148,8 @@ const App = () => {
             }}
           />
         </div>
-        <div className="filtering-container">
-          <span className="filtering-text">Results per page</span>
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Results per page</span>
           <FilterSelect
             options={["1", "5", "10", "20"]}
             selected={itemsPerPage.toString()}
