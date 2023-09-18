@@ -10,7 +10,8 @@ const SearchField = () => {
   return (
     <div className="searchfield__container">
       <input
-        type="text"
+        role="searchfield"
+        type="search"
         placeholder="Pokemon Name"
         className="searchfield"
         value={searchText}
