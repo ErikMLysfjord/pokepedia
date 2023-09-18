@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="/project1">
         <Navbar />
         <Routes>
           <Route path="/" element={<App />} />

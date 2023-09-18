@@ -7,7 +7,7 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <div className="navbar__red-bar">
+    <nav className="navbar__red-bar">
       <img
         onClick={() => navigate("/")}
         src={PokemonBall}
@@ -30,7 +30,7 @@ const Navbar = () => {
           Home
         </button>
       </div>
-    </div>
+    </nav>
   );
 };
 
