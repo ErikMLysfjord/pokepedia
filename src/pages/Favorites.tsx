@@ -10,9 +10,9 @@ const PokemonFav = () => {
     parseInt(localStorage.getItem("currentPage") ?? "1")
   );
 
-  const list = JSON.parse(
-    localStorage.getItem("favorites") ?? "[]"
-  ) as number[];
+  const list = (
+    JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
+  ).sort();
 
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
