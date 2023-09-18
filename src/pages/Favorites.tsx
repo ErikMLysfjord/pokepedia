@@ -51,8 +51,6 @@ const App = () => {
         {pokemonList
           .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
           .map((id, index) => {
-            console.log("test");
-
             return (
               <Card
                 key={`${id}-${index}`}
