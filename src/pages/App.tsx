@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Card from "../components/card/Card";
-import Navbar from "../components/navbar/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import PokemonColors from "../types/PokemonColors";
 import { Pokemons } from "../types/Pokemons";
 import PokemonSpecies from "../types/PokemonSpecies";
 import Pagination from "../components/pagination/Pagination";
+import FilterSelect from "../components/filter-select/FilterSelect";
 
 const useFetchPokemonQuery = (
   resultsPerPage: number,
@@ -71,10 +71,24 @@ const useFetchPokemonQuery = (
   });
 };
 
+const colorFilters = [
+  "none",
+  "green",
+  "red",
+  "blue",
+  "black",
+  "purple",
+  "yellow",
+  "brown",
+  "gray",
+  "pink",
+  "white",
+];
+
 const App = () => {
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
-    parseInt(sessionStorage.getItem("itemsPerPage") ?? "5")
+    parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
   );
   const [currentFilter, setCurrentFilter] = useState(
     sessionStorage.getItem("currentFilter") ?? "none"
@@ -122,58 +136,28 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
-
-      {/* navbar */}
-      <div className="filtering-gap">
-        {/* Button that says favorites */}
-        <button className="favorite-button">Favorites</button>
-
-        {/* Option for selecting results per page */}
-        <div className="app__rpp-container">
-          <p className="app__rpp-text">Results per page:</p>
-
-          <select
-            className="app__rpp-select"
-            value={itemsPerPage}
-            onChange={(e) => {
-              handleResetPage();
-              setItemsPerPage(parseInt(e.target.value));
-            }}
-          >
-            <option value="1">1</option>
-            <option value="5" defaultChecked>
-              5
-            </option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-          </select>
-        </div>
-
-        {/* Option for filtering by color */}
-        <div className="app__fbc-container">
-          <p className="app__fbc-text">Filter by color:</p>
-
-          <select
-            className="app__fbc-select"
-            value={currentFilter}
-            onChange={(e) => {
+      <div className="app__filtering-gap">
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Filter by color</span>
+          <FilterSelect
+            options={colorFilters}
+            selected={currentFilter}
+            handleChange={(e) => {
               handleResetPage();
               handleChangeFilter(e.target.value);
             }}
-          >
-            <option value="none">None</option>
-            <option value="green">Green</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
-            <option value="black">Black</option>
-            <option value="purple">Purple</option>
-            <option value="yellow">Yellow</option>
-            <option value="brown">Brown</option>
-            <option value="gray">Gray</option>
-            <option value="pink">Pink</option>
-            <option value="white">White</option>
-          </select>
+          />
+        </div>
+        <div className="app__filtering-container">
+          <span className="app__filtering-text">Results per page</span>
+          <FilterSelect
+            options={["1", "5", "10", "20"]}
+            selected={itemsPerPage.toString()}
+            handleChange={(e) => {
+              handleResetPage();
+              setItemsPerPage(parseInt(e.target.value));
+            }}
+          />
         </div>
       </div>
 
@@ -185,10 +169,11 @@ const App = () => {
       </div>
       <div className="app__pagination-container">
         <Pagination
+          /* The count is not actually 100. This will be fixed in Sondres MR */
           count={100}
-          currentIndex={0}
-          onChange={function (index: number): void {
-            console.log(index);
+          currentIndex={currentPage - 1}
+          onChange={(index) => {
+            setCurrentPage(index + 1);
           }}
         />
       </div>
