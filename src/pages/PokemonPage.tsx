@@ -98,14 +98,24 @@ const PokemonPage = () => {
     //   </div>
     // </>
 
-    <>
+    <div className="pokemonPage__centerContent">
       <div className="pokemonPage__mainPanel">
-        <div className="pokemonPage__ImageCircle">
-          <img
-            className="pokemon-page__image"
-            src={data.sprites.front_default}
-            alt="Image of pokémon"
-          />
+        <div className="pokemonPage__pokemonIngress">
+          <div className="pokemonPage__ImageCircle">
+            <img
+              className="pokemonPage__image"
+              src={data.sprites.front_default}
+              alt="Image of pokémon"
+            />
+          </div>
+          <div className="pokemon">
+            <p>#nummer</p>
+            <p>navn</p>
+          </div>
+          <div>
+            <p>dette blir badge</p>
+            <p>dette blir badge</p>
+          </div>
         </div>
         <div className="pokemonPage__dataContainer">
           <div>
@@ -116,7 +126,7 @@ const PokemonPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
