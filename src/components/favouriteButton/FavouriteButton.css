@@ -18,6 +18,11 @@
   fill: #db4032;
 }
 
+.FavouriteButton__favorited {
+  fill: #db4032;
+  transition: 100ms;
+}
+
 .FavouriteButton__starpath-isActive {
   fill: #db4032;
 }

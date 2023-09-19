@@ -6,7 +6,7 @@ interface ITypeCircle {
 }
 
 const TypeCircle = (props: ITypeCircle) => {
-  console.log("TypeCircle__typeColor-" + props.primaryType);
+  // console.log("TypeCircle__typeColor-" + props.primaryType);
 
   return (
     <div className="TypeCircle__container">

@@ -21,7 +21,6 @@ const Card = ({ id }: { id: string }) => {
       <div
         className={"card__container"}
         onClick={() => navigate(`/pokemon/${data?.id}`)}
-        // href={`/pokemon/${data?.id}`}
       >
         <div className="card__header">
           <p>{"#" + data?.id}</p>
@@ -55,7 +54,7 @@ const Card = ({ id }: { id: string }) => {
             "Something went wrong"
           )}
         </div>
-        <FavouriteButton />
+        <FavouriteButton id={data?.id ?? -1} />
       </div>
     </>
   );
