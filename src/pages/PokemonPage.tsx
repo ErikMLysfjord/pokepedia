@@ -3,6 +3,7 @@ import PokemonType from "../types/PokemonType";
 import "../styles/pokemon-page.css";
 import "../styles/App.css";
 import { useParams } from "react-router-dom";
+import NoResults from "./NoResults";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -19,8 +20,9 @@ const PokemonPage = () => {
   if (isLoading) {
     return <h1 className="loading">Loading...</h1>;
   }
+
   if (isError) {
-    return <h1 className="loading">Error fetching...</h1>;
+    return <NoResults title={"404"} underTitle={"No pokemon found"} />;
   }
 
   return (

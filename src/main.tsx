@@ -19,7 +19,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/pokemon/:id" element={<Pokemon />} />
           <Route path="/favorites" element={<App />} />
-          <Route path="*" element={<NoResults />} />
+          <Route
+            path="*"
+            element={
+              <NoResults title={"404"} underTitle={"Page was not found"} />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
