@@ -2,7 +2,7 @@
 
 exports[`SearchField > should render searchfield 1`] = `
 <div>
-  <div
+  <form
     class="searchfield__container"
   >
     <input
@@ -11,14 +11,11 @@ exports[`SearchField > should render searchfield 1`] = `
       type="search"
       value=""
     />
-    <button
+    <input
       class="searchfield__button"
-    >
-      <img
-        class="searchfield__image"
-        src="/project1/src/assets/search.png"
-      />
-    </button>
-  </div>
+      src="/project1/src/assets/search.png"
+      type="image"
+    />
+  </form>
 </div>
 `;

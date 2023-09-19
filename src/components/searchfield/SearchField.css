@@ -19,8 +19,7 @@
 }
 
 .searchfield__button {
-  width: 4.75em;
-  height: 4.75em;
+  padding: 1em;
   border-radius: 0px 5px 5px 0px;
   background-color: #db4032;
   border: 0;

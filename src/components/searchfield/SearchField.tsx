@@ -8,7 +8,7 @@ const SearchField = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="searchfield__container">
+    <form className="searchfield__container">
       <input
         type="search"
         placeholder="Pokemon Name"
@@ -16,13 +16,13 @@ const SearchField = () => {
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
-      <button
+      <input
+        type="image"
+        src={SearchIcon}
         className="searchfield__button"
         onClick={() => navigate("/pokemon/" + searchText.toLowerCase())}
-      >
-        <img className="searchfield__image" src={SearchIcon} />
-      </button>
-    </div>
+      />
+    </form>
   );
 };
 export default SearchField;

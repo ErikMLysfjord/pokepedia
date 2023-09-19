@@ -2,26 +2,6 @@
 
 exports[`FilterSelect > should match snapshot 1`] = `
 <div>
-  <select
-    class="filter-select"
-    placeholder="Select a color"
-  >
-    <option
-      value="test"
-    >
-      Test
-    </option>
-    <option
-      value="test2"
-    >
-      Test2
-    </option>
-  </select>
-</div>
-`;
-
-exports[`FilterSelect > should render 1`] = `
-<div>
   <div
     class="app__filtering-container"
   >
