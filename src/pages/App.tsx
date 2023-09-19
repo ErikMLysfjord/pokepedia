@@ -138,25 +138,29 @@ const App = () => {
   return (
     <>
       <div className="app__searchbar-filter-wrapper">
-        <FilterSelect
-          options={colorFilters}
-          selected={currentFilter}
-          label="Filter by color"
-          handleChange={(e) => {
-            handleResetPage();
-            handleChangeFilter(e.target.value);
-          }}
-        />
-        <FilterSelect
-          label="Results per page"
-          options={["1", "5", "10", "20"]}
-          selected={itemsPerPage.toString()}
-          handleChange={(e) => {
-            handleResetPage();
-            setItemsPerPage(parseInt(e.target.value));
-          }}
-        />
-        <SearchField />
+        <div className="app__filter-wrapper">
+          <FilterSelect
+            options={colorFilters}
+            selected={currentFilter}
+            label="Filter by color"
+            handleChange={(e) => {
+              handleResetPage();
+              handleChangeFilter(e.target.value);
+            }}
+          />
+          <FilterSelect
+            label="Results per page"
+            options={["1", "5", "10", "20"]}
+            selected={itemsPerPage.toString()}
+            handleChange={(e) => {
+              handleResetPage();
+              setItemsPerPage(parseInt(e.target.value));
+            }}
+          />
+        </div>
+        <div className="app__form-wrapper">
+          <SearchField />
+        </div>
       </div>
 
       <div className="app__main-body">
