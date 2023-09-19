@@ -10,8 +10,8 @@ const App = () => {
 
   const pokemonList = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-  ).sort();
-
+  ).sort((a, b) => a - b);
+  
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
