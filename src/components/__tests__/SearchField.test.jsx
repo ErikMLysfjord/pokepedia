@@ -26,14 +26,14 @@ describe("SearchField", () => {
     render(<SearchField />);
     const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "pikachu" } });
-    expect(search.toHaveValue("pikachu"));
+    expect(search).toHaveValue("pikachu");
   });
 
   test("Pokemon page for the searched pokemon is shown on search submit", () => {
     render(<SearchField />);
     const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "vulpix" } });
-    screen.getByRole("button").click;
+    screen.getByRole("button").click();
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
   });
 
@@ -42,7 +42,7 @@ describe("SearchField", () => {
     render(<SearchField />);
     const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "Vulpix" } });
-    screen.getByRole("button").click;
+    screen.getByRole("button").click();
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
   });
 });

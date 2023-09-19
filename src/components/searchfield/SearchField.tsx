@@ -18,7 +18,7 @@ const SearchField = () => {
       />
       <button
         className="searchfield__button"
-        onClick={() => navigate("/pokemon/" + searchText)}
+        onClick={() => navigate("/pokemon/" + searchText.toLowerCase())}
       >
         <img className="searchfield__image" src={SearchIcon} />
       </button>
