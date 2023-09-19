@@ -8,6 +8,7 @@ import Pagination from "../components/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 
 import FilterSelect from "../components/filter-select/FilterSelect";
+import SearchField from "../components/searchfield/SearchField";
 
 const useFetchPokemonQuery = (
   resultsPerPage: number,
@@ -218,26 +219,24 @@ const App = () => {
 
   return (
     <>
-      <div className="app__filtering-gap">
-        {isFavoritesPage ? (
-          <div className="app__filtering-container">
-            <span className="app__filtering-text">Sorting</span>
+      <div className="app__searchbar-filter-wrapper">
+        <div className="app__filter-wrapper">
+          {isFavoritesPage ? (
             <FilterSelect
               options={["Ascending", "Descending"]}
               selected={sort}
+              label="Sorting"
               handleChange={(e) => {
                 handleResetPage();
                 setSort(e.target.value);
                 sessionStorage.setItem("sort", e.target.value);
               }}
             />
-          </div>
-        ) : (
-          <div className="app__filtering-container">
-            <span className="app__filtering-text">Filter by color</span>
+          ) : (
             <FilterSelect
               options={colorFilters}
               selected={currentFilter}
+              label="Filter by color"
               handleChange={(e) => {
                 handleResetPage();
                 handleChangeFilter(e.target.value);
@@ -246,21 +245,25 @@ const App = () => {
                 }
               }}
             />
-          </div>
-        )}
+          )}
 
-        <div className="app__filtering-container">
-          <span className="app__filtering-text">Results per page</span>
-          <FilterSelect
-            options={["1", "5", "10", "20"]}
-            selected={itemsPerPage.toString()}
-            handleChange={(e) => {
-              handleResetPage();
-              setItemsPerPage(parseInt(e.target.value));
-            }}
-          />
+          <div className="app__filtering-container">
+            <FilterSelect
+              label="Results per page"
+              options={["1", "5", "10", "20"]}
+              selected={itemsPerPage.toString()}
+              handleChange={(e) => {
+                handleResetPage();
+                setItemsPerPage(parseInt(e.target.value));
+              }}
+            />
+          </div>
+          </div>
+          <div className="app__form-wrapper">
+            <SearchField />
+          </div>
         </div>
-      </div>
+    
 
       <div className="app__main-body">
         {/* Mapping over all pokémons, and rendering a Card for each one */}

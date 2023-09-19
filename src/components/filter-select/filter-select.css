@@ -2,14 +2,13 @@
   position: relative;
   display: inline-block;
   width: 200px;
-  height: 35px;
+  height: 3em;
   max-width: 300px;
-  margin-bottom: 20px;
   background-color: #fff;
-  color: #a5a5a5;
+  color: #000;
   border: 0;
   border-radius: 5px;
   box-shadow: 0 0 0 1px #e5e5e5;
-  margin: 0 10px;
-  padding: 0 10px;
+  padding: 0 1em;
+  font-size: 16px;
 }
