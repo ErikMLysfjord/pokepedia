@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./pages/App.tsx";
 import Pokemon from "./pages/PokemonPage.tsx";
-import PokemonFav from "./pages/Favorites.tsx";
 import "./styles/index.css";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import NoResults from "./pages/NoResults.tsx";
@@ -19,8 +18,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/pokemon/:id" element={<Pokemon />} />
-          <Route path="/favorites" element={<PokemonFav />} />
-          <Route path="*" element={<NoResults />} />
+          <Route path="/favorites" element={<App />} />
+          <Route
+            path="*"
+            element={
+              <NoResults title={"404"} underTitle={"Page was not found"} />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

@@ -7,6 +7,7 @@ import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
 import InfoCard from "../components/infoCard/InfoCard";
 import PokeBall from "../assets/pokemon-ball.svg";
+import NoResults from "./NoResults";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -23,8 +24,9 @@ const PokemonPage = () => {
   if (isLoading) {
     return <h1 className="loading">Loading...</h1>;
   }
+
   if (isError) {
-    return <h1 className="loading">Error fetching...</h1>;
+    return <NoResults title={"404"} underTitle={"No pokemon found"} />;
   }
 
   return (

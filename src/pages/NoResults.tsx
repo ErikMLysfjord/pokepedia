@@ -1,19 +1,17 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/App.css";
 
-/* Page to tell user that there are no results */
-const NoResults = () => {
-  const navigate = useNavigate();
+interface NoResultsProps {
+  title: string;
+  underTitle: string;
+}
 
+/* Page to tell user that there are no results */
+const NoResults = ({ title, underTitle }: NoResultsProps) => {
   return (
-    <>
-      <div className="no-results">
-        <h1>{"No results :("}</h1>
-        <button className="no-results__button" onClick={() => navigate("/")}>
-          {"Go to home page?"}
-        </button>
-      </div>
-    </>
+    <div className="no-results">
+      <h1 className="no-results__title">{title}</h1>
+      <h2 className="no-results__under-title">{underTitle}</h2>
+    </div>
   );
 };
 

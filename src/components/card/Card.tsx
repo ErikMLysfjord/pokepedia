@@ -17,46 +17,44 @@ const Card = ({ id }: { id: string }) => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <div
-        className={"card__container"}
-        onClick={() => navigate(`/pokemon/${data?.id}`)}
-      >
-        <div className="card__header">
-          <p>{"#" + data?.id}</p>
-          <p className="card__header-name">
-            {isError
-              ? "error"
-              : isLoading
-              ? "Loading..."
-              : data.name.toUpperCase()}
-          </p>
-          {data?.types.length == 2 ? (
-            <TypeCircle
-              primaryType={data?.types[0].type.name}
-              secondaryType={data?.types[1].type.name}
-            />
-          ) : (
-            <TypeCircle primaryType={data?.types[0].type.name} />
-          )}
-        </div>
-
-        <div className="card__header-separator-line"></div>
-
-        <div className="card__image-container">
-          {isError ? (
-            "error"
-          ) : isLoading ? (
-            "Loading..."
-          ) : data ? (
-            <img src={data.sprites.front_default} alt="" />
-          ) : (
-            "Something went wrong"
-          )}
-        </div>
-        <FavouriteButton id={data?.id ?? -1} />
+    <button
+      className="card__container"
+      onClick={() => navigate(`/pokemon/${data?.id}`)}
+    >
+      <div className="card__header">
+        {isLoading ? "" : isError ? "" : <p>{"#" + data?.id}</p>}
+        <p className="card__header-name">
+          {isError ? "Error" : isLoading ? "" : data.name.toUpperCase()}
+        </p>
+        {data?.types.length == 2 ? (
+          <TypeCircle
+            primaryType={data?.types[0].type.name}
+            secondaryType={data?.types[1].type.name}
+          />
+        ) : (
+          <TypeCircle primaryType={data?.types[0].type.name} />
+        )}
       </div>
-    </>
+
+      <div className="card__header-separator-line" />
+
+      <div className="card__image-container">
+        {isError ? (
+          "Error"
+        ) : isLoading ? (
+          <div className="card__image">{"Loading..."}</div>
+        ) : data ? (
+          <img
+            className="card__image"
+            src={data.sprites.front_default}
+            alt={`Image of ${data.name}`}
+          />
+        ) : (
+          "Something went wrong"
+        )}
+      </div>
+      <FavouriteButton id={data?.id ?? -1} />
+    </button>
   );
 };
 

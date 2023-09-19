@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import FilterSelect from "../filter-select/FilterSelect";
 import { fireEvent } from "@testing-library/dom";
+
+const mockTest = vi.fn();
 
 describe("FilterSelect", () => {
   test("should match snapshot", () => {
@@ -40,14 +42,15 @@ describe("FilterSelect", () => {
     render(
       <FilterSelect
         options={["test", "test2"]}
-        handleChange={(e) => e.target.value}
+        handleChange={(e) => mockTest(e.target.value)}
         selected="test"
       />
     );
 
     const select = screen.getByRole("combobox");
 
-    fireEvent.select(select, { target: { value: "test2" } });
-    expect(screen.getByRole("combobox")).toHaveValue("test2");
+    fireEvent.change(select, { target: { value: "test2" } });
+    expect(mockTest).toHaveBeenCalledWith("test2");
+    expect(mockTest).toHaveBeenCalled();
   });
 });

@@ -2,6 +2,7 @@ import "./FavouriteButton.css";
 import { useState, useEffect } from "react";
 
 const FavouriteButton = ({ id }: { id: number }) => {
+  // Check if the pokemon is in the favorites
   const fav = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
   ).includes(id ?? -1);
@@ -19,8 +20,9 @@ const FavouriteButton = ({ id }: { id: number }) => {
         height="25"
         viewBox="0 0 22 23"
         onClick={(e) => {
-          console.log("favouriteBtn clicked");
           e.stopPropagation();
+
+          // If the pokemon is already in the favorites, remove it and set the state to false
           if (
             (
               JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
@@ -29,6 +31,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
             localStorage.setItem(
               "favorites",
               JSON.stringify(
+                //  Get the favorites from the local storage, filter out the pokemon that was clicked on, and set the new favorites
                 (
                   JSON.parse(
                     localStorage.getItem("favorites") ?? "[]"
@@ -38,9 +41,11 @@ const FavouriteButton = ({ id }: { id: number }) => {
             );
             setFavorites(false);
           } else {
+            // If the pokemon is not in the favorites, add it and set the state to true
             localStorage.setItem(
               "favorites",
               JSON.stringify(
+                // Get the favorites from the local storage, add the pokemon that was clicked on, and set the new favorites
                 (
                   JSON.parse(
                     localStorage.getItem("favorites") ?? "[]"

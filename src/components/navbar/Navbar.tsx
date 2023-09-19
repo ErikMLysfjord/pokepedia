@@ -18,7 +18,10 @@ const Navbar = () => {
         <button
           disabled={location.pathname === "/favorites"}
           className="navbar__buttons"
-          onClick={() => navigate("/favorites")}
+          onClick={() => {
+            navigate("/favorites");
+            localStorage.setItem("previousPage", "favorites");
+          }}
         >
           Favorites
         </button>
