@@ -182,6 +182,7 @@
   justify-content: center;
   width: 100%;
   height: calc(100vh - 100px);
+  padding: 3em 0;
 }
 
 .pokemonPage__mainPanel {
