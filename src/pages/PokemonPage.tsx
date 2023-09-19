@@ -4,6 +4,7 @@ import "../styles/pokemon-page.css";
 import "../styles/App.css";
 import { useParams } from "react-router-dom";
 import PokemonTable from "../components/pokemonTable/PokemonTable";
+import TypeBadge from "../components/typeBadge/TypeBadge";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -114,8 +115,14 @@ const PokemonPage = () => {
             <p className="pokemonPage__pokemonName">{data.name}</p>
           </div>
           <div className="pokemonPage__typeBadges">
-            <p>dette blir badge</p>
-            <p>dette blir badge</p>
+            {data.types.map((type, index) => {
+              return (
+                <TypeBadge
+                  key={`${index}-${type.type.name}`}
+                  pokeType={type.type.name}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="pokemonPage__dataContainer">
