@@ -8,7 +8,6 @@ exports[`SearchField > should render searchfield 1`] = `
     <input
       class="searchfield"
       placeholder="Pokemon Name"
-      role="searchfield"
       type="search"
       value=""
     />

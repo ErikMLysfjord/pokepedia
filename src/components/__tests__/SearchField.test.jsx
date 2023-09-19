@@ -17,21 +17,21 @@ describe("SearchField", () => {
   test("should render searchfield", () => {
     const { container } = render(<SearchField />);
     expect(container).toMatchSnapshot();
-    expect(screen.getByRole("searchfield")).toBeInTheDocument();
-    expect(screen.getByRole("searchfield")).toHaveValue("");
+    expect(screen.getByRole("searchbox")).toBeInTheDocument();
+    expect(screen.getByRole("searchbox")).toHaveValue("");
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   test("should change textfield value", () => {
     render(<SearchField />);
-    const search = screen.getByRole("searchfield");
+    const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "pikachu" } });
     expect(search.toHaveValue("pikachu"));
   });
 
   test("Pokemon page for the searched pokemon is shown on search submit", () => {
     render(<SearchField />);
-    const search = screen.getByRole("searchfield");
+    const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "vulpix" } });
     screen.getByRole("button").click;
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
@@ -40,7 +40,7 @@ describe("SearchField", () => {
   test("Case sensitive search", () => {
     mockUseNavigate.mockClear();
     render(<SearchField />);
-    const search = screen.getByRole("searchfield");
+    const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "Vulpix" } });
     screen.getByRole("button").click;
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
