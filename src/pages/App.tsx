@@ -28,6 +28,7 @@ const useFetchPokemonQuery = (
       favorites,
     ],
     async () => {
+      // If we are on the favorites page, we want to fetch the data of the pokémons that are in the favorites
       if (favorites) {
         const fav = (
           JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
@@ -77,14 +78,6 @@ const useFetchPokemonQuery = (
 
             /* If we ever want to include non-default pokémons as well, then this code allows it */
             /* However, then we run into a bug where each page will display more results than we want */
-
-            /* const pokemonData: { name: string; url: string }[] = [];
-          speciesData.forEach((pokemon) => {
-            pokemon.varieties.forEach((element) => {
-              pokemonData.push(element.pokemon);
-            });
-          }); */
-
             return { pokemonData, listLength: data.pokemon_species.length };
           });
       }
@@ -95,12 +88,12 @@ const useFetchPokemonQuery = (
       /* If we have already fetched the data of all pokémons, then we don't need to fetch it again, since 
         we only need the length of the list if there are no filters
       */
-
       const prewPage = localStorage.getItem("previousPage");
       if (prewPage === "favorites") {
         localStorage.setItem("previousPage", "");
       }
 
+      // if prew page is favorites, we want to fetch the data of the pokémons to update the list length
       return pokemonLength === 0 || prewPage === "favorites"
         ? (
             await fetch(
