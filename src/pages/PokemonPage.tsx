@@ -6,8 +6,11 @@ import { useParams } from "react-router-dom";
 import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
 import InfoCard from "../components/infoCard/InfoCard";
-import PokeBall from "../assets/pokemon-ball.svg";
 import NoResults from "./NoResults";
+import weight from "../assets/weight.png";
+import height from "../assets/height.png";
+import mainability from "../assets/ability.png";
+import hiddenability from "../assets/hiddenability.png";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -61,12 +64,12 @@ const PokemonPage = () => {
               <InfoCard
                 label="Weight"
                 value={data.weight / 10 + "kg"}
-                icon={PokeBall}
+                icon={weight}
               />
               <InfoCard
                 label="Height"
                 value={data.height / 10 + "m"}
-                icon={PokeBall}
+                icon={height}
               />
             </div>
             {data.abilities.map((ability, index) => {
@@ -78,7 +81,7 @@ const PokemonPage = () => {
                     .charAt(0)
                     .toUpperCase()
                     .concat(ability.ability.name.slice(1))}
-                  icon={PokeBall}
+                  icon={!ability.is_hidden ? mainability : hiddenability}
                 />
               );
             })}
