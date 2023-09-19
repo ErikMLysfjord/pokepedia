@@ -5,6 +5,8 @@ import "../styles/App.css";
 import { useParams } from "react-router-dom";
 import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
+import InfoCard from "../components/infoCard/InfoCard";
+import PokeBall from "../assets/pokemon-ball.svg";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -127,7 +129,12 @@ const PokemonPage = () => {
         </div>
         <div className="pokemonPage__dataContainer">
           <div>
-            <p>her kommer kort</p>
+            <div className="pokemonPage__InfoCard-split-row">
+              <InfoCard label="Weight" value="xxx" icon={PokeBall} />
+              <InfoCard label="Height" value="xxx" icon={PokeBall} />
+            </div>
+            <InfoCard label="Ability" value="xxx" icon={PokeBall} />
+            <InfoCard label="Hidden Ability" value="xxx" icon={PokeBall} />
           </div>
           <PokemonTable {...data} />
         </div>

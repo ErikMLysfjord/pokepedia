@@ -255,3 +255,7 @@
     flex-direction: column;
   }
 }
+
+.pokemonPage__InfoCard-split-row {
+  display: flex;
+}
