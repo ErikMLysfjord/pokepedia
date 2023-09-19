@@ -199,7 +199,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
 }
 
 .pokemonPage__ImageCircle {
@@ -219,7 +218,18 @@
   height: 60%;
 }
 
-.pok .pokemonPage__dataContainer {
+.pokemonPage__nameNumber {
+  display: flex;
+  gap: 1em;
+}
+
+.pokemonPage__typeBadges {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.pokemonPage__dataContainer {
   width: 100%;
   display: flex;
   justify-content: space-between;

@@ -108,11 +108,11 @@ const PokemonPage = () => {
               alt="Image of pokémon"
             />
           </div>
-          <div className="pokemon">
+          <div className="pokemonPage__nameNumber">
             <p>#nummer</p>
             <p>navn</p>
           </div>
-          <div>
+          <div className="pokemonPage__typeBadges">
             <p>dette blir badge</p>
             <p>dette blir badge</p>
           </div>
