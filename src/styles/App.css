@@ -82,15 +82,29 @@
 }
 
 .app__filter-wrapper {
-  display: flex;
+  /* display: flex;
+  gap: 1em; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1em;
+  width: 50%;
+
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 }
 
 .app__form-wrapper {
   width: 25%;
+
   @media (max-width: 1200px) {
     width: 40%;
   }
+
   @media (max-width: 850px) {
     width: 100%;
   }

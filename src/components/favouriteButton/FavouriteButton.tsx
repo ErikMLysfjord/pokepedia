@@ -2,7 +2,6 @@ import "./FavouriteButton.css";
 import { useState, useEffect } from "react";
 
 const FavouriteButton = ({ id }: { id: number }) => {
-
   // Check if the pokemon is in the favorites
   const fav = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
