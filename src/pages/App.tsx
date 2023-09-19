@@ -10,65 +10,87 @@ import FilterSelect from "../components/filter-select/FilterSelect";
 const useFetchPokemonQuery = (
   resultsPerPage: number,
   pageNumber: number,
-  filter: string
+  filter: string,
+  pokemonLength: number
 ) => {
-  return useQuery(["pokemon", resultsPerPage, pageNumber, filter], async () => {
-    if (filter !== "none") {
-      /* Get data of all pokemon species */
-      return (await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`))
-        .json()
-        .then(async (data: PokemonColors) => {
-          /* Get URL of all pokémon-species of the specified color */
-          /* Sliced based on how many results per page and current page number */
-          const speciesUrl = data.pokemon_species
-            .map((species) => {
-              return species.url;
-            })
-            .slice(
-              (pageNumber - 1) * resultsPerPage,
-              pageNumber * resultsPerPage
+  return useQuery(
+    ["pokemon", resultsPerPage, pageNumber, filter, pokemonLength],
+    async () => {
+      if (filter !== "none") {
+        /* Get data of all pokemon species */
+        return (
+          await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`)
+        )
+          .json()
+          .then(async (data: PokemonColors) => {
+            /* Get URL of all pokémon-species of the specified color */
+            /* Sliced based on how many results per page and current page number */
+            const speciesUrl = data.pokemon_species
+              .map((species) => {
+                return species.url;
+              })
+              .slice(
+                (pageNumber - 1) * resultsPerPage,
+                pageNumber * resultsPerPage
+              );
+            /* Get data of all the species with the relevant color */
+            const speciesData: PokemonSpecies[] = await Promise.all(
+              speciesUrl.map(async (url) => {
+                const res = await fetch(url);
+                return res.json() as unknown as PokemonSpecies;
+              })
             );
-          /* Get data of all the species with the relevant color */
-          const speciesData: PokemonSpecies[] = await Promise.all(
-            speciesUrl.map(async (url) => {
-              const res = await fetch(url);
-              return res.json() as unknown as PokemonSpecies;
-            })
-          );
 
-          /* Get name and URL of the default pokémon in every species */
-          const pokemonData = speciesData.map((pokemon) => {
-            return pokemon.varieties[0].pokemon;
-          });
+            /* Get name and URL of the default pokémon in every species */
+            const pokemonData = speciesData.map((pokemon) => {
+              return pokemon.varieties[0].pokemon;
+            });
 
-          /* If we ever want to include non-default pokémons as well, then this code allows it */
-          /* However, then we run into a bug where each page will display more results than we want */
+            /* If we ever want to include non-default pokémons as well, then this code allows it */
+            /* However, then we run into a bug where each page will display more results than we want */
 
-          /* const pokemonData: { name: string; url: string }[] = [];
+            /* const pokemonData: { name: string; url: string }[] = [];
           speciesData.forEach((pokemon) => {
             pokemon.varieties.forEach((element) => {
               pokemonData.push(element.pokemon);
             });
           }); */
 
-          return { pokemonData, listLength: data.pokemon_species.length };
-        });
-    }
-    /* Get data of pokémons. Limit decides the amount of pokémons we get */
-    /* Offset decides from which pokémon we want. If we have 2 results per page and we are on page 2,
+            return { pokemonData, listLength: data.pokemon_species.length };
+          });
+      }
+      /* Get data of pokémons. Limit decides the amount of pokémons we get */
+      /* Offset decides from which pokémon we want. If we have 2 results per page and we are on page 2,
     then we want pokémon 21-40, so offset = 20. */
-    return (
-      await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
-          (pageNumber - 1) * resultsPerPage
-        }`
-      )
-    )
-      .json()
-      .then((data: Pokemons) => {
-        return { pokemonData: data.results, listLength: data.count };
-      });
-  });
+
+      /* If we have already fetched the data of all pokémons, then we don't need to fetch it again, since 
+        we only need the length of the list if there are no filters
+      */
+      return pokemonLength === 0
+        ? (
+            await fetch(
+              `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
+                (pageNumber - 1) * resultsPerPage
+              }`
+            )
+          )
+            .json()
+            .then((data: Pokemons) => {
+              return { pokemonData: data.results, listLength: data.count };
+            })
+        : {
+            pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
+              return {
+                name: "",
+                url:
+                  "https://pokeapi.co/api/v2/pokemon/" +
+                  ((pageNumber - 1) * resultsPerPage + i + 1),
+              };
+            }),
+            listLength: pokemonLength,
+          };
+    }
+  );
 };
 
 const colorFilters = [
@@ -103,11 +125,24 @@ const App = () => {
     sessionStorage.setItem("currentFilter", filter);
   };
 
+  const [pokemonLength, setPokemonLength] = useState(0);
+
   const {
     data: pokemonList,
     isLoading,
     isError,
-  } = useFetchPokemonQuery(itemsPerPage, currentPage, currentFilter);
+  } = useFetchPokemonQuery(
+    itemsPerPage,
+    currentPage,
+    currentFilter,
+    pokemonLength
+  );
+
+  useEffect(() => {
+    if (pokemonList?.listLength) {
+      setPokemonLength(pokemonList.listLength);
+    }
+  }, [pokemonList?.listLength]);
 
   /* Setting filtering values in session storage */
   useEffect(() => {
@@ -145,6 +180,9 @@ const App = () => {
             handleChange={(e) => {
               handleResetPage();
               handleChangeFilter(e.target.value);
+              if (e.target.value === "none") {
+                setPokemonLength(0);
+              }
             }}
           />
         </div>
