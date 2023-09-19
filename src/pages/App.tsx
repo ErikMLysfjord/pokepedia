@@ -95,7 +95,13 @@ const useFetchPokemonQuery = (
       /* If we have already fetched the data of all pokémons, then we don't need to fetch it again, since 
         we only need the length of the list if there are no filters
       */
-      return pokemonLength === 0
+
+      const prewPage = localStorage.getItem("previousPage");
+      if (prewPage === "favorites") {
+        localStorage.setItem("previousPage", "");
+      }
+
+      return pokemonLength === 0 || prewPage === "favorites"
         ? (
             await fetch(
               `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
@@ -160,6 +166,16 @@ const App = () => {
     setCurrentFilter(filter);
     sessionStorage.setItem("currentFilter", filter);
   };
+
+  //  if at new page, set current page to 1
+  useEffect(() => {
+    if (
+      isFavoritesPage ||
+      (!isFavoritesPage && localStorage.getItem("previousPage") === "favorites")
+    ) {
+      setCurrentPage(1);
+    }
+  }, [isFavoritesPage]);
 
   const [pokemonLength, setPokemonLength] = useState(0);
 
