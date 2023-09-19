@@ -6,6 +6,7 @@ import { Pokemons } from "../types/Pokemons";
 import PokemonSpecies from "../types/PokemonSpecies";
 import Pagination from "../components/pagination/Pagination";
 import FilterSelect from "../components/filter-select/FilterSelect";
+import SearchField from "../components/searchfield/SearchField";
 
 const useFetchPokemonQuery = (
   resultsPerPage: number,
@@ -136,21 +137,19 @@ const App = () => {
 
   return (
     <>
-      <div className="app__filtering-gap">
-        <div className="app__filtering-container">
-          <span className="app__filtering-text">Filter by color</span>
+      <div className="app__searchbar-filter-wrapper">
+        <div className="app__filter-wrapper">
           <FilterSelect
             options={colorFilters}
             selected={currentFilter}
+            label="Filter by color"
             handleChange={(e) => {
               handleResetPage();
               handleChangeFilter(e.target.value);
             }}
           />
-        </div>
-        <div className="app__filtering-container">
-          <span className="app__filtering-text">Results per page</span>
           <FilterSelect
+            label="Results per page"
             options={["1", "5", "10", "20"]}
             selected={itemsPerPage.toString()}
             handleChange={(e) => {
@@ -158,6 +157,9 @@ const App = () => {
               setItemsPerPage(parseInt(e.target.value));
             }}
           />
+        </div>
+        <div className="app__form-wrapper">
+          <SearchField />
         </div>
       </div>
 

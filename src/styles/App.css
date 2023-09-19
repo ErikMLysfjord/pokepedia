@@ -62,23 +62,36 @@
 }
 
 .app__filtering-container {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   color: black;
 }
 
-.app__filtering-gap {
-  margin: 50px auto;
-  min-height: 50px;
-  width: 85%;
-
-  @media (max-width: 768px) {
-    margin-bottom: 20px;
-  }
+.app__filtering-text {
+  font-size: 16px;
+  color: #6c6c6c;
 }
 
-.app__filtering-text {
-  font-size: 11px;
-  color: #6c6c6c;
-  margin-left: 10px;
+.app__searchbar-filter-wrapper {
+  width: 85%;
+  margin: 2em auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.app__filter-wrapper {
+  display: flex;
+  gap: 1em;
+}
+
+.app__form-wrapper {
+  width: 25%;
+  @media (max-width: 1200px) {
+    width: 40%;
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+  }
 }
