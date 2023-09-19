@@ -79,13 +79,4 @@ describe("Card component", () => {
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/1");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
   });
-
-  /*
-  it("renders error state", async () => {
-    global.fetch = mockFailFetch;
-    const { container } = renderComponent({ id: "1" });
-    await waitFor(() => expect(mockFailFetch).toHaveBeenCalledTimes(1));
-    expect(screen.getByText("error message")).toBeInTheDocument();
-  });
-  */
 });
