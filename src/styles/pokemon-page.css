@@ -187,6 +187,9 @@
 .pokemonPage__mainPanel {
   width: 50%;
   height: 70%;
+  @media (max-width: 750px) {
+    height: fit-content;
+  }
   padding: 4em;
   margin: auto;
   border-radius: 10px;
@@ -247,4 +250,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 865px) {
+    flex-direction: column;
+  }
 }
