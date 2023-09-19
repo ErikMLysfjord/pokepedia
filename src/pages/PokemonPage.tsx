@@ -3,6 +3,7 @@ import PokemonType from "../types/PokemonType";
 import "../styles/pokemon-page.css";
 import "../styles/App.css";
 import { useParams } from "react-router-dom";
+import PokemonTable from "../components/pokemonTable/PokemonTable";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -122,7 +123,7 @@ const PokemonPage = () => {
             <p>her kommer kort</p>
           </div>
           <div>
-            <p>generell data</p>
+            <PokemonTable {...data} />
           </div>
         </div>
       </div>
