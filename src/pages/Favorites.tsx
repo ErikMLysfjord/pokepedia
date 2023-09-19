@@ -32,19 +32,16 @@ const App = () => {
 
   return (
     <>
-      <div className="app__filtering-gap">
-        <div className="app__filtering-container">
-          <span className="app__filtering-text">Results per page</span>
-          <FilterSelect
-            label="results per page"
-            options={["1", "5", "10", "20"]}
-            selected={itemsPerPage.toString()}
-            handleChange={(e) => {
-              handleResetPage();
-              setItemsPerPage(parseInt(e.target.value));
-            }}
-          />
-        </div>
+      <div className="app__searchbar-filter-wrapper">
+        <FilterSelect
+          label="results per page"
+          options={["1", "5", "10", "20"]}
+          selected={itemsPerPage.toString()}
+          handleChange={(e) => {
+            handleResetPage();
+            setItemsPerPage(parseInt(e.target.value));
+          }}
+        />
       </div>
 
       <div className="app__main-body">
