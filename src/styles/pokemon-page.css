@@ -199,6 +199,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0;
 }
 
 .pokemonPage__ImageCircle {
@@ -206,8 +207,8 @@
   justify-content: center;
   align-items: center;
   border: 5px solid #db4032;
-  width: 15em;
-  height: 15em;
+  width: 12em;
+  height: 12em;
   margin: auto;
   border-radius: 100%;
   background-color: #0000;
@@ -220,7 +221,16 @@
 
 .pokemonPage__nameNumber {
   display: flex;
-  gap: 1em;
+  gap: 0.25em;
+  font-size: 36px;
+}
+
+.pokemonPage__id {
+  font-weight: lighter;
+}
+
+.pokemonPage__pokemonName {
+  text-transform: capitalize;
 }
 
 .pokemonPage__typeBadges {

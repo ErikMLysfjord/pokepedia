@@ -109,8 +109,8 @@ const PokemonPage = () => {
             />
           </div>
           <div className="pokemonPage__nameNumber">
-            <p>#nummer</p>
-            <p>navn</p>
+            <p className="pokemonPage__id">#{data.id}</p>
+            <p className="pokemonPage__pokemonName">{data.name}</p>
           </div>
           <div className="pokemonPage__typeBadges">
             <p>dette blir badge</p>
