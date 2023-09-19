@@ -39,7 +39,7 @@
 .card__header {
   display: flex;
   justify-content: space-evenly;
-  gap: 1em;
+  gap: 0.5em;
   width: 100%;
 }
 
