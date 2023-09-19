@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SearchField > should render searchfield 1`] = `
+<div>
+  <div
+    class="searchfield__container"
+  >
+    <input
+      class="searchfield"
+      placeholder="Pokemon Name"
+      role="searchfield"
+      type="search"
+      value=""
+    />
+    <button
+      class="searchfield__button"
+    >
+      <img
+        class="searchfield__image"
+        src="/project1/src/assets/search.png"
+      />
+    </button>
+  </div>
+</div>
+`;
