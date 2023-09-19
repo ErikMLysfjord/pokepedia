@@ -36,6 +36,7 @@ const App = () => {
         <div className="app__filtering-container">
           <span className="app__filtering-text">Results per page</span>
           <FilterSelect
+            label="results per page"
             options={["1", "5", "10", "20"]}
             selected={itemsPerPage.toString()}
             handleChange={(e) => {
