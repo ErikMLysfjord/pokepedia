@@ -1,7 +1,7 @@
 import "./InfoCard.css";
 
 interface InfoCardInterface {
-  label: string;
+  label: string; 
   value: string;
   icon: string;
 }
@@ -10,10 +10,10 @@ const InfoCard = (props: InfoCardInterface) => {
   return (
     <div className="infoCard">
       <div className="infoCard__iconAndLabel">
-        <img src={props.icon} />
+        <img className="infoIcon" src={props.icon} />
         <p>{props.label}</p>
       </div>
-      <p>{props.value}</p>
+      <p className="text">{props.value}</p>
     </div>
   );
 };

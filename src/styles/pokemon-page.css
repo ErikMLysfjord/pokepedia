@@ -181,7 +181,6 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - 100px);
   padding: 3em 0;
 }
 
@@ -233,7 +232,7 @@
   margin: 0;
 }
 
-.pokemonPage__id {
+.pokemonPage__id { 
   font-weight: lighter;
 }
 
@@ -245,6 +244,7 @@
   display: flex;
   align-items: center;
   gap: 1em;
+  margin-bottom: 2em;
 }
 
 .pokemonPage__dataContainer {
@@ -258,4 +258,5 @@
 
 .pokemonPage__InfoCard-split-row {
   display: flex;
+  gap: 1em;
 }

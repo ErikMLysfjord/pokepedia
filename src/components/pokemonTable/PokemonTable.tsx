@@ -4,7 +4,7 @@ import "./pokemonTable.css";
 const PokemonTable = (pokemonData: PokemonType) => {
   return (
     <div className="pokemon-table">
-      <h3>Base statistics</h3>
+      <h3 className="mini-header">Base statistics</h3>
       <table className="pokemon-table__stats">
         <tbody>
           {/* Mapping over a pokémons stats and displays it in a table */}
