@@ -3,7 +3,7 @@ import "./pokemonTable.css";
 
 const PokemonTable = (pokemonData: PokemonType) => {
   return (
-    <div className="pokemon-table__table-info">
+    <div className="pokemon-table">
       <h3>Base statistics</h3>
       <table className="pokemon-table__stats">
         <tbody>
@@ -12,7 +12,8 @@ const PokemonTable = (pokemonData: PokemonType) => {
             return (
               <tr
                 className="pokemon-table__stats-row"
-                key={`${index}-${stat.stat.name}`}>
+                key={`${index}-${stat.stat.name}`}
+              >
                 <th className="pokemon-table__stats-header">
                   {stat.stat.name}
                 </th>

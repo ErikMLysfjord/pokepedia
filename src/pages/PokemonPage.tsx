@@ -129,9 +129,7 @@ const PokemonPage = () => {
           <div>
             <p>her kommer kort</p>
           </div>
-          <div>
-            <PokemonTable {...data} />
-          </div>
+          <PokemonTable {...data} />
         </div>
       </div>
     </div>
