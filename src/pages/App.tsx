@@ -5,17 +5,46 @@ import PokemonColors from "../types/PokemonColors";
 import { Pokemons } from "../types/Pokemons";
 import PokemonSpecies from "../types/PokemonSpecies";
 import Pagination from "../components/pagination/Pagination";
+import { useLocation } from "react-router-dom";
+
 import FilterSelect from "../components/filter-select/FilterSelect";
 
 const useFetchPokemonQuery = (
   resultsPerPage: number,
   pageNumber: number,
   filter: string,
-  pokemonLength: number
+  pokemonLength: number,
+  sort: string,
+  favorites: boolean
 ) => {
   return useQuery(
-    ["pokemon", resultsPerPage, pageNumber, filter, pokemonLength],
+    [
+      "pokemon",
+      resultsPerPage,
+      pageNumber,
+      filter,
+      pokemonLength,
+      sort,
+      favorites,
+    ],
     async () => {
+      if (favorites) {
+        const fav = (
+          JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
+        ).sort((a, b) => (sort == "Ascending" ? a - b : b - a));
+
+        const pokemonData = fav
+          .slice((pageNumber - 1) * resultsPerPage, pageNumber * resultsPerPage)
+          .map((id) => {
+            return {
+              name: "",
+              url: "https://pokeapi.co/api/v2/pokemon/" + id,
+            };
+          });
+
+        return { pokemonData, listLength: fav.length };
+      }
+
       if (filter !== "none") {
         /* Get data of all pokemon species */
         return (
@@ -108,9 +137,16 @@ const colorFilters = [
 ];
 
 const App = () => {
+  const location = useLocation();
+  const isFavoritesPage = location.pathname.endsWith("/favorites");
+
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(sessionStorage.getItem("itemsPerPage") ?? "1")
+  );
+
+  const [sort, setSort] = useState(
+    sessionStorage.getItem("sort") ?? "Ascending"
   );
   const [currentFilter, setCurrentFilter] = useState(
     sessionStorage.getItem("currentFilter") ?? "none"
@@ -135,7 +171,9 @@ const App = () => {
     itemsPerPage,
     currentPage,
     currentFilter,
-    pokemonLength
+    pokemonLength,
+    sort,
+    isFavoritesPage
   );
 
   useEffect(() => {
@@ -172,20 +210,36 @@ const App = () => {
   return (
     <>
       <div className="app__filtering-gap">
-        <div className="app__filtering-container">
-          <span className="app__filtering-text">Filter by color</span>
-          <FilterSelect
-            options={colorFilters}
-            selected={currentFilter}
-            handleChange={(e) => {
-              handleResetPage();
-              handleChangeFilter(e.target.value);
-              if (e.target.value === "none") {
-                setPokemonLength(0);
-              }
-            }}
-          />
-        </div>
+        {isFavoritesPage ? (
+          <div className="app__filtering-container">
+            <span className="app__filtering-text">Sorting</span>
+            <FilterSelect
+              options={["Ascending", "Descending"]}
+              selected={sort}
+              handleChange={(e) => {
+                handleResetPage();
+                setSort(e.target.value);
+                sessionStorage.setItem("sort", e.target.value);
+              }}
+            />
+          </div>
+        ) : (
+          <div className="app__filtering-container">
+            <span className="app__filtering-text">Filter by color</span>
+            <FilterSelect
+              options={colorFilters}
+              selected={currentFilter}
+              handleChange={(e) => {
+                handleResetPage();
+                handleChangeFilter(e.target.value);
+                if (e.target.value === "none") {
+                  setPokemonLength(0);
+                }
+              }}
+            />
+          </div>
+        )}
+
         <div className="app__filtering-container">
           <span className="app__filtering-text">Results per page</span>
           <FilterSelect
