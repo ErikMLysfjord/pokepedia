@@ -19,7 +19,10 @@
   width: 200px;
   border-radius: 10px;
   margin: auto;
-  text-decoration: none;
+  font: inherit;
+  display: block;
+  border: none;
+  padding: 0;
   color: black;
   transition: 200ms;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
@@ -50,4 +53,9 @@
 .card__header-separator-line {
   height: 1px;
   background-color: #d2d2d2;
+}
+
+.card__image {
+  height: 96px;
+  width: 96px;
 }
