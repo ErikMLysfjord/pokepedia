@@ -94,7 +94,6 @@ Then for each of the pokémons we want to display, we must do the previously men
 
 ```
 https://pokeapi.co/api/v2/pokemon/{pokemonID}
-
 ```
 
 As a side note, we thought we could save ourselves some API calls by assuming the name of the pokémon species is the same as the pokémon name. This is not the case, as seen in the example where Aegislash is a species but the variants of the species are Aegislash Shield and Aegislash Blade. Trying to do an API call on "aegislash" alone would produce an error.
