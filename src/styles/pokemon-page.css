@@ -86,16 +86,3 @@
     flex-direction: column;
   }
 }
-
-.pokemonPage__ImageCircle {
-  border: 10px #db4032;
-  width: 1em;
-  height: 1em;
-  margin: auto;
-  background-color: #0000;
-}
-
-.pokemonPage__image {
-  width: 50%;
-  height: 50%;
-}
