@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Navbar > should render 1`] = `
+exports[`Navbar > matches snapshot 1`] = `
 <div>
   <nav
     class="navbar__red-bar"

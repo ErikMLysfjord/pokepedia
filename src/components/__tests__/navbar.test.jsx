@@ -15,24 +15,23 @@ vi.mock("react-router-dom", async () => {
 });
 
 describe("Navbar", () => {
-  test("should render", () => {
+  test("matches snapshot", () => {
     const { container } = render(<Navbar />);
-
     expect(container).toMatchSnapshot();
+  });
+
+  test("should render", () => {
+    render(<Navbar />);
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByRole("navigation")).toBeInTheDocument();
   });
 
   test("should navigate to home", () => {
     render(<Navbar />);
-
     screen.getByText("Home").click();
-
     expect(mockUseNavigate).toHaveBeenCalledWith("/");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
-
     screen.getByRole("img").click();
-
     expect(mockUseNavigate).toHaveBeenCalledWith("/");
     expect(mockUseNavigate).toHaveBeenCalledTimes(2);
   });
@@ -40,9 +39,7 @@ describe("Navbar", () => {
   test("should navigate to favorites", () => {
     mockUseNavigate.mockClear();
     render(<Navbar />);
-
     screen.getByText("Favorites").click();
-
     expect(mockUseNavigate).toHaveBeenCalledWith("/favorites");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
   });
