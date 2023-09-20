@@ -72,9 +72,13 @@ Then for each of the pokémons, we have to call on the API to get the data for t
 https://pokeapi.co/api/v2/pokemon/{pokemonName or pokemonID}
 ```
 
+### Sorting
+
 We realised that the API we used offered minimal support for filtering and sorting, so we had to do it by ourselves.
 
 To be able to sort on the pokedex number of a pokémon, we store the pokedex number in a list in local storage. When we get the pokémons from the API, we sort them by the pokedex number in the list. This is done both ascendingly and descendingly. Then each card component has to call on the previous API endpoint.
+
+### Filtering
 
 However, when we want to filter on color, we have to do it by ourselves. We do this by first calling on the API to find all pokémon species that are of a certain color. Then we call on the API to get the data for each of these species. This is done by using the species url that is provided in the first call. Then, each card component has to call on the API to get the data for the pokémon it is supposed to display. This is done by using the url that is provided in the second call. Due to all this logic, having 20 results per page and filtering on color will produce a lot of API calls which we can't avoid.
 
@@ -98,10 +102,12 @@ https://pokeapi.co/api/v2/pokemon/{pokemonID}
 
 As a side note, we thought we could save ourselves some API calls by assuming the name of the pokémon species is the same as the pokémon name. This is not the case, as seen in the example where Aegislash is a species but the variants of the species are Aegislash Shield and Aegislash Blade. Trying to do an API call on "aegislash" alone would produce an error.
 
+### Search
+
 The API also does not have support for search, so we solved this by making the search field navigate the user to `/pokemon/{pokemonName}`. This will make the page `PokemonPage.tsx` do an API call on the following endpoint:
 
 ```
 https://pokeapi.co/api/v2/pokemon/{pokemonName}
 ```
 
-If the user searches for a pokémon that does not exist, the page will display an error message. However, if the user searched for an existing pokémon such as "pikachu", the page will display the data for the pokémon.
+If the user searches for a pokémon that does not exist, the page will display an error message. However, if the user searched for an existing pokémon such as "pikachu", the page will display the data for Pikachu.
