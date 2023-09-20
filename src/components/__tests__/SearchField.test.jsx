@@ -14,9 +14,13 @@ vi.mock("react-router-dom", async () => {
 });
 
 describe("SearchField", () => {
-  test("should render searchfield", () => {
+  test("matches snapshot", () => {
     const { container } = render(<SearchField />);
     expect(container).toMatchSnapshot();
+  });
+
+  test("should render searchfield", () => {
+    render(<SearchField />);
     expect(screen.getByRole("searchbox")).toBeInTheDocument();
     expect(screen.getByRole("searchbox")).toHaveValue("");
     expect(screen.getByRole("button")).toBeInTheDocument();

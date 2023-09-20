@@ -24,7 +24,6 @@ describe("Card component", () => {
   };
 
   const mockFetch = vi.fn(() => Promise.resolve({ json: () => mockData }));
-  const mockFailFetch = vi.fn(() => Promise.reject(new Error("error message")));
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -53,29 +52,27 @@ describe("Card component", () => {
   });
 
   it("matches snapshot", async () => {
-    const { asFragment } = renderComponent({ id: "1" });
+    const { asFragment } = renderComponent({ id: "1" }); //TODO
     await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1));
     expect(asFragment()).toMatchSnapshot();
   });
 
   it("renders pokemon name and number", async () => {
-    const { container } = renderComponent({ id: "1" });
+    renderComponent({ id: "1" }); //TODO
     await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1));
     expect(screen.getByText("#1")).toBeInTheDocument();
     expect(screen.getByText("BULBASAUR")).toBeInTheDocument();
   });
 
   it("renders pokemon image", async () => {
-    const { container } = renderComponent({ id: "1" });
+    renderComponent({ id: "1" });
     await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1));
     expect(screen.getByRole("img")).toHaveAttribute("src", "bulbasaur.png");
   });
 
   it("navigates to pokemon details page when clicked", async () => {
-    const { container } = renderComponent({ id: "1" });
-
+    renderComponent({ id: "1" }); //TODO
     screen.getByRole("img").click();
-
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/1");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
   });
