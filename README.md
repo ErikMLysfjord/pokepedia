@@ -98,3 +98,11 @@ https://pokeapi.co/api/v2/pokemon/{pokemonID}
 ```
 
 As a side note, we thought we could save ourselves some API calls by assuming the name of the pokémon species is the same as the pokémon name. This is not the case, as seen in the example where Aegislash is a species but the variants of the species are Aegislash Shield and Aegislash Blade. Trying to do an API call on "aegislash" alone would produce an error.
+
+The API also does not have support for search, so we solved this by making the search field navigate the user to `/pokemon/{pokemonName}`. This will make the page `PokemonPage.tsx` do an API call on the following endpoint:
+
+```
+https://pokeapi.co/api/v2/pokemon/{pokemonName}
+```
+
+If the user searches for a pokémon that does not exist, the page will display an error message. However, if the user searched for an existing pokémon such as "pikachu", the page will display the data for the pokémon.
