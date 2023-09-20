@@ -3,11 +3,7 @@
 <html lang="en">
 
 <head>
-<<<<<<<< HEAD:coverage/pagination/Pagination.tsx.html
-    <title>Code coverage report for pagination/Pagination.tsx</title>
-========
     <title>Code coverage report for searchfield/SearchField.tsx</title>
->>>>>>>> 655bd8a10df085d68fbe61aacb7c142d4fca52dd:coverage/searchfield/SearchField.tsx.html
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -23,17 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-<<<<<<<< HEAD:coverage/pagination/Pagination.tsx.html
-        <h1><a href="../index.html">All files</a> / <a href="index.html">pagination</a> Pagination.tsx</h1>
-========
         <h1><a href="../index.html">All files</a> / <a href="index.html">searchfield</a> SearchField.tsx</h1>
->>>>>>>> 655bd8a10df085d68fbe61aacb7c142d4fca52dd:coverage/searchfield/SearchField.tsx.html
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -54,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>28/28</span>
             </div>
         
             
@@ -99,19 +91,12 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<<<<<<<< HEAD:coverage/pagination/Pagination.tsx.html
-========
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -133,67 +118,35 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
->>>>>>>> 655bd8a10df085d68fbe61aacb7c142d4fca52dd:coverage/searchfield/SearchField.tsx.html
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import "./pagination.css";
-import ButtonLeft from "../../assets/button-left.svg";
-import ButtonRight from "../../assets/button-right.svg";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
+import "./SearchField.css";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "../../assets/search.png";
 &nbsp;
-interface PaginationProps {
-  count: number;
-  currentIndex: number;
-  onChange: (index: number) =&gt; void;
-}
+const SearchField = () =&gt; {
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
 &nbsp;
-const Pagination = ({ count, currentIndex, onChange }: PaginationProps) =&gt; {
   return (
-    &lt;div className="pagination"&gt;
-      &lt;button
-        className="pagination__button pagination__left-button"
-        onClick={() =&gt; onChange(currentIndex - 1)}
-        disabled={currentIndex === 0}
-      &gt;
-        &lt;img src={ButtonLeft} alt="Previous" /&gt;
-      &lt;/button&gt;
-      &lt;span className="pagination__index"&gt;{currentIndex + 1}&lt;/span&gt;
-      &lt;button
-        className="pagination__button pagination__right-button"
-        onClick={() =&gt; onChange(currentIndex + 1)}
-        disabled={currentIndex === count - 1}
-      &gt;
-        &lt;img src={ButtonRight} alt="Next" /&gt;
-      &lt;/button&gt;
-    &lt;/div&gt;
+    &lt;form className="searchfield__container"&gt;
+      &lt;input
+        type="search"
+        placeholder="Pokemon Name"
+        className="searchfield"
+        value={searchText}
+        onChange={(e) =&gt; setSearchText(e.target.value)}
+      /&gt;
+      &lt;input
+        type="image"
+        src={SearchIcon}
+        className="searchfield__button"
+        onClick={() =&gt; navigate("/pokemon/" + searchText.toLowerCase())}
+      /&gt;
+    &lt;/form&gt;
   );
 };
-&nbsp;
-export default Pagination;
+export default SearchField;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -201,7 +154,7 @@ export default Pagination;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-20T10:06:13.581Z
+                at 2023-09-20T11:05:30.153Z
             </div>
         <script src="../prettify.js"></script>
         <script>
