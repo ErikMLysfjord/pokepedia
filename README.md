@@ -21,7 +21,7 @@ We use eslint to lint our code. To run the linter, run `npm run lint` in the roo
 We used vitest for DOM, snapshot and Unit-testing. To run the tests, run `npm run test` in the root folder.
 To check the test-coverage, run `npm run coverage` in the root folder.
 
-As shown below in the coverage report, we have 18 tests and 6 files. Each file is correspondent to a component to be tested and we have tested the following components, with the described tests:
+As shown below in the coverage report, we have 26 tests and 7 files. Each file is correspondent to a component to be tested and we have tested the following components, with the described tests:
 
 - Card
   - Snapshot test
