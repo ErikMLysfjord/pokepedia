@@ -7,10 +7,10 @@ import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
 import InfoCard from "../components/infoCard/InfoCard";
 import NoResults from "./NoResults";
-import weight from "../assets/weight.png";
-import height from "../assets/height.png";
-import mainability from "../assets/ability.png";
-import hiddenability from "../assets/hiddenability.png";
+import weight from "../assets/weight.svg";
+import height from "../assets/ruler.svg";
+import mainability from "../assets/ability.svg";
+import hiddenability from "../assets/hidden-ability.svg";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
