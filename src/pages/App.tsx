@@ -6,7 +6,6 @@ import { Pokemons } from "../types/Pokemons";
 import PokemonSpecies from "../types/PokemonSpecies";
 import Pagination from "../components/pagination/Pagination";
 import { useLocation } from "react-router-dom";
-
 import FilterSelect from "../components/filter-select/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 
@@ -258,12 +257,11 @@ const App = () => {
               }}
             />
           </div>
-          </div>
-          <div className="app__form-wrapper">
-            <SearchField />
-          </div>
         </div>
-    
+        <div className="app__form-wrapper">
+          <SearchField />
+        </div>
+      </div>
 
       <div className="app__main-body">
         {/* Mapping over all pokémons, and rendering a Card for each one */}
@@ -273,7 +271,6 @@ const App = () => {
       </div>
       <div className="app__pagination-container">
         <Pagination
-          /* The count is not actually 100. This will be fixed in Sondres MR */
           count={Math.ceil(pokemonList.listLength / itemsPerPage)}
           currentIndex={currentPage - 1}
           onChange={(index) => {
