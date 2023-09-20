@@ -1,6 +1,11 @@
 import "./FavouriteButton.css";
 import { useState, useEffect } from "react";
 
+/**
+ * Checks if the current item is in the favorites list stored in localStorage.
+ * @param id - The id of the item to check.
+ * @returns {JSX.Element} - A React component that renders a star icon.
+ */
 const FavouriteButton = ({ id }: { id: number }) => {
   // Check if the pokemon is in the favorites
   const fav = (
@@ -56,8 +61,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
             );
             setFavorites(true);
           }
-        }}
-      >
+        }}>
         <path
           className={` ${
             favorites

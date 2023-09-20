@@ -1,10 +1,23 @@
 import { ChangeEvent } from "react";
 import "./filter-select.css";
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param str - The string to capitalize.
+ * @returns The capitalized string.
+ */
 const Capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+/**
+ * A component that renders a select element for filtering options.
+ * @param options - An array of strings representing the available options.
+ * @param selected - A string representing the currently selected option.
+ * @param handleChange - A function that handles the change event of the select element.
+ * @param label - A string representing the label of the select element.
+ * @returns {JSX.Element} - A React component that renders a select element for filtering options.
+ */
 const FilterSelect = ({
   options,
   selected,
@@ -23,8 +36,7 @@ const FilterSelect = ({
         value={selected}
         onChange={handleChange}
         className="filter-select"
-        placeholder="Select a color"
-      >
+        placeholder="Select a color">
         {options.map((option, index) => {
           if (option === "none") {
             return (

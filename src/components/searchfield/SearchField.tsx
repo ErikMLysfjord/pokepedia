@@ -3,6 +3,10 @@ import "./SearchField.css";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../../assets/search.png";
 
+/**
+ * A component that renders a search field for searching Pokemon by name.
+ * @returns {JSX.Element} - The SearchField component.
+ */
 const SearchField = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
