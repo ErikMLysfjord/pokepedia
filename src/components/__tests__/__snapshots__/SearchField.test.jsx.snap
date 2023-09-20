@@ -7,7 +7,7 @@ exports[`SearchField > matches snapshot 1`] = `
   >
     <input
       class="searchfield"
-      placeholder="Pokemon Name"
+      placeholder="Pokemon name"
       type="search"
       value=""
     />

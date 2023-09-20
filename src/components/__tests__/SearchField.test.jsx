@@ -37,7 +37,7 @@ describe("SearchField", () => {
     render(<SearchField />);
     const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "vulpix" } });
-    screen.getByRole("button").click();
+    fireEvent.submit(screen.getByRole("button"));
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
   });
 
@@ -46,7 +46,7 @@ describe("SearchField", () => {
     render(<SearchField />);
     const search = screen.getByRole("searchbox");
     fireEvent.change(search, { target: { value: "Vulpix" } });
-    screen.getByRole("button").click();
+    fireEvent.submit(screen.getByRole("button"));
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/vulpix");
   });
 });
