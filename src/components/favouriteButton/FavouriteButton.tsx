@@ -5,19 +5,20 @@ const FavouriteButton = ({ id }: { id: number }) => {
   // Check if the pokemon is in the favorites
   const fav = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-  ).includes(id ?? -1);
+  ).includes(id);
 
   const [favorites, setFavorites] = useState(fav);
 
   useEffect(() => {
     setFavorites(fav);
   }, [fav]);
-  return (
+  return ( 
     <div className="FavouriteButton__container">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="25"
         height="25"
+        role="svg"
         viewBox="0 0 22 23"
         onClick={(e) => {
           e.stopPropagation();
@@ -26,7 +27,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
           if (
             (
               JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-            ).includes(id ?? -1)
+            ).includes(id)
           ) {
             localStorage.setItem(
               "favorites",
@@ -50,7 +51,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
                   JSON.parse(
                     localStorage.getItem("favorites") ?? "[]"
                   ) as number[]
-                ).concat([id ?? -1])
+                ).concat([id])
               )
             );
             setFavorites(true);

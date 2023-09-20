@@ -1,178 +1,87 @@
-.pokemon-page__container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
-  width: 70%;
-  margin: 0 auto 2rem auto;
-
-  @media (max-width: 1300px) {
-    width: 90%;
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
+.pokemonPage__centerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 3em 0;
 }
 
-.pokemon-page__image {
-  height: 500px;
-  width: 500px;
-  margin: 0 auto;
-
-  @media (max-width: 1000px) {
-    height: 300px;
-    width: 300px;
+.pokemonPage__mainPanel {
+  width: 50%;
+  height: 70%;
+  @media (max-width: 750px) {
+    height: fit-content;
   }
+  padding: 4em;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
 }
 
-.pokemon-page__intro {
-  color: black;
+.pokemonPage__pokemonIngress {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
+  align-items: center;
+  gap: 1em;
 }
 
-.pokemon-page__intro-header {
+.pokemonPage__ImageCircle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #db4032;
+  width: 12em;
+  height: 12em;
+  margin: auto;
+  border-radius: 100%;
+  background-color: #0000;
+}
+
+.pokemonPage__image {
+  width: 60%;
+  height: 60%;
+}
+
+.pokemonPage__nameNumber {
+  display: flex;
+  gap: 0.25em;
+  font-size: 36px;
+}
+
+.pokemonPage__nameNumber p {
+  margin: 0;
+}
+
+.pokemonPage__id { 
+  font-weight: lighter;
+}
+
+.pokemonPage__pokemonName {
   text-transform: capitalize;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-    text-align: center;
-  }
 }
 
-.pokemon-page__info-left {
-  color: black;
-  background-color: #d2d2d2;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-top: -4rem;
-
-  @media (max-width: 1000px) {
-    margin: 0;
-    margin-top: 1rem;
-  }
+.pokemonPage__typeBadges {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 2em;
 }
 
-.pokemon-page__abilities {
-  text-transform: capitalize;
-}
-
-.pokemon-page__info-right {
-  background-color: #d2d2d2;
-  border-radius: 10px;
-  padding: 1rem;
-  color: black;
-  margin-top: -4rem;
-
-  @media (max-width: 1000px) {
-    margin: 0;
-    margin-top: 1rem;
-  }
-}
-
-.pokemon-page__stats-table {
+.pokemonPage__dataContainer {
   width: 100%;
-}
-
-.pokemon-page__stats-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  width: 100%;
-  border-bottom: 1px solid black;
+  @media (max-width: 865px) {
+    flex-direction: column;
+  }
 }
 
-.pokemon-page__stats-header {
-  text-transform: uppercase;
-}
-
-.pokemon-page__type {
-  border: 1px solid black;
-  display: inline-block;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 10px;
-  color: white;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-}
-
-.pokemon-page__type-poison {
-  background-color: #a59;
-}
-
-.pokemon-page__type-grass {
-  background-color: #7c5;
-}
-
-.pokemon-page__type-fire {
-  background-color: #f42;
-}
-
-.pokemon-page__type-flying {
-  background-color: #89f;
-}
-
-.pokemon-page__type-bug {
-  background-color: #ab2;
-}
-
-.pokemon-page__type-dragon {
-  background-color: #76e;
-}
-
-.pokemon-page__type-steel {
-  background-color: #aab;
-}
-
-.pokemon-page__type-ice {
-  background-color: #6cf;
-}
-
-.pokemon-page__type-electric {
-  background-color: #fc3;
-}
-
-.pokemon-page__type-fighting {
-  background-color: #b54;
-}
-
-.pokemon-page__type-ground {
-  background-color: #db5;
-}
-
-.pokemon-page__type-rock {
-  background-color: #ba6;
-}
-
-.pokemon-page__type-psychic {
-  background-color: #f59;
-}
-
-.pokemon-page__type-ghost {
-  background-color: #66b;
-}
-
-.pokemon-page__type-dark {
-  background-color: #754;
-}
-
-.pokemon-page__type-fairy {
-  background-color: #e9e;
-}
-
-.pokemon-page__type-normal {
-  background-color: #aa9;
-}
-
-.pokemon-page__type-water {
-  background-color: #39f;
+.pokemonPage__InfoCard-split-row {
+  display: flex;
+  gap: 1em;
+  @media (max-width: 865px) {
+    flex-direction: column;
+  }
 }
