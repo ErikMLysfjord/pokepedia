@@ -27,6 +27,8 @@
   align-items: center;
   cursor: pointer;
   transition: 200ms;
+  width: 22px;
+  height: 22px;
 }
 
 .searchfield__button:hover {
