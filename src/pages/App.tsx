@@ -9,6 +9,16 @@ import { useLocation } from "react-router-dom";
 import FilterSelect from "../components/filter-select/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 
+/**
+ * Custom hook that fetches Pokemon data from the PokeAPI based on given parameters.
+ * @param resultsPerPage - The number of results to display per page.
+ * @param pageNumber - The current page number.
+ * @param filter - The filter to apply to the Pokemon data (e.g. by color).
+ * @param pokemonLength - The length of the Pokemon list.
+ * @param sort - The sorting order for the Pokemon data.
+ * @param favorites - A boolean indicating whether to display only favorite Pokemon.
+ * @returns An object containing the Pokemon data.
+ */
 const useFetchPokemonQuery = (
   resultsPerPage: number,
   pageNumber: number,
@@ -135,6 +145,10 @@ const colorFilters = [
   "white",
 ];
 
+/**
+ * Renders the main page of the application.
+ * @returns {JSX.Element} - A React component that renders the main page.
+ */
 const App = () => {
   const location = useLocation();
   const isFavoritesPage = location.pathname.endsWith("/favorites");

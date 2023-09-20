@@ -2,6 +2,10 @@ import "./Navbar.css";
 import PokemonBall from "../../assets/pokemon-ball.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
+/**
+ * A navigation bar component that displays a logo and two buttons for navigating to the home page and the favorites page.
+ * @returns {JSX.Element} - A React component that renders a navigation bar.
+ */
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,15 +25,13 @@ const Navbar = () => {
           onClick={() => {
             navigate("/favorites");
             localStorage.setItem("previousPage", "favorites");
-          }}
-        >
+          }}>
           Favorites
         </button>
         <button
           disabled={location.pathname === "/"}
           className="navbar__buttons"
-          onClick={() => navigate("/")}
-        >
+          onClick={() => navigate("/")}>
           Home
         </button>
       </div>

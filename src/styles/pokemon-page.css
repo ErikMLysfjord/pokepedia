@@ -54,7 +54,7 @@
   margin: 0;
 }
 
-.pokemonPage__id { 
+.pokemonPage__id {
   font-weight: lighter;
 }
 
@@ -81,7 +81,21 @@
 .pokemonPage__InfoCard-split-row {
   display: flex;
   gap: 1em;
+
   @media (max-width: 865px) {
     flex-direction: column;
   }
+}
+
+.pokemonPage__ImageCircle {
+  border: 10px #db4032;
+  width: 1em;
+  height: 1em;
+  margin: auto;
+  background-color: #0000;
+}
+
+.pokemonPage__image {
+  width: 50%;
+  height: 50%;
 }

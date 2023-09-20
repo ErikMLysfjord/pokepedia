@@ -1,11 +1,20 @@
 import "../styles/App.css";
 
+/**
+ * Props for the NoResults component.
+ */
 interface NoResultsProps {
   title: string;
   underTitle: string;
 }
 
-/* Page to tell user that there are no results */
+/**
+ * Renders a component to display a message when no results are found.
+ * @param {Object} props - The component props.
+ * @param {string} props.title - The title of the message.
+ * @param {string} props.underTitle - The subtitle of the message.
+ * @returns {JSX.Element} - A React component to display a message when no results are found.
+ */
 const NoResults = ({ title, underTitle }: NoResultsProps) => {
   return (
     <div className="no-results">

@@ -6,12 +6,22 @@ import TypeCircle from "../typecircle/TypeCircle";
 import FavouriteButton from "../favouriteButton/FavouriteButton";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Custom hook that fetches a Pokemon by its ID.
+ * @param id - The ID of the Pokemon to fetch.
+ * @returns The result of the query, containing the Pokemon data.
+ */
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
     (await fetch(id)).json()
   );
 };
 
+/**
+ * Fetches data for a specific Pokemon based on the provided ID.
+ * @param id - The ID of the Pokemon to fetch.
+ * @returns {JSX.Element} - A React component that renders a card for a Pokemon.
+ */
 const Card = ({ id }: { id: string }) => {
   const { data, isError, isLoading } = useFetchPokemonQuery(id);
   const navigate = useNavigate();
@@ -19,8 +29,7 @@ const Card = ({ id }: { id: string }) => {
   return (
     <button
       className="card__container"
-      onClick={() => navigate(`/pokemon/${data?.id}`)}
-    >
+      onClick={() => navigate(`/pokemon/${data?.id}`)}>
       <div className="card__header">
         {isLoading ? "" : isError ? "" : <p>{"#" + data?.id}</p>}
         <p className="card__header-name">
