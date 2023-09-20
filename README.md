@@ -18,8 +18,43 @@ We use eslint to lint our code. To run the linter, run `npm run lint` in the roo
 
 ## Testing
 
-We used vitest for DOM- and Unit-testing. To run the tests, run `npm run test` in the root folder.
+We used vitest for DOM, snapshot and Unit-testing. To run the tests, run `npm run test` in the root folder.
 To check the test-coverage, run `npm run coverage` in the root folder.
+
+As shown below in the coverage report, we have 18 tests and 6 files. Each file is correspondent to a component to be tested and we have tested the following components, with the described tests:
+
+- Card
+  - Snapshot test
+  - Renders pokemon name and number
+  - renders pokemon image
+  - navigates to pokemon page on click
+- FavouriteButton
+  - Snapshot test
+  - Renders component
+  - Adds pokemon to favourites on click
+  - Changes style on click
+- Filter-Select
+  - Snapshot test
+  - Render test
+  - Can change option
+- Navbar
+  - Snapshot test navbar
+  - Render test
+  - Navigate to home
+  - Navigate to favorites-page
+- Pagination
+  - Snapshot test
+  - Render test
+  - Navigate to next page
+  - Navigate to previous page
+- Searchfield
+  - Snapshot test
+  - Render test
+  - Change textfield value
+  - Correct navigation on search submit
+  - Case sensitivity test
+
+![Coverage report](./src/assets/test-coverage.png)
 
 ## API-usage
 
