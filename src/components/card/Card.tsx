@@ -29,7 +29,8 @@ const Card = ({ id }: { id: string }) => {
   return (
     <button
       className="card__container"
-      onClick={() => navigate(`/pokemon/${data?.id}`)}>
+      onClick={() => navigate(`/pokemon/${data?.id}`)}
+    >
       <div className="card__header">
         {isLoading ? "" : isError ? "" : <p>{"#" + data?.id}</p>}
         <p className="card__header-name">
@@ -62,7 +63,7 @@ const Card = ({ id }: { id: string }) => {
           "Something went wrong"
         )}
       </div>
-      <FavouriteButton id={data?.id ?? -1} />
+      <FavouriteButton id={data?.id ? -1 : -1} />
     </button>
   );
 };
