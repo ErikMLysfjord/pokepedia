@@ -29,14 +29,16 @@ const Pagination = ({ count, currentIndex, onChange }: PaginationProps) => {
       <button
         className="pagination__button pagination__left-button"
         onClick={() => onChange(currentIndex - 1)}
-        disabled={currentIndex === 0}>
+        disabled={currentIndex === 0}
+      >
         <img src={ButtonLeft} alt="Previous" />
       </button>
       <span className="pagination__index">{currentIndex + 1}</span>
       <button
         className="pagination__button pagination__right-button"
         onClick={() => onChange(currentIndex + 1)}
-        disabled={currentIndex === count - 1}>
+        disabled={currentIndex === count - 1}
+      >
         <img src={ButtonRight} alt="Next" />
       </button>
     </div>

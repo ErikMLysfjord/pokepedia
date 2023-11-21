@@ -17,7 +17,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
   useEffect(() => {
     setFavorites(fav);
   }, [fav]);
-  return ( 
+  return (
     <div className="FavouriteButton__container">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,8 @@ const FavouriteButton = ({ id }: { id: number }) => {
             );
             setFavorites(true);
           }
-        }}>
+        }}
+      >
         <path
           className={` ${
             favorites

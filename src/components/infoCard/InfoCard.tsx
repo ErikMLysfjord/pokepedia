@@ -1,7 +1,7 @@
 import "./InfoCard.css";
 
 interface InfoCardInterface {
-  label: string; 
+  label: string;
   value: string;
   icon: string;
 }

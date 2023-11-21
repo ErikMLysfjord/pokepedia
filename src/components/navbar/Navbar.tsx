@@ -25,13 +25,15 @@ const Navbar = () => {
           onClick={() => {
             navigate("/favorites");
             localStorage.setItem("previousPage", "favorites");
-          }}>
+          }}
+        >
           Favorites
         </button>
         <button
           disabled={location.pathname === "/"}
           className="navbar__buttons"
-          onClick={() => navigate("/")}>
+          onClick={() => navigate("/")}
+        >
           Home
         </button>
       </div>

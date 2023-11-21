@@ -10,7 +10,9 @@
     "linting": "eslint --fix .",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "prettier": "npx prettier --write .",
+    "prettiercheck": "npx prettier --check ."
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",
@@ -31,6 +33,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "jsdom": "^22.1.0",
+    "prettier": "^3.1.0",
     "react-router-dom": "^6.15.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.5",

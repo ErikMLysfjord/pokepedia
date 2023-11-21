@@ -28,7 +28,8 @@ const TypeCircle = (props: ITypeCircle) => {
         width="16"
         height="15"
         viewBox="0 0 16 15"
-        fill="none">
+        fill="none"
+      >
         <path
           d="M7.50488 15C5.51576 15 3.6081 14.2098 2.20158 12.8033C0.795059 11.3968 0.00488281 9.48912 0.00488281 7.5C0.00488281 5.51088 0.795059 3.60322 2.20158 2.1967C3.6081 0.790177 5.51576 3.00349e-07 7.50488 0L7.50488 7.5V15Z"
           className={"TypeCircle__typeColor-" + props.primaryType}

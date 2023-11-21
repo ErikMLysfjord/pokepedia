@@ -29,7 +29,8 @@ const Card = ({ id }: { id: string }) => {
   return (
     <button
       className="card__container"
-      onClick={() => navigate(`/pokemon/${data?.id}`)}>
+      onClick={() => navigate(`/pokemon/${data?.id}`)}
+    >
       <div className="card__header">
         {isLoading ? "" : isError ? "" : <p>{"#" + data?.id}</p>}
         <p className="card__header-name">
