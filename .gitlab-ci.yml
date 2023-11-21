@@ -1,5 +1,6 @@
 stages:
   - prettier
+  - test
   - build
   - deploy
 
@@ -10,6 +11,16 @@ prettier:
     - echo "Running Prettier"
     - npm ci
     - npm run prettiercheck
+  only:
+    - merge_requests
+
+test:
+  stage: test
+  image: node:19
+  script:
+    - echo "Running tests"
+    - npm ci
+    - npm run test
   only:
     - merge_requests
 
