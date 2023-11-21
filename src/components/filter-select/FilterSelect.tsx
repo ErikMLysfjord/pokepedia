@@ -36,7 +36,8 @@ const FilterSelect = ({
         value={selected}
         onChange={handleChange}
         className="filter-select"
-        placeholder="Select a color">
+        placeholder="Select a color"
+      >
         {options.map((option, index) => {
           if (option === "none") {
             return (
