@@ -11,6 +11,7 @@ import weight from "../assets/weight.svg";
 import height from "../assets/ruler.svg";
 import mainability from "../assets/ability.svg";
 import hiddenability from "../assets/hidden-ability.svg";
+import FavouriteButton from "../components/favouriteButton/FavouriteButton";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -35,6 +36,11 @@ const PokemonPage = () => {
   return (
     <div className="pokemonPage__centerContent">
       <div className="pokemonPage__mainPanel">
+        <FavouriteButton
+          favID={data.id}
+          /* style={{ float: "right" }} */
+          className="pokemonPage__favButton"
+        />
         <div className="pokemonPage__pokemonIngress">
           <div className="pokemonPage__ImageCircle">
             <img

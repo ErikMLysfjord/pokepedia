@@ -1,16 +1,20 @@
 import "./FavouriteButton.css";
 import { useState, useEffect } from "react";
 
+interface FavouriteButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+  favID: number;
+}
+
 /**
  * Checks if the current item is in the favorites list stored in localStorage.
  * @param id - The id of the item to check.
- * @returns {JSX.Element} - A React component that renders a star icon.
+ * @returns - A React component that renders a star icon.
  */
-const FavouriteButton = ({ id }: { id: number }) => {
+const FavouriteButton = ({ favID, ...rest }: FavouriteButtonProps) => {
   // Check if the pokemon is in the favorites
   const fav = (
     JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-  ).includes(id);
+  ).includes(favID);
 
   const [favorites, setFavorites] = useState(fav);
 
@@ -18,7 +22,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
     setFavorites(fav);
   }, [fav]);
   return (
-    <div className="FavouriteButton__container">
+    <div className="FavouriteButton__container" {...rest}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="25"
@@ -32,7 +36,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
           if (
             (
               JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-            ).includes(id)
+            ).includes(favID)
           ) {
             localStorage.setItem(
               "favorites",
@@ -42,7 +46,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
                   JSON.parse(
                     localStorage.getItem("favorites") ?? "[]"
                   ) as number[]
-                ).filter((ids) => ids != id)
+                ).filter((ids) => ids != favID)
               )
             );
             setFavorites(false);
@@ -56,7 +60,7 @@ const FavouriteButton = ({ id }: { id: number }) => {
                   JSON.parse(
                     localStorage.getItem("favorites") ?? "[]"
                   ) as number[]
-                ).concat([id])
+                ).concat([favID])
               )
             );
             setFavorites(true);
