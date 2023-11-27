@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import "./filter-select.css";
+import "./FilterSelect.css";
 
 /**
  * Capitalizes the first letter of a string.

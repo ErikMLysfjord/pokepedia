@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 import FilterSelect from "../components/filter-select/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 import { useFetchPokemonQuery } from "../utils/UseFetchPokemonQuery";
-import { colorFilters, resultsPerPage } from "../config/filterValues";
-import { PokemonGrid } from "../components/pokemonGrid/pokemonGrid";
+import { colorFilters, resultsPerPage } from "../data/constants";
+import { PokemonGrid } from "../components/pokemonGrid/PokemonGrid";
 
 /**
  * Renders the main page of the application.

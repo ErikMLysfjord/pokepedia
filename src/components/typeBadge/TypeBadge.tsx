@@ -1,4 +1,4 @@
-import "./typeBadge.css";
+import "./TypeBadge.css";
 
 const TypeBadge = ({ pokeType }: { pokeType: string }) => {
   return (
