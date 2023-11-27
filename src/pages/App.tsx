@@ -39,7 +39,6 @@ const App = () => {
   //  if at new page, set current page to 1
   useEffect(() => {
     if (
-      isfavouritesPage ||
       isFavouritesPage ||
       (!isFavouritesPage &&
         localStorage.getItem("previousPage") === "favourites")
@@ -60,7 +59,7 @@ const App = () => {
     currentFilter,
     pokemonLength,
     sort,
-    isfavouritesPage
+    isFavouritesPage
   );
 
   useEffect(() => {
