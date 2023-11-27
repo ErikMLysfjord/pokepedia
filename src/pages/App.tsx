@@ -41,7 +41,8 @@ const App = () => {
     if (
       isfavouritesPage ||
       isFavouritesPage ||
-      (!isFavouritesPage && localStorage.getItem("previousPage") === "favourites")
+      (!isFavouritesPage &&
+        localStorage.getItem("previousPage") === "favourites")
     ) {
       setCurrentPage(1);
     }
