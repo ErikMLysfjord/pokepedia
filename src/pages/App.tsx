@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import Card from "../components/card/Card";
 import Pagination from "../components/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import FilterSelect from "../components/filter-select/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 import { useFetchPokemonQuery } from "../utils/UseFetchPokemonQuery";
 import { colorFilters, resultsPerPage } from "../config/filterValues";
+import { PokemonGrid } from "../components/pokemonGrid/pokemonGrid";
 
 /**
  * Renders the main page of the application.
@@ -139,12 +139,8 @@ const App = () => {
         </div>
       </div>
 
-      <div className="app__main-body">
-        {/* Mapping over all pokémons, and rendering a Card for each one */}
-        {pokemonList.pokemonData?.map((pokemon, index) => {
-          return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
-        })}
-      </div>
+      <PokemonGrid pokemonList={pokemonList} />
+
       <div className="app__pagination-container">
         <Pagination
           count={Math.ceil(pokemonList.listLength / itemsPerPage)}
