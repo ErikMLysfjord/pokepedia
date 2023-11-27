@@ -3,7 +3,7 @@ import PokemonBall from "../../assets/pokemon-ball.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /**
- * A navigation bar component that displays a logo and two buttons for navigating to the home page and the favorites page.
+ * A navigation bar component that displays a logo and two buttons for navigating to the home page and the favourites page.
  * @returns {JSX.Element} - A React component that renders a navigation bar.
  */
 const Navbar = () => {
@@ -20,14 +20,14 @@ const Navbar = () => {
       />
       <div className="navbar__button-container">
         <button
-          disabled={location.pathname === "/favorites"}
+          disabled={location.pathname === "/favourites"}
           className="navbar__buttons"
           onClick={() => {
-            navigate("/favorites");
-            localStorage.setItem("previousPage", "favorites");
+            navigate("/favourites");
+            localStorage.setItem("previousPage", "favourites");
           }}
         >
-          Favorites
+          favourites
         </button>
         <button
           disabled={location.pathname === "/"}

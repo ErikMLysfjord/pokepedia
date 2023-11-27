@@ -13,7 +13,7 @@ import { PokemonGrid } from "../components/pokemonGrid/PokemonGrid";
  */
 const App = () => {
   const location = useLocation();
-  const isFavoritesPage = location.pathname.endsWith("/favorites");
+  const isfavouritesPage = location.pathname.endsWith("/favourites");
 
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
@@ -39,12 +39,12 @@ const App = () => {
   //  if at new page, set current page to 1
   useEffect(() => {
     if (
-      isFavoritesPage ||
-      (!isFavoritesPage && localStorage.getItem("previousPage") === "favorites")
+      isfavouritesPage ||
+      (!isfavouritesPage && localStorage.getItem("previousPage") === "favourites")
     ) {
       setCurrentPage(1);
     }
-  }, [isFavoritesPage]);
+  }, [isfavouritesPage]);
 
   const [pokemonLength, setPokemonLength] = useState(0);
 
@@ -58,7 +58,7 @@ const App = () => {
     currentFilter,
     pokemonLength,
     sort,
-    isFavoritesPage
+    isfavouritesPage
   );
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const App = () => {
     <>
       <div className="app__searchbar-filter-wrapper">
         <div className="app__filter-wrapper">
-          {isFavoritesPage ? (
+          {isfavouritesPage ? (
             <FilterSelect
               options={["Ascending", "Descending"]}
               selected={sort}

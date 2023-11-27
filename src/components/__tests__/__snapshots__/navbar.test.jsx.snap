@@ -16,7 +16,7 @@ exports[`Navbar > matches snapshot 1`] = `
       <button
         class="navbar__buttons"
       >
-        Favorites
+        favourites
       </button>
       <button
         class="navbar__buttons"
