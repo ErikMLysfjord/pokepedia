@@ -41,7 +41,7 @@ As shown below in the coverage report, we have 26 tests and 7 files. Each file i
   - Snapshot test navbar
   - Render test
   - Navigate to home
-  - Navigate to favorites-page
+  - Navigate to favourites-page
 - Pagination
   - Snapshot test
   - Render test

@@ -36,11 +36,11 @@ describe("Navbar", () => {
     expect(mockUseNavigate).toHaveBeenCalledTimes(2);
   });
 
-  test("should navigate to favorites", () => {
+  test("should navigate to favourites", () => {
     mockUseNavigate.mockClear();
     render(<Navbar />);
-    screen.getByText("Favorites").click();
-    expect(mockUseNavigate).toHaveBeenCalledWith("/favorites");
+    screen.getByText("Favourites").click();
+    expect(mockUseNavigate).toHaveBeenCalledWith("/favourites");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,4 +1,4 @@
-import "./pagination.css";
+import "./Pagination.css";
 import ButtonLeft from "../../assets/button-left.svg";
 import ButtonRight from "../../assets/button-right.svg";
 

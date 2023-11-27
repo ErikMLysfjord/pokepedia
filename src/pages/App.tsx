@@ -1,149 +1,11 @@
 import { useState, useEffect } from "react";
-import Card from "../components/card/Card";
-import { useQuery } from "@tanstack/react-query";
-import PokemonColors from "../types/PokemonColors";
-import { Pokemons } from "../types/Pokemons";
-import PokemonSpecies from "../types/PokemonSpecies";
 import Pagination from "../components/pagination/Pagination";
 import { useLocation } from "react-router-dom";
-import FilterSelect from "../components/filter-select/FilterSelect";
+import FilterSelect from "../components/filterSelect/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
-
-/**
- * Custom hook that fetches Pokemon data from the PokeAPI based on given parameters.
- * @param resultsPerPage - The number of results to display per page.
- * @param pageNumber - The current page number.
- * @param filter - The filter to apply to the Pokemon data (e.g. by color).
- * @param pokemonLength - The length of the Pokemon list.
- * @param sort - The sorting order for the Pokemon data.
- * @param favorites - A boolean indicating whether to display only favorite Pokemon.
- * @returns An object containing the Pokemon data.
- */
-const useFetchPokemonQuery = (
-  resultsPerPage: number,
-  pageNumber: number,
-  filter: string,
-  pokemonLength: number,
-  sort: string,
-  favorites: boolean
-) => {
-  return useQuery(
-    [
-      "pokemon",
-      resultsPerPage,
-      pageNumber,
-      filter,
-      pokemonLength,
-      sort,
-      favorites,
-    ],
-    async () => {
-      // If we are on the favorites page, we want to fetch the data of the pokémons that are in the favorites
-      if (favorites) {
-        const fav = (
-          JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
-        ).sort((a, b) => (sort == "Ascending" ? a - b : b - a));
-
-        const pokemonData = fav
-          .slice((pageNumber - 1) * resultsPerPage, pageNumber * resultsPerPage)
-          .map((id) => {
-            return {
-              name: "",
-              url: "https://pokeapi.co/api/v2/pokemon/" + id,
-            };
-          });
-
-        return { pokemonData, listLength: fav.length };
-      }
-
-      if (filter !== "none") {
-        /* Get data of all pokemon species */
-        return (
-          await fetch(`https://pokeapi.co/api/v2/pokemon-color/${filter}`)
-        )
-          .json()
-          .then(async (data: PokemonColors) => {
-            /* Get URL of all pokémon-species of the specified color */
-            /* Sliced based on how many results per page and current page number */
-            const speciesUrl = data.pokemon_species
-              .map((species) => {
-                return species.url;
-              })
-              .slice(
-                (pageNumber - 1) * resultsPerPage,
-                pageNumber * resultsPerPage
-              );
-            /* Get data of all the species with the relevant color */
-            const speciesData: PokemonSpecies[] = await Promise.all(
-              speciesUrl.map(async (url) => {
-                const res = await fetch(url);
-                return res.json() as unknown as PokemonSpecies;
-              })
-            );
-
-            /* Get name and URL of the default pokémon in every species */
-            const pokemonData = speciesData.map((pokemon) => {
-              return pokemon.varieties[0].pokemon;
-            });
-
-            /* If we ever want to include non-default pokémons as well, then this code allows it */
-            /* However, then we run into a bug where each page will display more results than we want */
-            return { pokemonData, listLength: data.pokemon_species.length };
-          });
-      }
-      /* Get data of pokémons. Limit decides the amount of pokémons we get */
-      /* Offset decides from which pokémon we want. If we have 2 results per page and we are on page 2,
-    then we want pokémon 21-40, so offset = 20. */
-
-      /* If we have already fetched the data of all pokémons, then we don't need to fetch it again, since 
-        we only need the length of the list if there are no filters
-      */
-      const prewPage = localStorage.getItem("previousPage");
-      if (prewPage === "favorites") {
-        localStorage.setItem("previousPage", "");
-      }
-
-      // if prew page is favorites, we want to fetch the data of the pokémons to update the list length
-      return pokemonLength === 0 || prewPage === "favorites"
-        ? (
-            await fetch(
-              `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
-                (pageNumber - 1) * resultsPerPage
-              }`
-            )
-          )
-            .json()
-            .then((data: Pokemons) => {
-              return { pokemonData: data.results, listLength: data.count };
-            })
-        : {
-            pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
-              return {
-                name: "",
-                url:
-                  "https://pokeapi.co/api/v2/pokemon/" +
-                  ((pageNumber - 1) * resultsPerPage + i + 1),
-              };
-            }),
-            listLength: pokemonLength,
-          };
-    }
-  );
-};
-
-const colorFilters = [
-  "none",
-  "green",
-  "red",
-  "blue",
-  "black",
-  "purple",
-  "yellow",
-  "brown",
-  "gray",
-  "pink",
-  "white",
-];
+import { useFetchPokemonQuery } from "../utils/UseFetchPokemonQuery";
+import { colorFilters, resultsPerPage } from "../data/constants";
+import { PokemonGrid } from "../components/pokemonGrid/PokemonGrid";
 
 /**
  * Renders the main page of the application.
@@ -151,7 +13,7 @@ const colorFilters = [
  */
 const App = () => {
   const location = useLocation();
-  const isFavoritesPage = location.pathname.endsWith("/favorites");
+  const isFavouritesPage = location.pathname.endsWith("/favourites");
 
   /* States based on filters that are set in session storage */
   const [itemsPerPage, setItemsPerPage] = useState(
@@ -177,12 +39,13 @@ const App = () => {
   //  if at new page, set current page to 1
   useEffect(() => {
     if (
-      isFavoritesPage ||
-      (!isFavoritesPage && localStorage.getItem("previousPage") === "favorites")
+      isFavouritesPage ||
+      (!isFavouritesPage &&
+        localStorage.getItem("previousPage") === "favourites")
     ) {
       setCurrentPage(1);
     }
-  }, [isFavoritesPage]);
+  }, [isFavouritesPage]);
 
   const [pokemonLength, setPokemonLength] = useState(0);
 
@@ -196,7 +59,7 @@ const App = () => {
     currentFilter,
     pokemonLength,
     sort,
-    isFavoritesPage
+    isFavouritesPage
   );
 
   useEffect(() => {
@@ -234,7 +97,7 @@ const App = () => {
     <>
       <div className="app__searchbar-filter-wrapper">
         <div className="app__filter-wrapper">
-          {isFavoritesPage ? (
+          {isFavouritesPage ? (
             <FilterSelect
               options={["Ascending", "Descending"]}
               selected={sort}
@@ -263,7 +126,7 @@ const App = () => {
           <div className="app__filtering-container">
             <FilterSelect
               label="Results per page"
-              options={["1", "5", "10", "20"]}
+              options={resultsPerPage}
               selected={itemsPerPage.toString()}
               handleChange={(e) => {
                 handleResetPage();
@@ -277,12 +140,8 @@ const App = () => {
         </div>
       </div>
 
-      <div className="app__main-body">
-        {/* Mapping over all pokémons, and rendering a Card for each one */}
-        {pokemonList.pokemonData?.map((pokemon, index) => {
-          return <Card key={`${pokemon.name}-${index}`} id={pokemon.url} />;
-        })}
-      </div>
+      <PokemonGrid pokemonList={pokemonList} />
+
       <div className="app__pagination-container">
         <Pagination
           count={Math.ceil(pokemonList.listLength / itemsPerPage)}

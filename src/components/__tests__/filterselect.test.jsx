@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
-import FilterSelect from "../filter-select/FilterSelect";
+import FilterSelect from "../filterSelect/FilterSelect";
 import { fireEvent } from "@testing-library/dom";
 
 const mockTest = vi.fn();

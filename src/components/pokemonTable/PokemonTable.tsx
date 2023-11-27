@@ -1,5 +1,5 @@
 import PokemonType from "../../types/PokemonType";
-import "./pokemonTable.css";
+import "./PokemonTable.css";
 
 const PokemonTable = (pokemonData: PokemonType) => {
   return (
