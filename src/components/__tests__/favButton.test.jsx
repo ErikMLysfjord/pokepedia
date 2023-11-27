@@ -15,14 +15,14 @@ describe("FavouriteButton", () => {
 
   it("should add to favourites when clicked", () => {
     localStorage.setItem("favourites", JSON.stringify([]));
-    render(<FavouriteButton id={1} />);
+    render(<FavouriteButton favID={1} />);
     fireEvent.click(screen.getByRole("svg"));
     expect(JSON.parse(localStorage.getItem("favourites") ?? "[]")).toEqual([1]);
   });
 
   it("should remove from favourites when clicked", () => {
     localStorage.setItem("favourites", JSON.stringify([1]));
-    render(<FavouriteButton id={1} />);
+    render(<FavouriteButton favID={1} />);
     fireEvent.click(screen.getByRole("svg"));
     expect(JSON.parse(localStorage.getItem("favourites") ?? "[]")).toEqual([]);
   });
