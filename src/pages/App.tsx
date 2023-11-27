@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Pagination from "../components/pagination/Pagination";
 import { useLocation } from "react-router-dom";
-import FilterSelect from "../components/t/FilterSelect";
+import FilterSelect from "../components/filterSelect/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 import { useFetchPokemonQuery } from "../utils/UseFetchPokemonQuery";
 import { colorFilters, resultsPerPage } from "../data/constants";
