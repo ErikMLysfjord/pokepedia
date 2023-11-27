@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import PokemonType from "../types/PokemonType";
 import "../styles/pokemon-page.css";
 import "../styles/App.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
 import InfoCard from "../components/infoCard/InfoCard";
@@ -12,6 +12,7 @@ import height from "../assets/ruler.svg";
 import mainability from "../assets/ability.svg";
 import hiddenability from "../assets/hidden-ability.svg";
 import FavouriteButton from "../components/favouriteButton/FavouriteButton";
+import arrowleft from "../assets/arrow-circle-left.svg";
 
 const useFetchPokemonQuery = (id: string) => {
   return useQuery<PokemonType>(["pokemon", id], async () =>
@@ -20,6 +21,7 @@ const useFetchPokemonQuery = (id: string) => {
 };
 
 const PokemonPage = () => {
+  const navigate = useNavigate();
   const searchParams = useParams();
   const { data, isLoading, isError } = useFetchPokemonQuery(
     searchParams.id?.toString() ?? "1"
@@ -36,11 +38,13 @@ const PokemonPage = () => {
   return (
     <div className="pokemonPage__centerContent">
       <div className="pokemonPage__mainPanel">
-        <FavouriteButton
-          favID={data.id}
-          /* style={{ float: "right" }} */
-          className="pokemonPage__favButton"
-        />
+        <FavouriteButton favID={data.id} className="pokemonPage__favButton" />
+        <button
+          className="pokemonPage__back-button"
+          onClick={() => navigate("/")}
+        >
+          <img src={arrowleft} loading="lazy" />
+        </button>
         <div className="pokemonPage__pokemonIngress">
           <div className="pokemonPage__ImageCircle">
             <img

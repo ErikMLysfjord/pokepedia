@@ -97,3 +97,21 @@
 .pokemonPage__favButton:hover {
   cursor: pointer;
 }
+
+.pokemonPage__back-button {
+  background-color: #db4032;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25em;
+}
+
+.pokemonPage__back-button:focus {
+  outline: 4px dashed blue;
+}
+
+.pokemonPage__back-button:hover {
+  cursor: pointer;
+}
