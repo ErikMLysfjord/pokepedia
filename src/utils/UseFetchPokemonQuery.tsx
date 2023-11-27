@@ -10,7 +10,7 @@ import { Pokemons } from "../types/Pokemons";
  * @param filter - The filter to apply to the Pokemon data (e.g. by color).
  * @param pokemonLength - The length of the Pokemon list.
  * @param sort - The sorting order for the Pokemon data.
- * @param favorites - A boolean indicating whether to display only favorite Pokemon.
+ * @param favourites - A boolean indicating whether to display only favourite Pokemon.
  * @returns An object containing the Pokemon data.
  */
 export const useFetchPokemonQuery = (
@@ -19,7 +19,7 @@ export const useFetchPokemonQuery = (
   filter: string,
   pokemonLength: number,
   sort: string,
-  favorites: boolean
+  favourites: boolean
 ) => {
   return useQuery(
     [
@@ -29,13 +29,13 @@ export const useFetchPokemonQuery = (
       filter,
       pokemonLength,
       sort,
-      favorites,
+      favourites,
     ],
     async () => {
-      // If we are on the favorites page, we want to fetch the data of the pokémons that are in the favorites
-      if (favorites) {
+      // If we are on the favourites page, we want to fetch the data of the pokémons that are in the favourites
+      if (favourites) {
         const fav = (
-          JSON.parse(localStorage.getItem("favorites") ?? "[]") as number[]
+          JSON.parse(localStorage.getItem("favourites") ?? "[]") as number[]
         ).sort((a, b) => (sort == "Ascending" ? a - b : b - a));
 
         const pokemonData = fav
@@ -92,35 +92,34 @@ export const useFetchPokemonQuery = (
       /* If we have already fetched the data of all pokémons, then we don't need to fetch it again, since 
               we only need the length of the list if there are no filters
             */
-      const prewPage = localStorage.getItem("previousPage");
-      if (prewPage === "favorites") {
+      const previousPage = localStorage.getItem("previousPage");
+      if (previousPage === "favourites") {
         localStorage.setItem("previousPage", "");
       }
 
-      // if prew page is favorites, we want to fetch the data of the pokémons to update the list length
-      return pokemonLength === 0 || prewPage === "favorites"
+      // if prew page is favourites, we want to fetch the data of the pokémons to update the list length
+      return pokemonLength === 0 || previousPage === "favourites"
         ? (
-            await fetch(
-              `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
-                (pageNumber - 1) * resultsPerPage
-              }`
-            )
+          await fetch(
+            `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${(pageNumber - 1) * resultsPerPage
+            }`
           )
-            .json()
-            .then((data: Pokemons) => {
-              return { pokemonData: data.results, listLength: data.count };
-            })
+        )
+          .json()
+          .then((data: Pokemons) => {
+            return { pokemonData: data.results, listLength: data.count };
+          })
         : {
-            pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
-              return {
-                name: "",
-                url:
-                  "https://pokeapi.co/api/v2/pokemon/" +
-                  ((pageNumber - 1) * resultsPerPage + i + 1),
-              };
-            }),
-            listLength: pokemonLength,
-          };
+          pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
+            return {
+              name: "",
+              url:
+                "https://pokeapi.co/api/v2/pokemon/" +
+                ((pageNumber - 1) * resultsPerPage + i + 1),
+            };
+          }),
+          listLength: pokemonLength,
+        };
     }
   );
 };
