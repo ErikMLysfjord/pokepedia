@@ -5,20 +5,7 @@ import { useLocation } from "react-router-dom";
 import FilterSelect from "../components/filter-select/FilterSelect";
 import SearchField from "../components/searchfield/SearchField";
 import { useFetchPokemonQuery } from "../utils/UseFetchPokemonQuery";
-
-const colorFilters = [
-  "none",
-  "green",
-  "red",
-  "blue",
-  "black",
-  "purple",
-  "yellow",
-  "brown",
-  "gray",
-  "pink",
-  "white",
-];
+import { colorFilters, resultsPerPage } from "../config/filterValues";
 
 /**
  * Renders the main page of the application.
@@ -138,7 +125,7 @@ const App = () => {
           <div className="app__filtering-container">
             <FilterSelect
               label="Results per page"
-              options={["1", "5", "10", "20"]}
+              options={resultsPerPage}
               selected={itemsPerPage.toString()}
               handleChange={(e) => {
                 handleResetPage();
