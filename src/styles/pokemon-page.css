@@ -9,7 +9,7 @@
 .pokemonPage__mainPanel {
   width: 50%;
   height: 70%;
-  @media (max-width: 750px) {
+  @media (max-width: 865px) {
     height: fit-content;
     padding: 2em;
     margin: 0 1em;
@@ -125,4 +125,10 @@
 
 .pokemonPage__back-button:hover {
   cursor: pointer;
+}
+
+.pokemonPage__back-button-text {
+  @media (max-width: 865px) {
+    display: none;
+  }
 }
