@@ -91,7 +91,6 @@
 }
 
 .pokemonPage__favButton {
-  float: right;
   @media (max-width: 865px) {
     margin-right: -1em;
   }
@@ -130,4 +129,10 @@
   @media (max-width: 865px) {
     display: none;
   }
+}
+
+.pokemonPage__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

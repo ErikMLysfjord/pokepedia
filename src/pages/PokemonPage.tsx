@@ -36,16 +36,19 @@ const PokemonPage = () => {
   }
 
   return (
-    <div className="pokemonPage__centerContent">
+    <main className="pokemonPage__centerContent">
       <div className="pokemonPage__mainPanel">
-        <FavouriteButton favID={data.id} className="pokemonPage__favButton" />
-        <button
-          className="pokemonPage__back-button"
-          onClick={() => navigate("/")}
-        >
-          <img src={arrowleft} loading="lazy" />
-          <span className="pokemonPage__back-button-text">Back</span>
-        </button>
+        <div className="pokemonPage__buttons">
+          <button
+            className="pokemonPage__back-button"
+            onClick={() => navigate("/")}
+          >
+            <img src={arrowleft} loading="lazy" />
+            <span className="pokemonPage__back-button-text">Back</span>
+          </button>
+          <FavouriteButton favID={data.id} className="pokemonPage__favButton" />
+        </div>
+
         <div className="pokemonPage__pokemonIngress">
           <div className="pokemonPage__ImageCircle">
             <img
@@ -100,7 +103,7 @@ const PokemonPage = () => {
           <PokemonTable {...data} />
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
