@@ -100,26 +100,27 @@ export const useFetchPokemonQuery = (
       // if prew page is favourites, we want to fetch the data of the pokémons to update the list length
       return pokemonLength === 0 || previousPage === "favourites"
         ? (
-          await fetch(
-            `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${(pageNumber - 1) * resultsPerPage
-            }`
+            await fetch(
+              `https://pokeapi.co/api/v2/pokemon?limit=${resultsPerPage}&offset=${
+                (pageNumber - 1) * resultsPerPage
+              }`
+            )
           )
-        )
-          .json()
-          .then((data: Pokemons) => {
-            return { pokemonData: data.results, listLength: data.count };
-          })
+            .json()
+            .then((data: Pokemons) => {
+              return { pokemonData: data.results, listLength: data.count };
+            })
         : {
-          pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
-            return {
-              name: "",
-              url:
-                "https://pokeapi.co/api/v2/pokemon/" +
-                ((pageNumber - 1) * resultsPerPage + i + 1),
-            };
-          }),
-          listLength: pokemonLength,
-        };
+            pokemonData: Array.from(Array(resultsPerPage).keys()).map((i) => {
+              return {
+                name: "",
+                url:
+                  "https://pokeapi.co/api/v2/pokemon/" +
+                  ((pageNumber - 1) * resultsPerPage + i + 1),
+              };
+            }),
+            listLength: pokemonLength,
+          };
     }
   );
 };
