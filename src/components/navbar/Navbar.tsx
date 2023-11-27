@@ -27,7 +27,7 @@ const Navbar = () => {
             localStorage.setItem("previousPage", "favourites");
           }}
         >
-          favourites
+          Favourites
         </button>
         <button
           disabled={location.pathname === "/"}
