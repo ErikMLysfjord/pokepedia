@@ -3,7 +3,7 @@ import PokemonType from "../types/PokemonType";
 import "../styles/pokemon-page.css";
 import "../styles/App.css";
 import { useParams } from "react-router-dom";
-import PokemonTable from "../components/pokemonTable/d";
+import PokemonTable from "../components/pokemonTable/PokemonTable";
 import TypeBadge from "../components/typeBadge/TypeBadge";
 import InfoCard from "../components/infoCard/InfoCard";
 import NoResults from "./NoResults";
