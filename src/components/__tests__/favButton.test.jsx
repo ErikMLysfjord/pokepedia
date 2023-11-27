@@ -4,12 +4,12 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 describe("FavouriteButton", () => {
   it("matches snapshot", () => {
-    const { container } = render(<FavouriteButton id={1} />);
+    const { container } = render(<FavouriteButton favID={1} />);
     expect(container).toMatchSnapshot();
   });
 
   it("should render without errors", () => {
-    render(<FavouriteButton id={1} />);
+    render(<FavouriteButton favID={1} />);
     expect(screen.getByRole("svg")).toBeInTheDocument();
   });
 
@@ -29,7 +29,7 @@ describe("FavouriteButton", () => {
 
   it("should add to favourites when clicked", () => {
     localStorage.clear();
-    render(<FavouriteButton id={1} />);
+    render(<FavouriteButton favID={1} />);
     fireEvent.click(screen.getByRole("svg"));
     expect(JSON.parse(localStorage.getItem("favourites") ?? "[]")).toEqual([1]);
   });

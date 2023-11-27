@@ -71,7 +71,7 @@ describe("Card component", () => {
   });
 
   it("navigates to pokemon details page when clicked", async () => {
-    renderComponent({ id: "1" }); //TODO
+    renderComponent({ id: "1" });
     screen.getByRole("img").click();
     expect(mockUseNavigate).toHaveBeenCalledWith("/pokemon/1");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
