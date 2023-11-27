@@ -44,6 +44,7 @@ const PokemonPage = () => {
           onClick={() => navigate("/")}
         >
           <img src={arrowleft} loading="lazy" />
+          Back
         </button>
         <div className="pokemonPage__pokemonIngress">
           <div className="pokemonPage__ImageCircle">

@@ -11,6 +11,9 @@
   height: 70%;
   @media (max-width: 750px) {
     height: fit-content;
+    padding: 2em;
+    margin: 0 1em;
+    width: 100%;
   }
   padding: 4em;
   margin: auto;
@@ -90,7 +93,7 @@
 .pokemonPage__favButton {
   float: right;
   @media (max-width: 865px) {
-    margin-right: -2em;
+    margin-right: -1em;
   }
 }
 
@@ -99,13 +102,21 @@
 }
 
 .pokemonPage__back-button {
-  background-color: #db4032;
+  background-color: #ffffff;
   border: none;
   border-radius: 5px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 0.25em;
+  color: #db4032;
+  font-size: 1.5em;
+  display: flex;
+  gap: 0.35em;
+
+  @media (max-width: 865px) {
+    margin-left: -1em;
+    font-size: 1em;
+  }
 }
 
 .pokemonPage__back-button:focus {
