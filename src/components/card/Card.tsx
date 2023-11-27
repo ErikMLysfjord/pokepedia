@@ -63,7 +63,7 @@ const Card = ({ id }: { id: string }) => {
           "Something went wrong"
         )}
       </div>
-      <FavouriteButton favID={data?.id ? data?.id : -1} />
+      <FavouriteButton favID={data?.id ?? -1} />
     </button>
   );
 };
