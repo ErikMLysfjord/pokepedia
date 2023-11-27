@@ -39,7 +39,7 @@ describe("Navbar", () => {
   test("should navigate to favourites", () => {
     mockUseNavigate.mockClear();
     render(<Navbar />);
-    screen.getByText("favourites").click();
+    screen.getByText("Favourites").click();
     expect(mockUseNavigate).toHaveBeenCalledWith("/favourites");
     expect(mockUseNavigate).toHaveBeenCalledTimes(1);
   });
