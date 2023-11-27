@@ -40,7 +40,8 @@ const App = () => {
   useEffect(() => {
     if (
       isfavouritesPage ||
-      (!isfavouritesPage && localStorage.getItem("previousPage") === "favourites")
+      (!isfavouritesPage &&
+        localStorage.getItem("previousPage") === "favourites")
     ) {
       setCurrentPage(1);
     }
