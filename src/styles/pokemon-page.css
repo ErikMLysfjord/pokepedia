@@ -86,3 +86,14 @@
     flex-direction: column;
   }
 }
+
+.pokemonPage__favButton {
+  float: right;
+  @media (max-width: 865px) {
+    margin-right: -2em;
+  }
+}
+
+.pokemonPage__favButton:hover {
+  cursor: pointer;
+}

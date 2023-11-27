@@ -147,7 +147,7 @@ const colorFilters = [
 
 /**
  * Renders the main page of the application.
- * @returns {JSX.Element} - A React component that renders the main page.
+ * @returns - A React component that renders the main page.
  */
 const App = () => {
   const location = useLocation();

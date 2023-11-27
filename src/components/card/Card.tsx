@@ -20,7 +20,7 @@ const useFetchPokemonQuery = (id: string) => {
 /**
  * Fetches data for a specific Pokemon based on the provided ID.
  * @param id - The ID of the Pokemon to fetch.
- * @returns {JSX.Element} - A React component that renders a card for a Pokemon.
+ * @returns - A React component that renders a card for a Pokemon.
  */
 const Card = ({ id }: { id: string }) => {
   const { data, isError, isLoading } = useFetchPokemonQuery(id);
@@ -63,7 +63,7 @@ const Card = ({ id }: { id: string }) => {
           "Something went wrong"
         )}
       </div>
-      <FavouriteButton id={data?.id ? -1 : -1} />
+      <FavouriteButton favID={data?.id ? data?.id : -1} />
     </button>
   );
 };
